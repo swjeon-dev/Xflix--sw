@@ -33,6 +33,9 @@ Xflix는 TMDB API를 활용한 영화 정보 제공 웹 애플리케이션입니
 사용자가 원하는 콘텐츠를 빠르게 탐색할 수 있도록
 장르 기반 필터링과 직관적인 UI 구조 설계에 초점을 맞춰 개발했습니다.
 
+프로젝트 규모에 맞게 외부 라이브러리 사용을 최소화하고,
+데이터 요청 및 상태 관리를 직접 구현하여 React의 기본 원리를 깊이 이해하는 데 집중했습니다.
+
 ## 2. 주요 기능
 
 - 영화 목록 및 상세 페이지 조회
@@ -139,14 +142,59 @@ PC와 모바일 환경에서 모두 자연스럽게 동작하도록
 - 반응형 UI 구현
 - 배포 자동화 구성 (GitHub Actions)
 
-## 8. 아쉬운 점 및 개선 방향
+## 8. 핵심 구현 - 커스텀 훅 기반 데이터 관리
+
+```typescript
+// hooks/useMovies.ts
+import { useEffect, useState } from 'react'
+import { IMovie } from '../../types/movie'
+import { getMovie } from '../../api/tmDBService'
+
+interface IFetchingDataReturn {
+  error: string | null
+  isLoading: boolean
+  movie: IMovie | null
+}
+
+function useGetMovie(
+  id: number | string,
+  queryParams: { [key: string]: string },
+): IFetchingDataReturn {
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [movie, setMovie] = useState<IMovie | null>(null)
+
+  useEffect(() => {
+    if (!id) return setIsLoading(false)
+
+    async function fetchMovie(id: string | number) {
+      const result = await getMovie(id, queryParams)
+
+      setMovie(result.data)
+      setIsLoading(false)
+      setError(result.error)
+    }
+    fetchMovie(id)
+  }, [id])
+
+  return { error, isLoading, movie }
+}
+
+export default useGetMovie
+```
+
+- API 호출 로직을 커스텀 훅으로 분리해서 **UI와 비즈니스 로직을 분리**했습니다.
+- loading / error 상태를 함께 관리해서 **사용자 경험을 고려한 상태 처리**를 구현했습니다.
+- 다양한 query parameter를 기반으로 재사용 가능하도록 설계해서 **확장성과 유지보수성을 고려**했습니다.
+
+## 9. 아쉬운 점 및 개선 방향
 
 - 서버 프록시 도입을 통한 API 키 보안 강화
 - React Query 도입을 통한 서버 상태 캐싱 및 데이터 관리 개선
 - Skeleton UI 적용을 통한 로딩 UX 개선
 - 무한 스크롤 또는 페이지네이션 도입으로 탐색 경험 향상
 
-## 9. 실행 방법
+## 10. 실행 방법
 
 ```bash
 npm install
