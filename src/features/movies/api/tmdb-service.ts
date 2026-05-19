@@ -1,6 +1,12 @@
-import { API_ENDPOINT } from './config'
+import {
+  IApiReturn,
+  IGenre,
+  IMovie,
+  ITmdbContents,
+} from '@/entities/movie/model'
+import { API_ENDPOINT } from '@/shared/config/api-config'
 import { tmdbFetch } from './tmdb-client'
-import type { IApiReturn, IGenre, IMovie, ITmdbContents } from '../types'
+// import type { IApiReturn, IGenre, IMovie, ITmdbContents } from '../types'
 
 export const getGenres = async (): Promise<IApiReturn<IGenre[]>> => {
   const result = await tmdbFetch<{ genres: IGenre[] }>(
@@ -19,17 +25,18 @@ export const getGenres = async (): Promise<IApiReturn<IGenre[]>> => {
   return { data: result.data.genres, error: null }
 }
 
+// page*
+
 export const getTmdbContents = async (
   endPoint: string,
   query?: Record<string, string | number | boolean>,
-): Promise<IApiReturn<IMovie[]>> => {
+): Promise<IApiReturn<ITmdbContents>> => {
   const result = await tmdbFetch<ITmdbContents>(endPoint, {
-    page: 1,
     ...query,
   })
 
   return {
-    data: result.data?.results ?? null,
+    data: result.data ?? null,
     error: result.error,
   }
 }

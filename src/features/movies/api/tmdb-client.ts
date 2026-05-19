@@ -1,6 +1,6 @@
-import { API_CONFIG } from './config'
-import type { IApiReturn } from '../types'
-import { devLog } from '@/shared/utils'
+import { IApiReturn } from '@/entities/movie/model'
+import { API_CONFIG } from '@/shared/config/api-config'
+import { devLog } from '@/shared/lib'
 
 type QueryParams = Record<string, string | number | boolean>
 
