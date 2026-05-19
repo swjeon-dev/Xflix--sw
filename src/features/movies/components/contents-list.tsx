@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 import { ICONS } from '@/shared/assets/icons'
 import { devLog } from '@/shared/utils'
-import { Spinner } from '@/shared/components/ui/LoadingScreen'
 import type { ApiPath } from '../api/config'
 import useGetContents from '../hooks/useGetContents'
 import ContentRow from './content-row'
+import { SkeletonUI } from '@/shared/components/ui'
 
 interface IContentsCarousel {
   title: string
@@ -13,6 +13,32 @@ interface IContentsCarousel {
 }
 
 type ScrollDirection = 'LEFT' | 'RIGHT'
+
+function ContentRowSkeleton() {
+  return (
+    <li
+      className='relative aspect-video min-w-[300px] md:min-w-[380px] shrink-0'
+      aria-hidden
+    >
+      <SkeletonUI />
+    </li>
+  )
+}
+
+function Wrapper({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className='flex flex-col gap-4 p-4 text-white overflow-hidden my-10 main-page_px'>
+      <h2 className='text-2xl font-bold'>{title}</h2>
+      {children}
+    </div>
+  )
+}
 
 function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
   const { isLoading, error, contents } = useGetContents(endPoint, params)
@@ -33,18 +59,20 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
   function handleScroll() {
     if (!scrollRef.current) return
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+
     setIsStart(scrollLeft <= 10)
     setIsEnd(scrollLeft + clientWidth >= scrollWidth - 10)
   }
 
   if (isLoading) {
     return (
-      <div className='flex flex-col gap-4 p-4 text-white overflow-hidden h-60 main-page_px'>
-        <h2 className='text-2xl font-bold'>{title}</h2>
-        <div className='relative flex justify-center items-center'>
-          <Spinner />
-        </div>
-      </div>
+      <Wrapper title={title}>
+        <ul className='flex overflow-x-scroll scrollbar-hide gap-2'>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <ContentRowSkeleton key={i} />
+          ))}
+        </ul>
+      </Wrapper>
     )
   }
 
@@ -56,8 +84,7 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
   }
 
   return (
-    <div className='flex flex-col gap-4 p-4 text-white overflow-hidden my-10 main-page_px'>
-      <h2 className='text-2xl font-bold'>{title}</h2>
+    <Wrapper title={title}>
       <div className='relative group'>
         {!isStart && (
           <button
@@ -85,7 +112,7 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
           ))}
         </ul>
       </div>
-    </div>
+    </Wrapper>
   )
 }
 

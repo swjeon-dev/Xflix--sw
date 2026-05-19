@@ -1,7 +1,11 @@
-export function Spinner() {
+function Spinner() {
   return (
     <div className='animate-spin rounded-full h-16 w-16 border-t-2 border-white mb-8' />
   )
+}
+
+export function SkeletonUI() {
+  return <div className='w-full h-full rounded-sm bg-gray-800 animate-pulse' />
 }
 
 export function LoadingComponent({ style = '' }: { style?: string }) {
