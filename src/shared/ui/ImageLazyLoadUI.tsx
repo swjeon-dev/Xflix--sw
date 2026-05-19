@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { devLog } from '@/shared/utils'
+import { devLog } from '@/shared/lib'
 
 interface IImageLazyLoadUI {
   lowUrl?: string
@@ -30,14 +30,7 @@ function ImageLazyLoadUI({ lowUrl, highUrl, style, name }: IImageLazyLoadUI) {
 
   return (
     <>
-      {lowUrl && (
-        <img
-          className={style}
-          src={lowUrl}
-          alt=''
-          aria-hidden
-        />
-      )}
+      {lowUrl && <img className={style} src={lowUrl} alt='' aria-hidden />}
       {highUrl && (
         <img
           key={highUrl}

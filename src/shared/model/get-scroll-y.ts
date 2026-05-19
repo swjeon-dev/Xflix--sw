@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export function useGetScroll() {
+export function useGetScrollY() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {

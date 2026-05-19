@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { MEDIA_QUERY, type Breakpoints } from '@/shared/constants/breakpoints'
+import { MEDIA_QUERY } from '@/shared/config/breakpoints'
+import type { Breakpoints } from '@/shared/config/breakpoints'
 
-export function useScrollBlock(
+export function useScrollDisable(
   isLocked: boolean,
   mediaQueryString: Breakpoints = 'md',
 ) {

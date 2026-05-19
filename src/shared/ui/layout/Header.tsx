@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { ICONS } from '@/shared/assets/icons'
-import { routes } from '@/shared/constants/routes'
-import Modal from '@/shared/components/ui/Modal'
-import { useGetScroll, useScrollBlock } from '@/shared/hooks'
+import { routes } from '@/shared/config/routes'
+import Modal from '@/shared/ui/Modal'
+import { useGetScrollY, useScrollDisable } from '@/shared/model'
 
 interface INavItem {
   navClass: string
@@ -29,7 +29,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isLocked, setIsLocked] = useState(false)
 
-  const scrollY = useGetScroll()
+  const scrollY = useGetScrollY()
   const isScroll = scrollY > 20
 
   function modalClose() {
@@ -38,7 +38,7 @@ function Header() {
   }
 
   useCloseNav(modalClose)
-  useScrollBlock(isLocked, 'sm')
+  useScrollDisable(isLocked, 'sm')
 
   function modalOpen() {
     setIsOpen(true)
@@ -60,10 +60,7 @@ function Header() {
           >
             <div className='flex gap-4'>
               <button>{ICONS.search}</button>
-              <button
-                className='block sm:hidden'
-                onClick={modalOpen}
-              >
+              <button className='block sm:hidden' onClick={modalOpen}>
                 {ICONS.hamburgerMenu}
               </button>
             </div>
@@ -85,10 +82,7 @@ function NavItem({ navClass, liClass, itemClass, children }: INavItem) {
     <nav className={navClass}>
       <ol className={liClass}>
         {NAV_ITEMS.map(item => (
-          <li
-            key={item.id}
-            className={itemClass}
-          >
+          <li key={item.id} className={itemClass}>
             <Link to={item.path}>{item.label}</Link>
           </li>
         ))}
@@ -105,10 +99,7 @@ function MobileMenu({ modalClose }: { modalClose: () => void }) {
       liClass='flex flex-col items-center gap-10 w-full main-page_px'
       itemClass='text-6xl hover:opacity-80 place-self-center'
     >
-      <button
-        className='absolute top-5 right-5'
-        onClick={modalClose}
-      >
+      <button className='absolute top-5 right-5' onClick={modalClose}>
         X
       </button>
     </NavItem>
