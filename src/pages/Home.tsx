@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { FeaturedMovie } from '@/widget/featured-movie'
-import { HOME_CATEGORIES } from '../features/movies/constants/home-categories'
-import ContentsCarousel from '@/features/movies/components/contents-list'
+import { HOME_CATEGORIES } from '../features/movies/config/home-categories'
+import ContentsCarousel from '@/features/movies/ui/contents-list'
 
 function Home() {
   return (
@@ -16,7 +16,7 @@ function Home() {
             key={category.id}
             title={category.title}
             endPoint={category.endPoint}
-            params={{ region: 'KR' }}
+            params={{ region: 'KR', page: 1 }}
           />
         ))}
       </article>
