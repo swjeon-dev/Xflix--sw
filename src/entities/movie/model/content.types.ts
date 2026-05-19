@@ -1,3 +1,5 @@
+import { IMovie } from './movie.types'
+
 export interface IGenre {
   id: number
   name: string
@@ -40,4 +42,17 @@ export interface IContentCommon {
   overview: string
   poster_path: string
   tagline: string
+}
+
+export interface IDates {
+  maximum: string
+  minimum: string
+}
+
+export interface ITmdbContents {
+  date?: IDates
+  page: number
+  results: IMovie[]
+  total_pages: number
+  total_results: number
 }

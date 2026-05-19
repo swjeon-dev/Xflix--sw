@@ -1,4 +1,4 @@
-import { ICastItem, IContentCommon, ICrewItem } from './common'
+import { ICastItem, IContentCommon, ICrewItem } from './content.types'
 
 interface IMovieCastItem extends ICastItem {
   cast_id: number
