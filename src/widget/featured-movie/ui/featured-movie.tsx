@@ -1,8 +1,8 @@
 // featuredMovie 책임 분리를 위한 컴포넌트
 import { Link, useNavigate } from 'react-router'
 import { ICONS } from '@/shared/assets/icons'
-import { devLog } from '@/shared/utils'
-import { LoadingComponent } from '@/shared/components/ui/LoadingScreen'
+import { devLog } from '@/shared/lib'
+import { LoadingComponent } from '@/shared/ui/LoadingScreen'
 import useGetFeaturedMovie from '@/widget/featured-movie/model/get-featured-movie'
 
 function FeaturedMovie() {

@@ -1,4 +1,4 @@
-import type { IGenre } from '@/features/movies/types'
+import type { IGenre } from '@/entities/movie/model'
 
 export const ALL_GENRE_TAB = { id: 0, name: '전체' } as const
 

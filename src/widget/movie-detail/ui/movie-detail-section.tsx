@@ -1,4 +1,4 @@
-import type { IMovie } from '@/features/movies/types'
+import type { IMovie } from '@/entities/movie/model'
 import { getMovieMoreInfo } from '../model/model'
 import MovieDetailHero from './movie-detail-hero'
 import MovieDetailOverview from './movie-detail-overview'
@@ -19,14 +19,8 @@ function MovieDetailSection({ movie, error }: MovieDetailSectionProps) {
 
   return (
     <div className='pb-10 *:main-page_px'>
-      <MovieDetailHero
-        movie={movie}
-        movieMoreInfo={movieMoreInfo}
-      />
-      <MovieDetailOverview
-        movie={movie}
-        movieMoreInfo={movieMoreInfo}
-      />
+      <MovieDetailHero movie={movie} movieMoreInfo={movieMoreInfo} />
+      <MovieDetailOverview movie={movie} movieMoreInfo={movieMoreInfo} />
     </div>
   )
 }

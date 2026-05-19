@@ -1,18 +1,20 @@
 // featuredMovie 책임 분리를 위한 모델
 import { API_ENDPOINT } from '@/features/movies'
-import useGetContents from '@/features/movies/hooks/useGetContents'
-import { IFeaturedMovie } from '@/features/movies/types/movie'
-import { getTmdbImgPath } from '@/features/movies/utils/image'
-import { routes } from '@/shared/constants/routes'
+import useGetContents from '@/features/movies/model/get-tmdb-contents'
+// import { IFeaturedMovie } from '@/entities/movie/model'
+import { IFeaturedMovie } from '@/entities/movie/model'
+import { getTmdbImgPath } from '@/features/movies/lib/helper'
+// import { routes } from '@/shared/constants/routes'
 import { useMemo } from 'react'
+import { routes } from '@/shared/config/routes'
 
 function useGetFeaturedMovie() {
   const { isLoading, error, contents } = useGetContents(API_ENDPOINT.TRENDING)
 
   const featuredContent: IFeaturedMovie | null = useMemo(() => {
-    if (!contents?.length) return null
+    if (!contents?.results.length) return null
 
-    const content = contents[Math.floor(Math.random() * 5)]
+    const content = contents.results[Math.floor(Math.random() * 5)]
     if (!content.backdrop_path) return null
 
     const backdropUrl = getTmdbImgPath({

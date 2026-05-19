@@ -1,4 +1,4 @@
-import type { IMovie } from '@/features/movies/types'
+import type { IMovie } from '@/entities/movie/model'
 import type { IMovieMoreInfo } from '../model/model'
 
 interface MovieDetailOverviewProps {
@@ -12,7 +12,10 @@ const META_ITEMS = [
   { label: '감독', key: 'director' },
 ] as const
 
-function MovieDetailOverview({ movie, movieMoreInfo }: MovieDetailOverviewProps) {
+function MovieDetailOverview({
+  movie,
+  movieMoreInfo,
+}: MovieDetailOverviewProps) {
   return (
     <div className='flex flex-col gap-20 mt-10 md:flex-row md:gap-10 text-white'>
       {movie.overview && (
@@ -23,10 +26,7 @@ function MovieDetailOverview({ movie, movieMoreInfo }: MovieDetailOverviewProps)
       )}
       <div className='flex flex-col gap-3 w-full md:w-1/4'>
         {META_ITEMS.map(item => (
-          <div
-            key={item.label}
-            className='flex items-center gap-2'
-          >
+          <div key={item.label} className='flex items-center gap-2'>
             <h4 className='text-sm text-gray-400/80 text-nowrap place-self-start'>
               {`${item.label}: `}
             </h4>

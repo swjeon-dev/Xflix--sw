@@ -1,6 +1,6 @@
-import ContentsCarousel from '@/features/movies/components/contents-list'
-import { API_ENDPOINT } from '@/features/movies/api/config'
-import type { IGenre } from '@/features/movies/types'
+import ContentsCarousel from '@/features/movies/ui/contents-list'
+import { API_ENDPOINT } from '@/shared/config/api-config'
+import type { IGenre } from '@/entities/movie/model'
 import { getDiscoverSearchParams } from '../model/discover-params'
 
 interface GenreMoviesListProps {

@@ -23,10 +23,7 @@ function GenreFilter({ tabs, selected, onSelect }: GenreFilterProps) {
           value={selected}
         >
           {tabs.map(genre => (
-            <option
-              key={genre.id}
-              value={genre.id}
-            >
+            <option key={genre.id} value={genre.id}>
               {genre.name}
             </option>
           ))}

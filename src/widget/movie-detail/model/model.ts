@@ -1,4 +1,4 @@
-import type { IMovie } from '@/features/movies/types'
+import { IMovie } from '@/entities/movie/model'
 
 export function getCrewByJob(movie: IMovie, job: string) {
   if (!movie.credits) return null
