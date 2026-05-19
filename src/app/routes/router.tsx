@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router'
 import ErrorPage from '@/pages/error-page'
 import { rootLoader } from '@/app/routes/rootLoader'
-import Home from '@/pages/home'
+import Home from '@/pages/Home'
 import GenreMovies from '@/pages/genre-movies'
 import MovieDetail from '@/pages/movie-detail'
-import RootLayout from '@/shared/components/layout/RootLayout'
-import { LoadingScreen } from '@/shared/components/ui/LoadingScreen'
-import { routes } from '@/shared/constants/routes'
-import { removeRootPath } from '@/shared/utils'
+import RootLayout from '@/shared/ui/layout/RootLayout'
+import { LoadingScreen } from '@/shared/ui/LoadingScreen'
+import { routes } from '@/shared/config/routes'
+import { removeRootPath } from '@/shared/lib'
 
 export const router = createBrowserRouter(
   [
