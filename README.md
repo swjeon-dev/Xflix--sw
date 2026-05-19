@@ -200,3 +200,79 @@ export default useGetMovie
 npm install
 npm run dev
 ```
+
+## 11. 프로젝트 구조 (FSD Lite)
+
+[Feature-Sliced Design](https://feature-sliced.design/)을 참고해, 서비스 규모에 맞게 **app · pages · features · widget · shared** 레이어를 사용합니다.
+
+### 디렉터리 구조
+
+```text
+src/
+├── app/                      # 앱 셸: 라우터, Provider, 전역 loader
+│   ├── AppRouter.tsx
+│   └── routes/
+├── pages/                    # 라우트 페이지 (조립·데이터 연결)
+│   ├── home.tsx
+│   ├── genre-movies.tsx
+│   ├── movie-detail.tsx
+│   └── error-page.tsx
+├── widget/                   # 화면 단위 UI 블록 (model + ui)
+│   ├── featured-movie/
+│   ├── genre-movies/         # 장르 필터 + 목록 캐러셀
+│   └── movie-detail/
+│       ├── model/            # 상세 표시용 데이터 가공
+│       └── ui/               # hero, overview, backdrop …
+├── features/
+│   └── movies/               # 영화 도메인 (API, hooks, 공용 컴포넌트)
+│       ├── api/
+│       ├── components/       # contents-list, content-row
+│       ├── constants/
+│       ├── hooks/
+│       ├── types/
+│       └── utils/            # getTmdbImgPath
+└── shared/                   # 도메인 무관 공용 모듈
+    ├── assets/
+    ├── components/{layout,ui}/
+    ├── constants/
+    ├── hooks/
+    └── utils/
+```
+
+### 레이어 역할
+
+| 레이어 | 역할 | 예시 |
+|--------|------|------|
+| **app** | 라우팅·전역 설정 | `router.tsx`, `rootLoader.ts` |
+| **pages** | URL ↔ 화면 조립, Helmet, 데이터 훅 연결 | `movie-detail.tsx` |
+| **widget** | 큰 UI 블록 + 표시용 model | `movie-detail-hero`, `get-featured-movie` |
+| **features** | 도메인 API·타입·재사용 컴포넌트 | `useGetMovie`, `contents-list` |
+| **shared** | 앱 전역 UI·유틸 | `Header`, `Modal`, `AdultUI`, `ImageLazyLoadUI` |
+
+### import 규칙
+
+```text
+app, pages   →  widget, features, shared  ✅
+widget       →  features, shared         ✅
+features     →  shared                    ✅
+shared       →  features, widget          ❌
+widget A     →  widget B                  ❌
+```
+
+### import 예시
+
+```ts
+// pages
+import { MovieDetailSection } from '@/widget/movie-detail'
+import { FeaturedMovie } from '@/widget/featured-movie'
+import { GenreFilter, GenreMoviesList } from '@/widget/genre-movies'
+import useGetMovie from '@/features/movies/hooks/useGetMovie'
+
+// widget
+import type { IMovie } from '@/features/movies/types'
+import ImageLazyLoadUI from '@/shared/components/ui/ImageLazyLoadUI'
+```
+
+### Path alias
+
+`@/` → `src/` (`vite.config.ts`, `tsconfig.app.json`)
