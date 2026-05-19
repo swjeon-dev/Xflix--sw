@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async'
-import { useRouteError, isRouteErrorResponse } from 'react-router'
-import { Link } from 'react-router'
+import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
 
-// [x] TODO: error 컴포넌트를 페이지 컴포넌트로 변경
 function ErrorPage() {
   const error = useRouteError()
 
-  let errorMessage = '알 수 없는 에러가 발생헀습니다.'
+  let errorMessage = '알 수 없는 에러가 발생했습니다.'
 
   if (isRouteErrorResponse(error)) {
     errorMessage =
@@ -16,6 +14,7 @@ function ErrorPage() {
   } else if (typeof error === 'string') {
     errorMessage = error
   }
+
   return (
     <main className='min-h-screen bg-black'>
       <Helmet>
