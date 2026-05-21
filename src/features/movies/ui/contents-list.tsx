@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ICONS } from '@/shared/assets/icons'
 import { devLog } from '@/shared/lib'
 import type { ApiPath } from '@/shared/config/api-config'
-import useGetContents from '../model/get-tmdb-contents'
 import ContentRow from './content-row'
 import { SkeletonUI } from '@/shared/ui'
+import useListInfiniteScroll from '@/shared/model/infinite-scroll'
+import type { IMovie } from '@/entities/movie/model'
 
 interface IContentsCarousel {
   title: string
@@ -25,6 +26,23 @@ function ContentRowSkeleton() {
   )
 }
 
+function ScrollButton({
+  direction,
+  onClick,
+}: {
+  direction: ScrollDirection
+  onClick: (direction: ScrollDirection) => void
+}) {
+  return (
+    <button
+      className={`absolute top-0 bottom-0 ${direction === 'LEFT' ? 'left-0' : 'right-0'} w-10 bg-gray-400/60 justify-center items-center z-[11] hidden group-hover:flex`}
+      onClick={() => onClick(direction)}
+    >
+      <span>{direction === 'LEFT' ? ICONS.leftArrow : ICONS.rightArrow}</span>
+    </button>
+  )
+}
+
 function Wrapper({
   title,
   children,
@@ -41,11 +59,24 @@ function Wrapper({
 }
 
 function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
-  const { isLoading, error, contents } = useGetContents(endPoint, params)
   const [isStart, setIsStart] = useState(true)
   const [isEnd, setIsEnd] = useState(false)
   const scrollRef = useRef<HTMLUListElement>(null)
-  const someOfContents = contents?.results.slice(0)
+
+  const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
+    useListInfiniteScroll({
+      endPoint,
+      params,
+      scrollRef,
+    })
+
+  function updateScrollEdges() {
+    if (!scrollRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+
+    setIsStart(scrollLeft <= 10)
+    setIsEnd(scrollLeft + clientWidth >= scrollWidth - 10)
+  }
 
   function moveScroll(direction: ScrollDirection) {
     if (!scrollRef.current) return
@@ -57,12 +88,13 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
   }
 
   function handleScroll() {
-    if (!scrollRef.current) return
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-
-    setIsStart(scrollLeft <= 10)
-    setIsEnd(scrollLeft + clientWidth >= scrollWidth - 10)
+    updateScrollEdges()
   }
+
+  // 새 아이템이 붙은 뒤에도 스크롤 위치·끝 여부를 맞춤 (scrollLeft는 유지, scrollWidth만 늘어남)
+  useEffect(() => {
+    updateScrollEdges()
+  }, [contents.length, isFetchingMore])
 
   if (isLoading) {
     return (
@@ -76,40 +108,48 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
     )
   }
 
-  if (contents?.results.length === 0) return null
-
-  if (!someOfContents || error) {
-    if (error) devLog({ message: error, type: 'error' })
-    return null
+  if (error) {
+    devLog({ message: error || '목록을 불러오지 못했습니다.', type: 'error' })
+    return (
+      <div className='flex flex-col gap-4 p-4 items-center text-white overflow-hidden my-10 main-page_px'>
+        <p className='text-lg text-white/70'>
+          {title} 목록을 불러오지 못했습니다.
+        </p>
+        <button type='button' onClick={refetch}>
+          다시 시도
+        </button>
+      </div>
+    )
   }
+
+  if (contents.length === 0) return null
 
   return (
     <Wrapper title={title}>
       <div className='relative group'>
-        {!isStart && (
-          <button
-            className='absolute top-0 bottom-0 left-0 w-10 bg-gray-400/60 justify-center items-center z-[11] hidden group-hover:flex'
-            onClick={() => moveScroll('LEFT')}
-          >
-            <span>{ICONS.leftArrow}</span>
-          </button>
-        )}
-        {!isEnd && (
-          <button
-            className='absolute top-0 bottom-0 right-0 w-10 bg-gray-400/60 justify-center items-center z-[11] hidden group-hover:flex'
-            onClick={() => moveScroll('RIGHT')}
-          >
-            <span>{ICONS.rightArrow}</span>
-          </button>
-        )}
+        {!isStart && <ScrollButton direction='LEFT' onClick={moveScroll} />}
+        {!isEnd && <ScrollButton direction='RIGHT' onClick={moveScroll} />}
         <ul
           className='flex overflow-x-scroll scrollbar-hide gap-2'
           ref={scrollRef}
           onScroll={handleScroll}
         >
-          {someOfContents.map(content => (
+          {contents.map((content: IMovie) => (
             <ContentRow key={content.id} content={content} />
           ))}
+          {isFetchingMore && (
+            <li
+              className='relative aspect-video min-w-[300px] md:min-w-[380px] shrink-0'
+              aria-hidden
+            >
+              <SkeletonUI />
+            </li>
+          )}
+          <li
+            ref={loaderRef as React.RefObject<HTMLLIElement>}
+            className='shrink-0 basis-4 self-stretch'
+            aria-hidden
+          />
         </ul>
       </div>
     </Wrapper>

@@ -6,7 +6,9 @@ import type { ITmdbContents } from '@/entities/movie/model'
 interface IFetchingDataReturn {
   error: string | null
   isLoading: boolean
+  isFetching: boolean
   contents: ITmdbContents | null
+  refetch: () => void
 }
 
 function useGetContents(
@@ -15,8 +17,14 @@ function useGetContents(
 ): IFetchingDataReturn {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isFetching, setIsFetching] = useState(false)
   const [contents, setContents] = useState<ITmdbContents | null>(null)
+  const [refetchCount, setRefetchCount] = useState(0)
   const queryKey = queryParams ? JSON.stringify(queryParams) : ''
+
+  function refetch() {
+    setRefetchCount(prev => prev + 1)
+  }
 
   useEffect(() => {
     if (!endPoint) return
@@ -24,26 +32,32 @@ function useGetContents(
     let cancelled = false
 
     async function fetchContents() {
-      setIsLoading(true)
       const parsedQuery = queryKey
         ? (JSON.parse(queryKey) as Record<string, string | number | boolean>)
         : undefined
+      const page = Number(parsedQuery?.page ?? 1)
+      const isInitialPage = page === 1
+
+      if (isInitialPage) setIsLoading(true)
+      setIsFetching(true)
+
       const result = await getTmdbContents(endPoint, parsedQuery)
 
       if (cancelled) return
 
       setContents(result.data)
       setError(result.error)
-      setIsLoading(false)
+      setIsFetching(false)
+      if (isInitialPage) setIsLoading(false)
     }
 
     fetchContents()
     return () => {
       cancelled = true
     }
-  }, [endPoint, queryKey])
+  }, [endPoint, queryKey, refetchCount])
 
-  return { error, isLoading, contents }
+  return { error, isLoading, isFetching, contents, refetch }
 }
 
 export default useGetContents
