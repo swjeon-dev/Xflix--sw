@@ -9,10 +9,17 @@ import {
 } from '@/widget/genre-movies'
 import type { IGenre } from '@/entities/movie/model'
 
+const LOADER_ID = 'root'
+
 function MovieListView() {
-  const { genres } = useRouteLoaderData('root') as { genres: IGenre[] }
+  const {
+    genres: { movieGenres },
+  } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
   const [selected, setSelected] = useState(0)
-  const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
+  const displayGenres = useMemo(
+    () => buildDisplayGenres(movieGenres),
+    [movieGenres],
+  )
 
   return (
     <>

@@ -1,13 +1,15 @@
 import { createBrowserRouter } from 'react-router'
 import ErrorPage from '@/pages/error-page'
 import { rootLoader } from '@/app/routes/rootLoader'
-import Home from '@/pages/Home'
+import Home from '@/pages/home'
 import MovieListView from '@/pages/movie-list-view'
 import MovieDetail from '@/pages/movie-detail'
 import RootLayout from '@/shared/ui/layout/RootLayout'
 import { LoadingScreen } from '@/shared/ui/LoadingScreen'
 import { routes } from '@/shared/config/routes'
 import { removeRootPath } from '@/shared/lib'
+
+export const LOADER_ID = 'root'
 
 export const router = createBrowserRouter(
   [
@@ -16,7 +18,7 @@ export const router = createBrowserRouter(
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       loader: rootLoader,
-      id: 'root',
+      id: LOADER_ID,
       HydrateFallback: () => <LoadingScreen />,
       children: [
         { index: true, element: <Home /> },
@@ -33,5 +35,5 @@ export const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: '/Xflix--sw' },
+  { basename: import.meta.env.DEV ? '/' : '/Xflix--sw' },
 )

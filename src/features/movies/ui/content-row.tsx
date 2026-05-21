@@ -6,14 +6,18 @@ import { getTmdbImgPath } from '../lib/helper'
 import { AdultUI } from '@/shared/ui'
 import type { IGenre, IMovie } from '@/entities/movie/model'
 
+const LOADER_ID = 'root'
+
 function ContentRow({ content }: { content: IMovie }) {
-  const { genres } = useRouteLoaderData('root') as { genres: IGenre[] }
+  const {
+    genres: { movieGenres },
+  } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
   const navPath = (id: string | number) => routes.MOVIE.DETAIL(id)
 
   const contentMoreInfo = useMemo(() => {
     const myGenres =
       content.genre_ids
-        ?.map(id => genres.find(g => g.id === id))
+        ?.map(id => movieGenres.find(g => g.id === id))
         .filter((genre): genre is IGenre => !!genre) ?? []
 
     return {
@@ -24,7 +28,7 @@ function ContentRow({ content }: { content: IMovie }) {
       genres: myGenres,
       release_date: content.release_date,
     }
-  }, [content, genres])
+  }, [content, movieGenres])
 
   const lowImageUrl = getTmdbImgPath({
     size: 'w300',

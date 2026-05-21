@@ -7,7 +7,15 @@ export const rootLoader = async () => {
     throw new Error(auth.error)
   }
 
-  const genresResult = await getGenres()
+  const [movieGenres, tvGenres] = await Promise.all([
+    getGenres('movie'),
+    getGenres('tv'),
+  ])
 
-  return { genres: genresResult.data ?? [] }
+  return {
+    genres: {
+      movieGenres: movieGenres.data ?? [],
+      tvGenres: tvGenres.data ?? [],
+    },
+  }
 }

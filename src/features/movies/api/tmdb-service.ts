@@ -6,11 +6,14 @@ import {
 } from '@/entities/movie/model'
 import { API_ENDPOINT } from '@/shared/config/api-config'
 import { tmdbFetch } from './tmdb-client'
-// import type { IApiReturn, IGenre, IMovie, ITmdbContents } from '../types'
 
-export const getGenres = async (): Promise<IApiReturn<IGenre[]>> => {
+type GenreType = 'movie' | 'tv'
+
+export const getGenres = async (
+  type: GenreType = 'movie',
+): Promise<IApiReturn<IGenre[]>> => {
   const result = await tmdbFetch<{ genres: IGenre[] }>(
-    API_ENDPOINT.GENRES,
+    type === 'movie' ? API_ENDPOINT.GENRES_MOVIE : API_ENDPOINT.GENRES_TV,
     undefined,
     '장르를 알 수 없습니다.',
   )
