@@ -31,8 +31,11 @@ export default function useListInfiniteScroll({
   const [items, setItems] = useState<IMovie[]>([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
-  const isFetchingMoreRef = useRef(false)
-  const loaderRef = useRef<HTMLElement>(null)
+  const canLoadMoreRef = useRef(true)
+  const hasMoreRef = useRef(true)
+  const isFetchingRef = useRef(false)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+  const loaderNodeRef = useRef<HTMLElement | null>(null)
 
   const queryKey = JSON.stringify({ endPoint, params })
 
@@ -45,7 +48,9 @@ export default function useListInfiniteScroll({
     setPage(1)
     setItems([])
     setHasMore(true)
-    isFetchingMoreRef.current = false
+    hasMoreRef.current = true
+    canLoadMoreRef.current = true
+    isFetchingRef.current = false
   }, [])
 
   useEffect(() => {
@@ -53,11 +58,22 @@ export default function useListInfiniteScroll({
   }, [queryKey, resetList])
 
   useEffect(() => {
+    hasMoreRef.current = hasMore
+    if (!hasMore) observerRef.current?.disconnect()
+  }, [hasMore])
+
+  useEffect(() => {
+    isFetchingRef.current = isFetching
+  }, [isFetching])
+
+  useEffect(() => {
     if (!contents?.results) return
 
-    setHasMore(contents.page < contents.total_pages)
+    const nextHasMore = contents.page < contents.total_pages
+    setHasMore(nextHasMore)
+    hasMoreRef.current = nextHasMore
     setItems(prev => mergeResults(prev, contents.results, contents.page))
-    isFetchingMoreRef.current = false
+    isFetchingRef.current = false
   }, [contents])
 
   function handleRefetch() {
@@ -65,33 +81,91 @@ export default function useListInfiniteScroll({
     refetch()
   }
 
-  useEffect(() => {
+  const disconnectObserver = useCallback(() => {
+    observerRef.current?.disconnect()
+    observerRef.current = null
+  }, [])
+
+  const tryLoadMore = useCallback(() => {
+    if (
+      !hasMoreRef.current ||
+      !canLoadMoreRef.current ||
+      isFetchingRef.current
+    ) {
+      return
+    }
+
+    canLoadMoreRef.current = false
+    isFetchingRef.current = true
+    setPage(prev => prev + 1)
+  }, [])
+
+  const connectObserver = useCallback(
+    (target: HTMLElement) => {
+      disconnectObserver()
+
+      const root = scrollRef?.current ?? null
+      if (direction === 'horizontal' && !root) return
+
+      observerRef.current = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry) return
+
+          if (!entry.isIntersecting) {
+            canLoadMoreRef.current = true
+            return
+          }
+
+          tryLoadMore()
+        },
+        {
+          root,
+          threshold: 0,
+          rootMargin: ROOT_MARGIN[direction],
+        },
+      )
+
+      observerRef.current.observe(target)
+    },
+    [direction, disconnectObserver, scrollRef, tryLoadMore],
+  )
+
+  const bindObserver = useCallback(() => {
+    const target = loaderNodeRef.current
+    if (!target || !hasMoreRef.current) return
+
     const root = scrollRef?.current ?? null
-    const target = loaderRef.current
-    if (!target || !hasMore) return
     if (direction === 'horizontal' && !root) return
 
-    const observer = new IntersectionObserver(
-      entries => {
-        if (!entries[0]?.isIntersecting) return
-        if (isFetchingMoreRef.current || isFetching) return
+    connectObserver(target)
+  }, [connectObserver, direction, scrollRef])
 
-        isFetchingMoreRef.current = true
-        setPage(prev => prev + 1)
-      },
-      {
-        root,
-        threshold: 0,
-        rootMargin: ROOT_MARGIN[direction],
-      },
-    )
+  const setLoaderRef = useCallback(
+    (node: HTMLElement | null) => {
+      loaderNodeRef.current = node
 
-    observer.observe(target)
-    return () => observer.disconnect()
-  }, [scrollRef, direction, hasMore, isFetching, page, items.length])
+      if (!node) {
+        disconnectObserver()
+        return
+      }
+
+      bindObserver()
+    },
+    [bindObserver, disconnectObserver],
+  )
+
+  // 가로: sentinel ref가 ul(scrollRef)보다 먼저 붙을 수 있어, 로드 후 한 번 더 연결
+  useEffect(() => {
+    if (isLoading) return
+    bindObserver()
+  }, [isLoading, items.length, hasMore, direction, bindObserver])
+
+  useEffect(() => {
+    return () => disconnectObserver()
+  }, [disconnectObserver])
 
   return {
-    loaderRef,
+    loaderRef: setLoaderRef,
     contents: items,
     isLoading,
     isFetchingMore: isFetching && page > 1,

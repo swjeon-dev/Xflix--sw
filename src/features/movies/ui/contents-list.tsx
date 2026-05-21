@@ -68,6 +68,7 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
       endPoint,
       params,
       scrollRef,
+      direction: 'horizontal',
     })
 
   function updateScrollEdges() {
@@ -146,7 +147,7 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
             </li>
           )}
           <li
-            ref={loaderRef as React.RefObject<HTMLLIElement>}
+            ref={loaderRef}
             className='shrink-0 basis-4 self-stretch'
             aria-hidden
           />

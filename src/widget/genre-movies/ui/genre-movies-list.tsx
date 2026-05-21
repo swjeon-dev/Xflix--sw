@@ -86,7 +86,7 @@ function GenreMoviesList({ genres, selected }: GenreMoviesListProps) {
             </li>
           ))}
         <li
-          ref={loaderRef as React.RefObject<HTMLLIElement>}
+          ref={loaderRef}
           className='col-span-full h-4 w-full shrink-0'
           aria-hidden
         />
