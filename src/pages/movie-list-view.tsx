@@ -9,7 +9,7 @@ import {
 } from '@/widget/genre-movies'
 import type { IGenre } from '@/entities/movie/model'
 
-function GenreMovies() {
+function MovieListView() {
   const { genres } = useRouteLoaderData('root') as { genres: IGenre[] }
   const [selected, setSelected] = useState(0)
   const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
@@ -17,7 +17,7 @@ function GenreMovies() {
   return (
     <>
       <Helmet>
-        <title>Movie List</title>
+        <title>영화 목록</title>
       </Helmet>
       <section>
         <GenreFilter
@@ -31,4 +31,4 @@ function GenreMovies() {
   )
 }
 
-export default GenreMovies
+export default MovieListView

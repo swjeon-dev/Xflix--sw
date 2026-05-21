@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router'
 import ErrorPage from '@/pages/error-page'
 import { rootLoader } from '@/app/routes/rootLoader'
 import Home from '@/pages/Home'
-import GenreMovies from '@/pages/genre-movies'
+import MovieListView from '@/pages/movie-list-view'
 import MovieDetail from '@/pages/movie-detail'
 import RootLayout from '@/shared/ui/layout/RootLayout'
 import { LoadingScreen } from '@/shared/ui/LoadingScreen'
@@ -23,7 +23,7 @@ export const router = createBrowserRouter(
         {
           path: removeRootPath(routes.MOVIE.LIST),
           children: [
-            { index: true, element: <GenreMovies /> },
+            { index: true, element: <MovieListView /> },
             {
               path: removeRootPath(routes.MOVIE.PARAMETER),
               element: <MovieDetail />,
