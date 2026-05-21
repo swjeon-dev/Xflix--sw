@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useRouteLoaderData } from 'react-router'
-import type { IGenre } from '@/features/movies'
+
 import {
   buildDisplayGenres,
   GenreFilter,
   GenreMoviesList,
 } from '@/widget/genre-movies'
+import type { IGenre } from '@/entities/movie/model'
 
 function GenreMovies() {
   const { genres } = useRouteLoaderData('root') as { genres: IGenre[] }
@@ -18,15 +19,14 @@ function GenreMovies() {
       <Helmet>
         <title>Movie List</title>
       </Helmet>
-      <GenreFilter
-        tabs={displayGenres.tabs}
-        selected={selected}
-        onSelect={setSelected}
-      />
-      <GenreMoviesList
-        lists={displayGenres.lists}
-        selected={selected}
-      />
+      <section>
+        <GenreFilter
+          tabs={displayGenres.tabs}
+          selected={selected}
+          onSelect={setSelected}
+        />
+        <GenreMoviesList genres={displayGenres.lists} selected={selected} />
+      </section>
     </>
   )
 }

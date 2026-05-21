@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useGetContents } from '@/features/movies'
 import type { IMovie } from '@/entities/movie/model'
+import type { ApiPath } from '@/shared/config/api-config'
 
 function mergeResults(prev: IMovie[], incoming: IMovie[], page: number) {
   if (page === 1) return incoming
@@ -10,14 +11,22 @@ function mergeResults(prev: IMovie[], incoming: IMovie[], page: number) {
   return [...prev, ...next]
 }
 
+const ROOT_MARGIN = {
+  horizontal: '0px 320px 0px 0px',
+  vertical: '0px 0px 320px 0px',
+} as const
+
+// contentscarousel(가로) · genre 목록(세로) 등 무한 스크롤
 export default function useListInfiniteScroll({
   endPoint,
   params,
   scrollRef,
+  direction = scrollRef ? 'horizontal' : 'vertical',
 }: {
-  endPoint: string
+  endPoint: ApiPath
   params?: Record<string, string | number | boolean>
-  scrollRef: React.RefObject<HTMLElement | null>
+  scrollRef?: React.RefObject<HTMLElement | null>
+  direction?: 'horizontal' | 'vertical'
 }) {
   const [items, setItems] = useState<IMovie[]>([])
   const [page, setPage] = useState(1)
@@ -57,9 +66,10 @@ export default function useListInfiniteScroll({
   }
 
   useEffect(() => {
-    const root = scrollRef.current
+    const root = scrollRef?.current ?? null
     const target = loaderRef.current
-    if (!root || !target || !hasMore) return
+    if (!target || !hasMore) return
+    if (direction === 'horizontal' && !root) return
 
     const observer = new IntersectionObserver(
       entries => {
@@ -72,14 +82,13 @@ export default function useListInfiniteScroll({
       {
         root,
         threshold: 0,
-        // 끝에 닿기 전에 미리 로드해 스크롤이 끊기지 않게 함
-        rootMargin: '0px 320px 0px 0px',
+        rootMargin: ROOT_MARGIN[direction],
       },
     )
 
     observer.observe(target)
     return () => observer.disconnect()
-  }, [scrollRef, hasMore, isFetching, page, items.length])
+  }, [scrollRef, direction, hasMore, isFetching, page, items.length])
 
   return {
     loaderRef,
