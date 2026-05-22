@@ -1,18 +1,31 @@
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router'
 import Modal from '@/shared/ui/Modal'
-import { FloatingBackButton } from '@/widget/movie-detail'
+
+import { useGetTv } from '@/features/tv'
+import { LoadingComponent } from '@/shared/ui'
+import { TVDetailSection } from '@/widget/tv-detail/ui'
+import FloatingBackButton from '@/shared/ui/floating-back-button'
+
+const DETAIL_QUERY = { append_to_response: 'credits' }
 
 function TVDetail() {
   const { id } = useParams()
+  const { error, isLoading, tv } = useGetTv(id!, DETAIL_QUERY)
+
+  if (isLoading) {
+    return (
+      <LoadingComponent style='relative min-h-[85vh] w-full main-page_px text-white' />
+    )
+  }
 
   return (
     <>
       <Helmet>
-        <title>TV 상세</title>
+        <title>{tv?.name || 'Detail'}</title>
       </Helmet>
-      <article key={id} className='min-h-[85vh] main-page_px text-white'>
-        <p>TV 상세 페이지 (준비 중)</p>
+      <article key={id}>
+        <TVDetailSection tv={tv} error={error} />
       </article>
       <Modal>
         <FloatingBackButton />
