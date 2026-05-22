@@ -26,12 +26,13 @@ export const API_ENDPOINT = {
   GENRES_TV: '/genre/tv/list',
 
   TV_FILTERED: '/discover/tv',
-  TV_UPCOMING: '/tv/upcoming',
+  // TV_UPCOMING: '/tv/upcoming',
+  // TV_RECOMMEND: (id: string | number) => `/tv/${id}/recommendations`,
   TV_POPULAR: '/tv/popular',
   TV_TOP_RATED: '/tv/top_rated',
   TV_DETAIL: (id: string | number) => `/tv/${id}`,
-  TV_SIMILAR: (id: string | number) => `/tv/${id}/similar`,
-  TV_RECOMMEND: (id: string | number) => `/tv/${id}/recommendations`,
+  TV_SEASONS: (seriesId: string | number, seasonNumber: string | number) =>
+    `/tv/${seriesId}/season/${seasonNumber}`,
 
   MOVIE_FILTERED: '/discover/movie',
   MOVIE_UPCOMING: '/movie/upcoming',
