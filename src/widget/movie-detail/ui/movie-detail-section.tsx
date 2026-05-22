@@ -1,5 +1,5 @@
 import type { IMovie } from '@/entities/movie'
-import { getMovieMoreInfo } from '../model/model'
+import { getMovieMoreInfo } from '../model'
 import MovieDetailHero from './movie-detail-hero'
 import MovieDetailOverview from './movie-detail-overview'
 
