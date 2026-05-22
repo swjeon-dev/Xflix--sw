@@ -3,6 +3,18 @@ export interface IGenre {
   name: string
 }
 
+export interface ICreditsPerson {
+  id: number
+  name: string
+  job?: string
+  character?: string
+}
+
+export interface ICredits {
+  cast: ICreditsPerson[]
+  crew: ICreditsPerson[]
+}
+
 export interface BaseMedia {
   id: number
   overview: string

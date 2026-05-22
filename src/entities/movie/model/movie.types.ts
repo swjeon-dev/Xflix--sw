@@ -1,17 +1,5 @@
 import type { IApiReturn } from '@/shared/types/api.types'
-import type { BaseMedia, IGenre } from '@/shared/types/contents.types'
-
-export interface ICreditsPerson {
-  id: number
-  name: string
-  job?: string
-  character?: string
-}
-
-export interface IMovieCredits {
-  cast: ICreditsPerson[]
-  crew: ICreditsPerson[]
-}
+import type { BaseMedia, ICredits, IGenre } from '@/shared/types/contents.types'
 
 export interface IMovie extends BaseMedia {
   adult: boolean
@@ -22,7 +10,7 @@ export interface IMovie extends BaseMedia {
   tagline?: string
   runtime?: number
   genres?: IGenre[]
-  credits?: IMovieCredits
+  credits?: ICredits
 }
 
 export interface IFeaturedMovie {

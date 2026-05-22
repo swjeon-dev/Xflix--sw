@@ -1,1 +1,10 @@
-export type { ITV, ITVApiReturn } from './model'
+export type {
+  IEpisode,
+  IEpisodeCrew,
+  IGuestStar,
+  INetwork,
+  ISeason,
+  ISeasonApiReturn,
+  ITV,
+  ITVApiReturn,
+} from './model'
