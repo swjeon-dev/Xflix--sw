@@ -2,10 +2,10 @@ import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
-import { getTmdbImgPath } from '../lib/helper'
-import type { IGenre } from '@/shared/types'
+import { getTmdbImgPath } from '@/shared/lib/helper/create-image-url'
+import type { Media } from '@/entities/media'
 import type { IMovie } from '@/entities/movie'
-import type { Media } from '@/entities'
+import type { IGenre } from '@/shared/types'
 
 const LOADER_ID = 'root'
 

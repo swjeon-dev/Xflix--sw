@@ -16,7 +16,7 @@ interface GenreTVListProps {
   selected: number
 }
 
-function GenreMoviesGridSkeleton() {
+function GenreTVGridSkeleton() {
   return (
     <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {Array.from({ length: 10 }).map((_, i) => (
@@ -49,7 +49,7 @@ function GenreTVList({ genres, selected }: GenreTVListProps) {
     return (
       <section className='main-page_px pb-20'>
         <h2 className='mb-6 text-xl font-bold text-white'>{listTitle}</h2>
-        <GenreMoviesGridSkeleton />
+        <GenreTVGridSkeleton />
       </section>
     )
   }

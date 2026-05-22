@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { getTmdbImgPath } from '@/features/movies/lib/helper'
+import { getTmdbImgPath } from '@/shared/lib'
 import { routes } from '@/shared/config/routes'
 import type { IMovie } from '@/entities/movie'
 

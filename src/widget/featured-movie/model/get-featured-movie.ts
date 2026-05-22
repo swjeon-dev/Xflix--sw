@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { API_ENDPOINT } from '@/features/movies'
 import { useGetContents } from '@/shared/model'
 import type { IFeaturedMovie, IMovie } from '@/entities/movie'
-import { getTmdbImgPath } from '@/features/movies/lib/helper'
+import { getTmdbImgPath } from '@/shared/lib'
 import { routes } from '@/shared/config/routes'
 
 function useGetFeaturedMovie() {
