@@ -1,0 +1,19 @@
+import { API_ENDPOINT, type ApiPath } from '@/shared/config/api-config'
+
+export const HOME_CATEGORIES = [
+  {
+    id: 2,
+    title: '개봉 예정인 영화',
+    endPoint: API_ENDPOINT.MOVIE_UPCOMING as ApiPath,
+  },
+  {
+    id: 3,
+    title: '인기 영화',
+    endPoint: API_ENDPOINT.MOVIE_POPULAR as ApiPath,
+  },
+  {
+    id: 4,
+    title: '평점이 높은 영화',
+    endPoint: API_ENDPOINT.MOVIE_TOP_RATED as ApiPath,
+  },
+] as const

@@ -25,6 +25,14 @@ export const API_ENDPOINT = {
   GENRES_MOVIE: '/genre/movie/list',
   GENRES_TV: '/genre/tv/list',
 
+  TV_FILTERED: '/discover/tv',
+  TV_UPCOMING: '/tv/upcoming',
+  TV_POPULAR: '/tv/popular',
+  TV_TOP_RATED: '/tv/top_rated',
+  TV_DETAIL: (id: string | number) => `/tv/${id}`,
+  TV_SIMILAR: (id: string | number) => `/tv/${id}/similar`,
+  TV_RECOMMEND: (id: string | number) => `/tv/${id}/recommendations`,
+
   MOVIE_FILTERED: '/discover/movie',
   MOVIE_UPCOMING: '/movie/upcoming',
   MOVIE_POPULAR: '/movie/popular',

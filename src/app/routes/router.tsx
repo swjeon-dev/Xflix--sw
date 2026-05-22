@@ -8,6 +8,8 @@ import RootLayout from '@/shared/ui/layout/RootLayout'
 import { LoadingScreen } from '@/shared/ui/LoadingScreen'
 import { routes } from '@/shared/config/routes'
 import { removeRootPath } from '@/shared/lib'
+import TVListView from '@/pages/tv-list-view'
+import TVDetail from '@/pages/tv-detail'
 
 export const LOADER_ID = 'root'
 
@@ -29,6 +31,16 @@ export const router = createBrowserRouter(
             {
               path: removeRootPath(routes.MOVIE.PARAMETER),
               element: <MovieDetail />,
+            },
+          ],
+        },
+        {
+          path: removeRootPath(routes.TV.LIST),
+          children: [
+            { index: true, element: <TVListView /> },
+            {
+              path: removeRootPath(routes.TV.PARAMETER),
+              element: <TVDetail />,
             },
           ],
         },
