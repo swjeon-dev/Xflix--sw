@@ -1,4 +1,3 @@
-export { default as FloatingBackButton } from './floating-button'
 export { default as MovieBackdrop } from './movie-backdrop'
 export { default as MovieDetailHero } from './movie-detail-hero'
 export { default as MovieDetailOverview } from './movie-detail-overview'

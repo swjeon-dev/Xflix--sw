@@ -5,7 +5,8 @@ import { LoadingComponent } from '@/shared/ui/LoadingScreen'
 import { API_ENDPOINT } from '@/shared/config/api-config'
 import ContentsList from '@/features/movies/ui/contents-list'
 import useGetMovie from '@/features/movies/model/get-tmdb-movies'
-import { FloatingBackButton, MovieDetailSection } from '@/widget/movie-detail'
+import { MovieDetailSection } from '@/widget/movie-detail'
+import FloatingBackButton from '@/shared/ui/floating-back-button'
 
 const DETAIL_QUERY = { append_to_response: 'credits' }
 
