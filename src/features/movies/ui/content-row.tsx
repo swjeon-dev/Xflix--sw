@@ -4,7 +4,8 @@ import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
 import { getTmdbImgPath } from '../lib/helper'
 import { AdultUI } from '@/shared/ui'
-import type { IGenre, IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
+import type { IGenre } from '@/shared/types'
 
 const LOADER_ID = 'root'
 

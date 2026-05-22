@@ -15,6 +15,7 @@ interface INavItem {
 const NAV_ITEMS = [
   { id: 1, label: '홈', path: routes.ROOT },
   { id: 3, label: '영화', path: routes.MOVIE.LIST },
+  { id: 4, label: 'TV', path: routes.TV.LIST },
 ]
 
 function useCloseNav(cb: () => void) {

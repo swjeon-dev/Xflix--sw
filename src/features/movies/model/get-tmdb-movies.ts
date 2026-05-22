@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getMovie } from '../api/tmdb-service'
-import type { IMovie } from '../types'
+import { getMovie } from '../api/movie'
+import type { IMovie } from '@/entities/movie'
 
 interface IFetchingDataReturn {
   error: string | null

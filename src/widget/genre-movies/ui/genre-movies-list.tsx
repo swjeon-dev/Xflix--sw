@@ -2,7 +2,7 @@ import useListInfiniteScroll from '@/shared/model/infinite-scroll'
 import { API_ENDPOINT } from '@/shared/config/api-config'
 import { devLog } from '@/shared/lib'
 import { SkeletonUI } from '@/shared/ui'
-import type { IGenre } from '@/entities/movie/model'
+import type { IGenre } from '@/shared/types'
 import {
   getAllDiscoverSearchParams,
   getDiscoverSearchParams,

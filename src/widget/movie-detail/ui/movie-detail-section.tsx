@@ -1,4 +1,4 @@
-import type { IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
 import { getMovieMoreInfo } from '../model/model'
 import MovieDetailHero from './movie-detail-hero'
 import MovieDetailOverview from './movie-detail-overview'

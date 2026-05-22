@@ -7,7 +7,7 @@ import {
   GenreFilter,
   GenreMoviesList,
 } from '@/widget/genre-movies'
-import type { IGenre } from '@/entities/movie/model'
+import type { IGenre } from '@/shared/types/contents.types'
 
 const LOADER_ID = 'root'
 
@@ -28,6 +28,7 @@ function MovieListView() {
       </Helmet>
       <section>
         <GenreFilter
+          type='movie'
           tabs={displayGenres.tabs}
           selected={selected}
           onSelect={setSelected}

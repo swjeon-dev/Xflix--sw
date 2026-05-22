@@ -1,5 +1,5 @@
 interface IGetTmdbImgPath {
-  path?: string
+  path?: string | null
   size?: string
 }
 

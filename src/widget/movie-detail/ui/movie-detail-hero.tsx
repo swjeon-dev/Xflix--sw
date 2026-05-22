@@ -1,6 +1,6 @@
 import { ICONS } from '@/shared/assets/icons'
 import { AdultUI } from '@/shared/ui'
-import type { IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '../model/model'
 import MovieBackdrop from './movie-backdrop'
 

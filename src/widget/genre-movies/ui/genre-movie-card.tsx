@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { getTmdbImgPath } from '@/features/movies/lib/helper'
 import { routes } from '@/shared/config/routes'
-import type { IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
 
 function GenreMovieCard({ content }: { content: IMovie }) {
   const posterUrl = getTmdbImgPath({

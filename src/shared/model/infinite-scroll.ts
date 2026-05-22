@@ -1,9 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useGetContents } from '@/features/movies'
-import type { IMovie } from '@/entities/movie/model'
+import { useGetContents } from '@/shared/model'
+import type { IMovie } from '@/entities/movie'
 import type { ApiPath } from '@/shared/config/api-config'
+import type { BaseMedia, ITmdbContents } from '@/shared/types'
 
-function mergeResults(prev: IMovie[], incoming: IMovie[], page: number) {
+type ContentsHook<T extends BaseMedia> = (
+  endPoint: ApiPath,
+  queryParams?: Record<string, string | number | boolean>,
+) => {
+  error: string | null
+  isLoading: boolean
+  isFetching: boolean
+  contents: ITmdbContents<T> | null
+  refetch: () => void
+}
+
+function mergeResults<T extends BaseMedia>(
+  prev: T[],
+  incoming: T[],
+  page: number,
+) {
   if (page === 1) return incoming
 
   const ids = new Set(prev.map(item => item.id))
@@ -16,19 +32,20 @@ const ROOT_MARGIN = {
   vertical: '0px 0px 320px 0px',
 } as const
 
-// contentscarousel(가로) · genre 목록(세로) 등 무한 스크롤
-export default function useListInfiniteScroll({
+export default function useListInfiniteScroll<T extends BaseMedia = IMovie>({
   endPoint,
   params,
   scrollRef,
   direction = scrollRef ? 'horizontal' : 'vertical',
+  useContents = useGetContents as ContentsHook<T>,
 }: {
   endPoint: ApiPath
   params?: Record<string, string | number | boolean>
   scrollRef?: React.RefObject<HTMLElement | null>
   direction?: 'horizontal' | 'vertical'
+  useContents?: ContentsHook<T>
 }) {
-  const [items, setItems] = useState<IMovie[]>([])
+  const [items, setItems] = useState<T[]>([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const canLoadMoreRef = useRef(true)
@@ -39,7 +56,7 @@ export default function useListInfiniteScroll({
 
   const queryKey = JSON.stringify({ endPoint, params })
 
-  const { isLoading, isFetching, error, contents, refetch } = useGetContents(
+  const { isLoading, isFetching, error, contents, refetch } = useContents(
     endPoint,
     { ...params, page },
   )
@@ -154,7 +171,6 @@ export default function useListInfiniteScroll({
     [bindObserver, disconnectObserver],
   )
 
-  // 가로: sentinel ref가 ul(scrollRef)보다 먼저 붙을 수 있어, 로드 후 한 번 더 연결
   useEffect(() => {
     if (isLoading) return
     bindObserver()

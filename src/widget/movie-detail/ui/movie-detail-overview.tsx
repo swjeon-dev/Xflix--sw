@@ -1,4 +1,4 @@
-import type { IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '../model/model'
 
 interface MovieDetailOverviewProps {

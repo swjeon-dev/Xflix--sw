@@ -5,7 +5,7 @@ import type { ApiPath } from '@/shared/config/api-config'
 import ContentRow from './content-row'
 import { SkeletonUI } from '@/shared/ui'
 import useListInfiniteScroll from '@/shared/model/infinite-scroll'
-import type { IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
 
 interface IContentsCarousel {
   title: string
@@ -64,7 +64,7 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useListInfiniteScroll({
+    useListInfiniteScroll<IMovie>({
       endPoint,
       params,
       scrollRef,

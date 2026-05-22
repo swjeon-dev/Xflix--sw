@@ -1,4 +1,4 @@
-import { IMovie } from '@/entities/movie/model'
+import type { IMovie } from '@/entities/movie'
 
 export function getCrewByJob(movie: IMovie, job: string) {
   if (!movie.credits) return null
@@ -32,7 +32,7 @@ export function getMovieMoreInfo(movie: IMovie) {
     actors: getActorsWithComma(movie),
     genres: getGenresWithComma(movie),
     director: getCrewByJob(movie, 'Director'),
-    runtime: runtimeToHours(movie.runtime),
+    runtime: runtimeToHours(movie.runtime ?? 0),
   }
 }
 

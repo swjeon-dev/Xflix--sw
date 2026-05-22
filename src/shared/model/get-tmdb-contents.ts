@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react'
-import { getTmdbContents } from '../api/tmdb-service'
-import type { ApiPath } from '../../../shared/config/api-config'
-import type { ITmdbContents } from '@/entities/movie/model'
+import { getTmdbContents } from '@/shared/api/tmdb/contents'
+import type { ApiPath } from '@/shared/config/api-config'
+import type { ITmdbContents } from '@/shared/types'
+import type { Media } from '@/entities'
 
-interface IFetchingDataReturn {
+interface IFetchingDataReturn<T extends Media> {
   error: string | null
   isLoading: boolean
   isFetching: boolean
-  contents: ITmdbContents | null
+  contents: ITmdbContents<T> | null
   refetch: () => void
 }
 
-function useGetContents(
+function useGetContents<T extends Media>(
   endPoint: ApiPath,
   queryParams?: Record<string, string | number | boolean>,
-): IFetchingDataReturn {
+): IFetchingDataReturn<T> {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
-  const [contents, setContents] = useState<ITmdbContents | null>(null)
+  const [contents, setContents] = useState<ITmdbContents<T> | null>(null)
   const [refetchCount, setRefetchCount] = useState(0)
   const queryKey = queryParams ? JSON.stringify(queryParams) : ''
 
@@ -41,7 +42,7 @@ function useGetContents(
       if (isInitialPage) setIsLoading(true)
       setIsFetching(true)
 
-      const result = await getTmdbContents(endPoint, parsedQuery)
+      const result = await getTmdbContents<T>(endPoint, parsedQuery)
 
       if (cancelled) return
 

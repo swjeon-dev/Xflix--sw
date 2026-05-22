@@ -1,7 +1,13 @@
 import { getTmdbImgPath } from '@/features/movies/lib/helper'
 import ImageLazyLoadUI from '@/shared/ui/ImageLazyLoadUI'
 
-function MovieBackdrop({ path, title }: { path?: string; title: string }) {
+function MovieBackdrop({
+  path,
+  title,
+}: {
+  path?: string | null
+  title: string
+}) {
   if (!path) return null
 
   return (

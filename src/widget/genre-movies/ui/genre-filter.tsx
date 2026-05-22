@@ -1,12 +1,13 @@
 import type { IGenreTab } from '../model/build-display-genres'
 
 interface GenreFilterProps {
+  type: 'movie' | 'tv'
   tabs: IGenreTab[]
   selected: number
   onSelect: (genreId: number) => void
 }
 
-function GenreFilter({ tabs, selected, onSelect }: GenreFilterProps) {
+function GenreFilter({ type, tabs, selected, onSelect }: GenreFilterProps) {
   return (
     <div className='w-full pt-24 text-white main-page_px'>
       <div className='flex flex-col'>
@@ -14,7 +15,7 @@ function GenreFilter({ tabs, selected, onSelect }: GenreFilterProps) {
           className='text-3xl md:text-5xl font-semibold'
           htmlFor='genre-filter'
         >
-          영화
+          {type === 'movie' ? '영화' : 'TV'}
         </label>
         <select
           id='genre-filter'
