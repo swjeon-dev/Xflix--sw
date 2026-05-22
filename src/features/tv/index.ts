@@ -1,2 +1,7 @@
 export { API_ENDPOINT } from '@/shared/config/api-config'
-export { default as useGetTv } from './model/get-tmdb-movies'
+export { default as useGetTv } from './model/get-tmdb-tvs'
+export { default as useGetSeason } from './model/use-get-season'
+export { getSeason } from './api/season'
+export { default as EpisodesList } from './ui/episodes-list'
+export { EpisodePreviewItem } from './ui/episode-row'
+export { default as EpisodeDetail } from './ui/episode-row'
