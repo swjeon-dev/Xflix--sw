@@ -2,14 +2,14 @@ import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
-import { getTmdbImgPath } from '@/shared/lib/helper/create-image-url'
-import type { Media } from '@/entities/media'
-import type { IMovie } from '@/entities/movie'
+import { getTmdbImgPath } from '@/shared/lib'
+import { AdultUI } from '@/shared/ui'
+import type { ITV } from '@/entities/tv'
 import type { IGenre } from '@/shared/types'
 
 const LOADER_ID = 'root'
 
-function ContentRow({ content }: { content: Media }) {
+function ContentRow({ content }: { content: ITV }) {
   const {
     genres: { tvGenres },
   } = useRouteLoaderData(LOADER_ID) as { genres: { tvGenres: IGenre[] } }
@@ -21,26 +21,13 @@ function ContentRow({ content }: { content: Media }) {
         ?.map(id => tvGenres.find(g => g.id === id))
         .filter((genre): genre is IGenre => !!genre) ?? []
 
-    function isIMovie(content: Media): content is IMovie {
-      return 'title' in content
-    }
-
-    if (isIMovie(content)) {
-      return {
-        title: content.title,
-        overview: content.overview,
-        year: content.release_date?.split('-')[0],
-        genres: myGenres,
-        release_date: content.release_date,
-      }
-    } else {
-      return {
-        title: content.name,
-        overview: content.overview,
-        year: content.first_air_date?.split('-')[0],
-        genres: myGenres,
-        first_air_date: content.first_air_date,
-      }
+    return {
+      title: content.name,
+      overview: content.overview,
+      adult: content.adult,
+      year: content.first_air_date,
+      genres: myGenres.length > 2 ? myGenres.slice(0, 2) : myGenres,
+      first_air_date: content.first_air_date,
     }
   }, [content, tvGenres])
 
@@ -66,14 +53,15 @@ function ContentRow({ content }: { content: Media }) {
       </Link>
 
       <div className='absolute inset-0 p-4 flex flex-col justify-end gap-2 opacity-0 group-hover/button-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-gradient-to-t from-black/80 via-black/20 to-transparent'>
-        <h2 className='text-white text-lg font-bold truncate'>
-          {contentMoreInfo.title}
-        </h2>
+        <div className='flex gap-2 items-center'>
+          {contentMoreInfo.adult && <AdultUI />}
+          <h2 className='text-white text-lg font-bold truncate'>
+            {contentMoreInfo.title}
+          </h2>
+        </div>
         <div className='flex flex-col gap-2'>
           <div className='flex gap-2'>
-            <span className='text-xs text-white'>
-              {contentMoreInfo.first_air_date?.split('-')[0]} -
-            </span>
+            <span className='text-xs text-white'>{contentMoreInfo.year}</span>
             {contentMoreInfo.genres.map(genre => (
               <span key={genre.id} className='text-xs text-white'>
                 {genre.name}

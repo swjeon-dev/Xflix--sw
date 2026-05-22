@@ -2,7 +2,7 @@ import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
-import { getTmdbImgPath } from '@/shared/lib/helper/create-image-url'
+import { getTmdbImgPath } from '@/shared/lib'
 import { AdultUI } from '@/shared/ui'
 import type { IMovie } from '@/entities/movie'
 import type { IGenre } from '@/shared/types'
@@ -15,6 +15,7 @@ function ContentRow({ content }: { content: IMovie }) {
   } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
   const navPath = (id: string | number) => routes.MOVIE.DETAIL(id)
 
+  console.log('content', content)
   const contentMoreInfo = useMemo(() => {
     const myGenres =
       content.genre_ids
@@ -25,7 +26,7 @@ function ContentRow({ content }: { content: IMovie }) {
       title: content.title,
       overview: content.overview,
       adult: content.adult,
-      year: content.release_date?.split('-')[0],
+      year: content.release_date ?? null,
       genres: myGenres,
       release_date: content.release_date,
     }
@@ -61,9 +62,7 @@ function ContentRow({ content }: { content: IMovie }) {
         </div>
         <div className='flex flex-col gap-2'>
           <div className='flex gap-2'>
-            <span className='text-xs text-white'>
-              {contentMoreInfo.release_date?.split('-')[0]} -
-            </span>
+            <span className='text-xs text-white'>{contentMoreInfo.year}</span>
             {contentMoreInfo.genres.map(genre => (
               <span key={genre.id} className='text-xs text-white'>
                 {genre.name}

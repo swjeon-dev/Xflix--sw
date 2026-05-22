@@ -6,8 +6,7 @@ import ContentRow from './content-row'
 import { SkeletonUI } from '@/shared/ui'
 import { useGetContents } from '@/shared/model'
 import useListInfiniteScroll from '@/shared/model/infinite-scroll'
-import type { Media } from '@/entities'
-import { ITV } from '@/entities/tv'
+import type { ITV } from '@/entities/tv'
 
 interface IContentsCarousel {
   title: string
@@ -138,7 +137,7 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
           ref={scrollRef}
           onScroll={handleScroll}
         >
-          {contents.map((content: Media) => (
+          {contents.map((content: ITV) => (
             <ContentRow key={content.id} content={content} />
           ))}
           {isFetchingMore && (
