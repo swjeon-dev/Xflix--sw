@@ -1,4 +1,5 @@
-import { apiValidCheck, getGenres } from '@/features/movies'
+import { apiValidCheck } from '@/shared/api/tmdb/auth'
+import { getGenres } from '@/shared/api/tmdb/genres'
 
 export const rootLoader = async () => {
   const auth = await apiValidCheck()
