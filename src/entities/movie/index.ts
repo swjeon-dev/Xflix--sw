@@ -4,4 +4,4 @@ export type {
   IMovie,
   IMovieApiReturn,
   IMovieCredits,
-} from './movie.types'
+} from './model'

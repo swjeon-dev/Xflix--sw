@@ -1,20 +1,28 @@
-import { ICastItem, IContentCommon, ICrewItem } from './content.types'
+import type { IApiReturn } from '@/shared/types/api.types'
+import type { BaseMedia, IGenre } from '@/shared/types/contents.types'
 
-interface IMovieCastItem extends ICastItem {
-  cast_id: number
+export interface ICreditsPerson {
+  id: number
+  name: string
+  job?: string
+  character?: string
 }
 
-interface Credits {
-  cast: IMovieCastItem[]
-  crew: ICrewItem[]
+export interface IMovieCredits {
+  cast: ICreditsPerson[]
+  crew: ICreditsPerson[]
 }
 
-export interface IMovie extends IContentCommon {
-  imdb_id: string
-  release_date: string
-  runtime: number
+export interface IMovie extends BaseMedia {
+  adult: boolean
   title: string
-  credits: Credits
+  original_title: string
+  release_date: string
+  video: boolean
+  tagline?: string
+  runtime?: number
+  genres?: IGenre[]
+  credits?: IMovieCredits
 }
 
 export interface IFeaturedMovie {
@@ -24,3 +32,5 @@ export interface IFeaturedMovie {
   overview: string
   detailUrl: string
 }
+
+export type IMovieApiReturn = IApiReturn<IMovie>
