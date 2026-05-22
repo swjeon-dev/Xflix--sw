@@ -1,4 +1,4 @@
-import { IApiReturn } from '@/entities/movie/model'
+import type { IApiReturn } from '@/shared/types/api.types'
 import { API_CONFIG } from '@/shared/config/api-config'
 import { devLog } from '@/shared/lib'
 

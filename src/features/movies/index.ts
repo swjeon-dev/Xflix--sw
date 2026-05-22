@@ -1,5 +1,4 @@
 export { API_ENDPOINT } from '../../shared/config/api-config'
-export { apiValidCheck } from './api/tmdb-auth'
-export { getGenres } from './api/tmdb-service'
-export { getTmdbContents } from './api/tmdb-service'
-export { default as useGetContents } from './model/get-tmdb-contents'
+export { apiValidCheck } from '../../shared/api/tmdb/auth'
+export type { IMovie } from '@/entities/movie'
+export type { ITmdbContents } from '@/shared/types'
