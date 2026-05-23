@@ -27,10 +27,6 @@ function TVDetailHero({ tv }: TVDetailHeroProps) {
             {ICONS.play}
             <span className='text-lg font-semibold'>재생</span>
           </button>
-          <button className='px-3 md:px-5 py-4 flex gap-2 items-center rounded-md hover:bg-white/30 bg-gray-300/25 text-white backdrop-blur-md text-sm'>
-            {ICONS.plus}
-            <span className='text-lg font-semibold'>상세 정보 버튼</span>
-          </button>
         </div>
         <div className='absolute -bottom-6 left-[50%] translate-x-[-50%] animate-tongtong'>
           {ICONS.chevronDown}
