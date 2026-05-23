@@ -34,6 +34,7 @@ export const API_ENDPOINT = {
   TV_SEASONS: (seriesId: string | number, seasonNumber: string | number) =>
     `/tv/${seriesId}/season/${seasonNumber}`,
 
+  MOVIE_VIDEOS: (id: string | number) => `/movie/${id}/videos`,
   MOVIE_FILTERED: '/discover/movie',
   MOVIE_UPCOMING: '/movie/upcoming',
   MOVIE_POPULAR: '/movie/popular',
