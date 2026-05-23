@@ -15,6 +15,7 @@ export interface ITV extends BaseMedia {
   name: string
   original_name: string
   first_air_date: string
+  last_air_date: string
   origin_country: string[]
   created_by: CreatedBy[]
   tagline?: string
