@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { devLog } from '@/shared/lib'
 import { LoadingComponent } from '@/shared/ui/LoadingScreen'
 import useGetFeaturedMovie from '@/widget/featured-movie/model/get-featured-movie'
-import TrailerUI from '@/features/movies/ui/trailer-ui'
+import { TrailerUI } from '@/shared/ui'
 
 function FeaturedMovie() {
   const { isLoading, error, featuredContent } = useGetFeaturedMovie()

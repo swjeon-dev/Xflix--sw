@@ -1,27 +1,31 @@
 import { devLog } from '@/shared/lib'
-import useGetTmdbVideos from '../model/get-tmdb-videos'
+import { buildYoutubeEmbedUrl } from '@/shared/lib/helper/build-youtube-embed-url'
+import useGetTmdbVideos from '@/shared/model/use-get-tmdb-videos'
+import type { MediaVideoType } from '@/shared/model/video.types'
 
 export default function TrailerUI({
   contentId,
   contentTitle,
+  mediaType = 'movie',
   children,
 }: {
   contentId: number | string
   contentTitle: string
+  mediaType?: MediaVideoType
   children: React.ReactNode
 }) {
   const {
     trailer,
     isLoading: isVideosLoading,
     error: videosError,
-  } = useGetTmdbVideos(contentId)
+  } = useGetTmdbVideos(contentId, mediaType)
 
   if (videosError) {
     devLog({ message: videosError, type: 'error' })
   }
 
   const youtubeEmbedUrl = trailer
-    ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0&loop=1&playlist=${trailer.key}&rel=0&playsinline=1&modestbranding=1`
+    ? buildYoutubeEmbedUrl(trailer.key, 'background')
     : null
 
   return !isVideosLoading && !videosError && youtubeEmbedUrl ? (

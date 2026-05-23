@@ -1,24 +1,7 @@
 import { useEffect, useState } from 'react'
 import { tmdbFetch } from '@/shared/api/tmdb'
 import { API_ENDPOINT } from '@/shared/config/api-config'
-
-export interface IVideo {
-  iso_639_1: string
-  iso_3166_1: string
-  name: string
-  key: string
-  site: string
-  size: number
-  id: string
-  type: string
-  official: boolean
-  published_at: string
-}
-
-export interface IVideoReturn {
-  id: number
-  results: IVideo[]
-}
+import type { IVideo, IVideoReturn, MediaVideoType } from './video.types'
 
 interface IUseGetTmdbVideosReturn {
   error: string | null
@@ -26,7 +9,6 @@ interface IUseGetTmdbVideosReturn {
   videos: IVideo[]
   trailer: IVideo | null
 }
-
 function pickYoutubeTrailer(videos: IVideo[]): IVideo | null {
   const youtube = videos.filter(video => video.site === 'YouTube')
 
@@ -38,7 +20,16 @@ function pickYoutubeTrailer(videos: IVideo[]): IVideo | null {
   )
 }
 
-function useGetTmdbVideos(id?: string | number): IUseGetTmdbVideosReturn {
+function getVideosEndpoint(id: string | number, mediaType: MediaVideoType) {
+  return mediaType === 'movie'
+    ? API_ENDPOINT.MOVIE_VIDEOS(id)
+    : API_ENDPOINT.TV_VIDEOS(id)
+}
+
+function useGetTmdbVideos(
+  id?: string | number,
+  mediaType: MediaVideoType = 'movie',
+): IUseGetTmdbVideosReturn {
   const [videos, setVideos] = useState<IVideo[]>([])
   const [trailer, setTrailer] = useState<IVideo | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -54,15 +45,18 @@ function useGetTmdbVideos(id?: string | number): IUseGetTmdbVideosReturn {
     }
 
     let cancelled = false
-
-    const movieId = id
+    const contentId = id
+    const errorMessage =
+      mediaType === 'movie'
+        ? '영화 영상 정보를 찾을 수 없습니다.'
+        : 'TV 프로그램 영상 정보를 찾을 수 없습니다.'
 
     async function fetchVideos() {
       setIsLoading(true)
       const result = await tmdbFetch<IVideoReturn>(
-        API_ENDPOINT.MOVIE_VIDEOS(movieId),
+        getVideosEndpoint(contentId, mediaType),
         undefined,
-        '영화 영상 정보를 찾을 수 없습니다.',
+        errorMessage,
       )
 
       if (cancelled) return
@@ -78,7 +72,7 @@ function useGetTmdbVideos(id?: string | number): IUseGetTmdbVideosReturn {
     return () => {
       cancelled = true
     }
-  }, [id])
+  }, [id, mediaType])
 
   return { error, isLoading, videos, trailer }
 }
