@@ -6,12 +6,6 @@ export function getDirector(tv: ITV) {
   return tv.created_by.length > 0 ? tv.created_by[0].name : null
 }
 
-export function runtimeToHours(runtime: number) {
-  if (runtime === 0) return '0시간 0분'
-  if (runtime < 60) return `${runtime}분`
-  return `${Math.floor(runtime / 60)}시간 ${runtime % 60}분`
-}
-
 export function getActorsWithComma(tv: ITV) {
   if (!tv.credits?.cast.length) return null
 
@@ -32,7 +26,6 @@ export function getTVMoreInfo(tv: ITV) {
     actors: getActorsWithComma(tv),
     genres: getGenresWithComma(tv),
     director: getDirector(tv),
-    runtime: runtimeToHours(tv.runtime ?? 0),
   }
 }
 

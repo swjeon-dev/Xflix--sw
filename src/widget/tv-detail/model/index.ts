@@ -3,6 +3,5 @@ export {
   getDirector,
   getGenresWithComma,
   getTVMoreInfo,
-  runtimeToHours,
 } from './model'
-export type { ITVDetail, ITVMoreInfo } from './model'
+export type { ITVMoreInfo } from './model'

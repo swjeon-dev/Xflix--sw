@@ -20,7 +20,6 @@ function TVDetail() {
     )
   }
 
-  console.log('tv', tv)
   return (
     <>
       <Helmet>

@@ -1,4 +1,3 @@
-// import type { ITVDetail } from '../model'
 import { ITV } from '@/entities'
 import { getTVMoreInfo } from '../model'
 import TVDetailHero from './tv-detail-hero'
@@ -20,7 +19,7 @@ function TVDetailSection({ tv, error }: TVDetailSectionProps) {
 
   return (
     <div className='pb-10 *:main-page_px'>
-      <TVDetailHero tv={tv} tvMoreInfo={tvMoreInfo} />
+      <TVDetailHero tv={tv} />
       <TVDetailOverview tv={tv} tvMoreInfo={tvMoreInfo} />
     </div>
   )

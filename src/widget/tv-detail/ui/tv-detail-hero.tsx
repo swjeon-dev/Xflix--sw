@@ -1,15 +1,14 @@
 import { ICONS } from '@/shared/assets/icons'
 
-import type { ITVMoreInfo } from '../model'
 import TVBackdrop from './tv-backdrop'
 import { ITV } from '@/entities'
+import { AdultUI } from '@/shared/ui'
 
 interface TVDetailHeroProps {
   tv: ITV
-  tvMoreInfo: ITVMoreInfo
 }
 
-function TVDetailHero({ tv, tvMoreInfo }: TVDetailHeroProps) {
+function TVDetailHero({ tv }: TVDetailHeroProps) {
   return (
     <div className='relative min-h-[85vh] w-full flex gap-4'>
       <div className='text-white z-10 flex flex-col gap-6 justify-end pb-8 md:pb-16'>
@@ -17,9 +16,10 @@ function TVDetailHero({ tv, tvMoreInfo }: TVDetailHeroProps) {
           {tv.name}
         </h1>
         <div className='flex gap-4 text-base md:text-lg'>
-          {/* {tv.adult && <AdultUI />} */}
-          <span>{tv.first_air_date}</span>
-          <span>{tvMoreInfo.runtime}</span>
+          {tv.adult && <AdultUI />}
+          <span>
+            {tv.first_air_date} ~ {tv.last_air_date}
+          </span>
         </div>
         {/* <p className='line-clamp-2 text-base md:text-lg'>{tv.tagline}</p> */}
         <div className='flex gap-3'>
