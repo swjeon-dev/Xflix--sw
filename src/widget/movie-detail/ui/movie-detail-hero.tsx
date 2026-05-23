@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { ICONS } from '@/shared/assets/icons'
-import { AdultUI } from '@/shared/ui'
+import { AdultUI, TrailerModal } from '@/shared/ui'
 import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '../model'
 import MovieBackdrop from './movie-backdrop'
@@ -10,6 +11,8 @@ interface MovieDetailHeroProps {
 }
 
 function MovieDetailHero({ movie, movieMoreInfo }: MovieDetailHeroProps) {
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false)
+
   return (
     <div className='relative min-h-[85vh] w-full flex gap-4'>
       <div className='text-white z-10 flex flex-col gap-6 justify-end pb-8 md:pb-16'>
@@ -23,7 +26,11 @@ function MovieDetailHero({ movie, movieMoreInfo }: MovieDetailHeroProps) {
         </div>
         <p className='line-clamp-2 text-base md:text-lg'>{movie.tagline}</p>
         <div className='flex gap-3'>
-          <button className='px-3 md:px-4 py-4 flex gap-2 items-center rounded-md bg-gray-200 text-black hover:bg-gray-200/95 text-sm'>
+          <button
+            type='button'
+            className='px-3 md:px-4 py-4 flex gap-2 items-center rounded-md bg-gray-200 text-black hover:bg-gray-200/95 text-sm'
+            onClick={() => setIsTrailerOpen(true)}
+          >
             {ICONS.play}
             <span className='text-lg font-semibold'>재생</span>
           </button>
@@ -33,6 +40,13 @@ function MovieDetailHero({ movie, movieMoreInfo }: MovieDetailHeroProps) {
         </div>
       </div>
       <MovieBackdrop path={movie.backdrop_path} title={movie.title} />
+      <TrailerModal
+        isOpen={isTrailerOpen}
+        onClose={() => setIsTrailerOpen(false)}
+        contentId={movie.id}
+        contentTitle={movie.title}
+        mediaType='movie'
+      />
     </div>
   )
 }
