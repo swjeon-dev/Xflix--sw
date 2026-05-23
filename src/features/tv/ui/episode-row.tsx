@@ -77,7 +77,7 @@ function EpisodeMeta({
       )}
       {episode.guest_stars.length > 0 && (
         <p className='text-xs text-white/50'>
-          게스트:{' '}
+          출연:{' '}
           {episode.guest_stars
             .slice(0, 5)
             .map(star => star.name)
