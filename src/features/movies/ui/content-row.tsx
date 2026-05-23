@@ -15,7 +15,6 @@ function ContentRow({ content }: { content: IMovie }) {
   } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
   const navPath = (id: string | number) => routes.MOVIE.DETAIL(id)
 
-  console.log('content', content)
   const contentMoreInfo = useMemo(() => {
     const myGenres =
       content.genre_ids
@@ -76,7 +75,7 @@ function ContentRow({ content }: { content: IMovie }) {
         <div className='flex gap-2'>
           {[
             { icon: ICONS.play, label: '재생' },
-            { icon: ICONS.plus, label: '목록 추가' },
+            // { icon: ICONS.plus, label: '목록 추가' },
           ].map((item, idx) => (
             <button
               key={idx}

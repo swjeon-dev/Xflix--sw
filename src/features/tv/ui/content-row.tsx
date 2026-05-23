@@ -75,7 +75,7 @@ function ContentRow({ content }: { content: ITV }) {
         <div className='flex gap-2'>
           {[
             { icon: ICONS.play, label: '재생' },
-            { icon: ICONS.plus, label: '목록 추가' },
+            // { icon: ICONS.plus, label: '목록 추가' },
           ].map((item, idx) => (
             <button
               key={idx}

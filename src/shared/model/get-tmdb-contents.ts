@@ -42,7 +42,7 @@ function useGetContents<T extends Media>(
       if (isInitialPage) setIsLoading(true)
       setIsFetching(true)
 
-      const result = await getTmdbContents<T>(endPoint, parsedQuery)
+      const result = await getTmdbContents<T>(endPoint as string, parsedQuery)
 
       if (cancelled) return
 
