@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
 import Modal from '@/shared/ui/Modal'
 import { useGetScrollY, useScrollDisable } from '@/shared/model'
-
-interface INavItem {
-  navClass: string
-  liClass: string
-  itemClass: string
-  children: React.ReactNode
-}
 
 const NAV_ITEMS = [
   { id: 1, label: '홈', path: routes.ROOT },
@@ -18,92 +11,103 @@ const NAV_ITEMS = [
   { id: 4, label: 'TV', path: routes.TV.LIST },
 ]
 
-function useCloseNav(cb: () => void) {
-  const location = useLocation()
+interface MobileMenuProps {
+  isOpen: boolean
+  onClose: () => void
+}
 
-  useEffect(() => {
-    cb()
-  }, [location.key, cb])
+function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  if (!isOpen) return null
+
+  return (
+    <Modal>
+      <div
+        className='fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white font-medium'
+        role='dialog'
+        aria-modal='true'
+        aria-label='모바일 메뉴'
+      >
+        <button
+          type='button'
+          className='absolute top-5 right-5 p-2 text-2xl hover:opacity-80'
+          aria-label='메뉴 닫기'
+          onClick={onClose}
+        >
+          X
+        </button>
+
+        <ol className='flex flex-col items-center gap-10 w-full main-page_px'>
+          {NAV_ITEMS.map(item => (
+            <li key={item.id} className='text-6xl hover:opacity-80'>
+              <Link to={item.path} onClick={onClose}>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Modal>
+  )
 }
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isLocked, setIsLocked] = useState(false)
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const location = useLocation()
   const scrollY = useGetScrollY()
   const isScroll = scrollY > 20
 
-  function modalClose() {
-    setIsOpen(false)
-    setIsLocked(false)
-  }
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false)
+  }, [])
 
-  useCloseNav(modalClose)
-  useScrollDisable(isLocked, 'sm')
+  const openMenu = useCallback(() => {
+    setIsMenuOpen(true)
+  }, [])
 
-  function modalOpen() {
-    setIsOpen(true)
-    setIsLocked(true)
-  }
+  useEffect(() => {
+    closeMenu()
+  }, [location.key, closeMenu])
+
+  useScrollDisable(isMenuOpen, 'sm')
 
   return (
     <>
       <header
-        className={`fixed top-0 w-full flex gap-16 p-4 z-20 transition-colors duration-500 ease-in-out
+        className={`fixed top-0 w-full flex items-center gap-16 p-4 z-20 transition-colors duration-500 ease-in-out
           ${!isScroll ? 'bg-gradient-to-b from-black/80 to-transparent' : 'bg-black'}`}
       >
-        <Link to={routes.ROOT}>{ICONS.logo}</Link>
-        {!isOpen && (
-          <NavItem
-            navClass='flex w-full text-white font-medium justify-end sm:justify-between'
-            liClass='hidden gap-8 sm:flex text-xl'
-            itemClass='hover:opacity-80 place-self-center'
-          >
-            <div className='flex gap-4'>
-              <button>{ICONS.search}</button>
-              <button className='block sm:hidden' onClick={modalOpen}>
-                {ICONS.hamburgerMenu}
-              </button>
-            </div>
-          </NavItem>
-        )}
+        <Link to={routes.ROOT} className='shrink-0'>
+          {ICONS.logo}
+        </Link>
 
-        {isOpen && (
-          <Modal>
-            <MobileMenu modalClose={modalClose} />
-          </Modal>
-        )}
+        <nav className='flex w-full items-center text-white font-medium justify-end sm:justify-between'>
+          <ol className='hidden gap-8 sm:flex text-xl'>
+            {NAV_ITEMS.map(item => (
+              <li key={item.id} className='hover:opacity-80'>
+                <Link to={item.path}>{item.label}</Link>
+              </li>
+            ))}
+          </ol>
+
+          <div className='flex gap-4'>
+            <button type='button' aria-label='검색'>
+              {ICONS.search}
+            </button>
+            <button
+              type='button'
+              className='block sm:hidden'
+              aria-label='메뉴 열기'
+              aria-expanded={isMenuOpen}
+              onClick={openMenu}
+            >
+              {ICONS.hamburgerMenu}
+            </button>
+          </div>
+        </nav>
       </header>
+
+      <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} />
     </>
-  )
-}
-
-function NavItem({ navClass, liClass, itemClass, children }: INavItem) {
-  return (
-    <nav className={navClass}>
-      <ol className={liClass}>
-        {NAV_ITEMS.map(item => (
-          <li key={item.id} className={itemClass}>
-            <Link to={item.path}>{item.label}</Link>
-          </li>
-        ))}
-      </ol>
-      {children}
-    </nav>
-  )
-}
-
-function MobileMenu({ modalClose }: { modalClose: () => void }) {
-  return (
-    <NavItem
-      navClass='fixed inset-0 flex text-white font-medium justify-center items-center bg-black z-30'
-      liClass='flex flex-col items-center gap-10 w-full main-page_px'
-      itemClass='text-6xl hover:opacity-80 place-self-center'
-    >
-      <button className='absolute top-5 right-5' onClick={modalClose}>
-        X
-      </button>
-    </NavItem>
   )
 }
 
