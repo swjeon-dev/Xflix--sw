@@ -1,278 +1,147 @@
 # 🎬 Xflix
 
-[![Deploy](https://github.com/software92/Xflix--sw/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/software92/Xflix--sw/actions/workflows/deploy.yml)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://software92.github.io/Xflix--sw/)
-[![Figma](https://img.shields.io/badge/Figma-Design-orange)](https://www.figma.com/make/6gAd7XAT3ErQOj8xVDt8Cq/Movie-Detail-Page-Design?p=f&t=zVHKCNqmHkqM0ES3-0)
+[![Deploy](https://github.com/swjeon-dev/Xflix--sw/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/swjeon-dev/Xflix--sw/actions/workflows/deploy.yml)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://swjeon-dev.github.io/Xflix--sw/)
 
-## 서비스 화면
+TMDB API 기반 영화·TV 탐색 서비스입니다.  
+단순 조회를 넘어서, **검색 / 무한 스크롤 / 모달 / 라우팅 / 스크롤 잠금** 같은 프론트엔드 핵심 기능을 라이브러리에 크게 의존하지 않고 직접 구현한 포트폴리오 프로젝트입니다.
 
-### PC
+## 프로젝트 한 줄 소개
 
-|                                                                Home                                                                 |                                                               Detail                                                                |
-| :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
-| <img width="1548" height="983" alt="Image" src="https://github.com/user-attachments/assets/c7c26b7d-86ab-4482-b9a2-84dd5a815f55" /> | <img width="1548" height="983" alt="Image" src="https://github.com/user-attachments/assets/298ed612-984f-458c-ad05-305d79443281" /> |
-|                                                             메인 페이지                                                             |                                                          영화 상세 페이지                                                           |
+**React 기본기와 브라우저 API를 다시 익히기 위해, 자주 쓰는 편의 라이브러리를 최소화하고 기능을 직접 설계한 영화 탐색 서비스**입니다.
 
-|                                                               Movies                                                                |                                                               Movies                                                                |
-| :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
-| <img width="1548" height="983" alt="Image" src="https://github.com/user-attachments/assets/298ed612-984f-458c-ad05-305d79443281" /> | <img width="1548" height="983" alt="Image" src="https://github.com/user-attachments/assets/6b1ed2fe-5548-421d-80fa-6b3da50923fa" /> |
-|                                                          영화 목록 페이지                                                           |                                                       필터링한 영화 목록 출력                                                       |
+## 왜 이 프로젝트를 만들었는가
 
-### Mobile
+이 프로젝트의 목적은 "라이브러리를 안 쓰는 것" 자체가 아니라,  
+직접 구현을 통해 다음을 분명하게 이해하는 것이었습니다.
 
-|                                                                Home                                                                |                                                               Detail                                                               |                                                               Movies                                                               |                                                               Movies                                                               |
-| :--------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: |
-| <img width="285" height="642" alt="Image" src="https://github.com/user-attachments/assets/b86fb995-1f6f-482a-9148-fc12d891a471" /> | <img width="285" height="642" alt="Image" src="https://github.com/user-attachments/assets/c5056c44-f491-4f6a-acf0-2554d7a507fb" /> | <img width="285" height="642" alt="Image" src="https://github.com/user-attachments/assets/accc87bf-a956-4ee1-b522-c7c1c7c791f4" /> | <img width="285" height="642" alt="Image" src="https://github.com/user-attachments/assets/c1f1afb5-0ae5-437c-8591-3ad3f62760ab" /> |
-|                                                            메인 페이지                                                             |                                                          영화 상세 페이지                                                          |                                                          영화 목록 페이지                                                          |                                                         Mobile menu modal                                                          |
+- `state`, `effect`, `cleanup`, `ref`가 실제 화면 흐름에서 어떻게 동작하는지
+- `IntersectionObserver`, `URLSearchParams`, `matchMedia` 같은 브라우저 API를 React 코드와 어떻게 연결하는지
+- 그리고 반대로, **왜 React Query 같은 라이브러리가 실무에서 필요한지도 체감하는 것**
 
-## 1. 프로젝트 소개
+즉, 약간의 불편함을 감수하더라도 **기본기 회복과 설계 판단력 강화**를 목표로 했습니다.
 
-Xflix는 TMDB API를 활용한 영화 정보 제공 웹 애플리케이션입니다.
+## Screenshots
 
-단순한 영화 목록 조회를 넘어,
-사용자가 원하는 콘텐츠를 빠르게 탐색할 수 있도록
-장르 기반 필터링과 직관적인 UI 구조 설계에 초점을 맞춰 개발했습니다.
+### Home
 
-프로젝트 규모에 맞게 외부 라이브러리 사용을 최소화하고,
-데이터 요청 및 상태 관리를 직접 구현하여 React의 기본 원리를 깊이 이해하는 데 집중했습니다.
+영화 / TV 추천 섹션을 홈 화면에서 탐색할 수 있습니다.
 
-## 2. 주요 기능
+[![Home](./assets/thumbnail/home-thumbnail.png)](/docs/assets/home.webm)
 
-- 영화 목록 및 상세 페이지 조회
-- 장르 기반 영화 필터링
-- 반응형 UI (PC / Mobile 지원)
-- GitHub Actions 기반 CI/CD 자동 배포
+Header 검색 버튼을 통해 검색 모달을 열고 검색어를 입력할 수 있습니다.
+![Search Modal](./assets/thumbnail/search-thumbnail.png)
 
-## 3. 기술 스택
+### Search Results
+
+검색 결과 페이지에서 영화 / TV 탭을 나누어 확인하고, 스크롤에 따라 다음 페이지를 불러옵니다.
+[![Search Results](./assets/thumbnail/search-result-thumbnail.png)](/docs/assets/search.webm)
+
+### Detail Page
+
+상세 페이지에서 콘텐츠 정보와 추천 콘텐츠를 함께 탐색할 수 있습니다.
+[![Movie Detail Page](./assets/thumbnail/movie-detail-thumbnail.png)](/docs/assets/movie-detail.webm)
+
+[![TV Detail Page](./assets/thumbnail/tv-detail-thumbnail.png)](/docs/assets/tv-detail.webm)
+
+### Trailer / Modal UX
+
+예고편 모달, ESC 종료, body scroll lock 등 모달 UX를 직접 구성했습니다.
+![Trailer Modal](./assets/thumbnail/trailer-thumbnail.png)
+
+### Mobile UX
+
+모바일 환경에서도 메뉴 및 모달 흐름이 자연스럽게 동작하도록 구성했습니다.
+[![Mobile UX](./assets/thumbnail/mobile-thumbnail.png)](/docs/assets/mobile.mp4)
+
+## 주요 기능
+
+- 홈에서 영화 / TV 콘텐츠 탐색
+- 영화 / TV 목록 페이지
+- 영화 / TV 상세 페이지
+- 예고편 모달 재생
+- 검색 모달 및 `/search?query=` 기반 검색 결과 페이지
+- 영화 / TV 탭 분리 검색
+- `IntersectionObserver` 기반 무한 스크롤
+- 모바일 메뉴 모달 및 body scroll lock
+
+## 직접 구현한 포인트
+
+### 1. 커스텀 훅 기반 데이터 패칭
+
+- `useGetContents`
+- `useGetMovie`
+- `useGetTvs`
+- `useGetTmdbVideos`
+- `useSearch`
+
+각 훅이 `loading / error / data / refetch`를 직접 관리하도록 구성했습니다.
+
+### 2. 라이브러리 없이 구현한 무한 스크롤
+
+`shared/model/infinite-scroll.ts`에서 `IntersectionObserver`를 직접 사용해:
+
+- 홈 캐러셀의 가로 스크롤
+- 목록 페이지의 세로 스크롤
+- 검색 결과 페이지의 추가 로딩
+
+을 공통 훅으로 처리했습니다.
+
+### 3. 검색 라우팅과 페이지 보호
+
+- 검색어 입력 시 `/search?query=...`로 이동
+- `searchListLoader`에서 query가 없으면 홈으로 redirect
+- 검색 결과는 `movie` / `tv` 탭으로 분리
+
+### 4. 모달 UX 직접 구성
+
+- `Modal` 포털 구현
+- ESC로 닫기
+- `useBodyScrollLock`으로 body 스크롤 잠금 처리
+
+## 기술 스택
 
 - React
 - TypeScript
 - Vite
-- TailwindCSS
+- React Router 7
+- React Helmet Async
+- Tailwind CSS
 - GitHub Actions
+- ESLint
 
-## 4. 기술 개선 및 설계
+## 디렉터리 구조
 
-### 4.1 프로젝트 환경 구성 (Vite + TypeScript)
-
-React + Vite 기반으로 개발 환경을 구성하고
-TypeScript를 도입하여 API 응답 데이터의 타입 안정성을 확보했습니다.
-
-- 빠른 빌드 속도 및 개발 생산성 향상
-- 정적 타입 기반 안정적인 데이터 처리
-
-### 4.2 API 모듈 분리 및 데이터 관리 구조 설계
-
-TMDB API 호출 로직을 별도의 모듈로 분리하여
-데이터 처리 로직과 UI를 분리했습니다.
-
-- API 로직 재사용성 향상
-- 유지보수 용이성 확보
-- 환경 변수를 통한 API 키 관리
-
-### 4.3 반응형 UI 및 컴포넌트 구조 설계
-
-디바이스 크기에 따라 레이아웃이 자연스럽게 변경되도록 설계하고 공통 컴포넌트를 분리해서 UI 일관성을 유지했습니다.
-
-- 다양한 디바이스 환경 대응
-- 재사용 가능한 컴포넌트 구조 설계
-
-### 4.4 배포 자동화 (GitHub Actions)
-
-GitHub Actions를 활용하여
-main 브랜치 push 시 자동으로 빌드 및 배포가 이루어지도록 구성했습니다.
-(README.md만 변경한 경우 제외)
-
-- 배포 자동화
-- 개발 → 배포 프로세스 간소화
-
-## 5. 기술 선택 이유
-
-**TypeScript**
-
-API 응답 데이터의 타입을 명확히 정의하여
-런타임 오류를 줄이고 안정적인 데이터 처리를 위해 사용했습니다.
-
-**Vite**
-
-빠른 개발 서버와 빌드 속도를 통해
-개발 생산성을 높이기 위해 선택했습니다.
-
-**TailwindCSS**
-
-유틸리티 기반 스타일링으로
-일관된 UI를 빠르게 구성하기 위해 사용했습니다.
-
-**GitHub Actions**
-
-반복적인 배포 작업을 자동화하여
-개발 효율성을 높이기 위해 도입했습니다.
-
-## 6. 사용자 경험 개선 포인트
-
-### 6.1 장르 기반 탐색 UX 개선
-
-사용자가 원하는 영화를 빠르게 찾을 수 있도록
-장르 필터링 기능을 제공했습니다.
-
-- 콘텐츠 탐색 시간 감소
-- 사용자 중심 UI 개선
-
-### 6.2 반응형 UI 설계
-
-PC와 모바일 환경에서 모두 자연스럽게 동작하도록
-레이아웃을 설계했습니다.
-
-- 다양한 디바이스 환경 대응
-- 일관된 사용자 경험 제공
-
-### 6.3 직관적인 상세 페이지 구성
-
-영화 정보를 한눈에 확인할 수 있도록
-상세 페이지 UI를 구성했습니다.
-
-- 정보 전달력 강화
-- 사용자 이해도 향상
-
-## 7. 내가 담당한 역할
-
-- 전체 프론트엔드 개발 (단독 프로젝트)
-- UI 설계 및 사용자 인터랙션 구현
-- API 연동 및 데이터 처리 구조 설계
-- 반응형 UI 구현
-- 배포 자동화 구성 (GitHub Actions)
-
-## 8. 핵심 구현 - 커스텀 훅 기반 데이터 관리
-
-```typescript
-// hooks/useMovies.ts
-import { useEffect, useState } from 'react'
-import { IMovie } from '../../types/movie'
-import { getMovie } from '../../api/tmDBService'
-
-interface IFetchingDataReturn {
-  error: string | null
-  isLoading: boolean
-  movie: IMovie | null
-}
-
-function useGetMovie(
-  id: number | string,
-  queryParams: { [key: string]: string },
-): IFetchingDataReturn {
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [movie, setMovie] = useState<IMovie | null>(null)
-
-  useEffect(() => {
-    if (!id) return setIsLoading(false)
-
-    async function fetchMovie(id: string | number) {
-      const result = await getMovie(id, queryParams)
-
-      setMovie(result.data)
-      setIsLoading(false)
-      setError(result.error)
-    }
-    fetchMovie(id)
-  }, [id])
-
-  return { error, isLoading, movie }
-}
-
-export default useGetMovie
+```text
+src/
+├── app/
+├── pages/
+├── entities/
+├── features/
+│   ├── movies/
+│   ├── search/
+│   └── tv/
+├── widget/
+└── shared/
 ```
 
-- API 호출 로직을 커스텀 훅으로 분리해서 **UI와 비즈니스 로직을 분리**했습니다.
-- loading / error 상태를 함께 관리해서 **사용자 경험을 고려한 상태 처리**를 구현했습니다.
-- 다양한 query parameter를 기반으로 재사용 가능하도록 설계해서 **확장성과 유지보수성을 고려**했습니다.
+FSD를 가볍게 적용한 구조로, 페이지 조립 / 기능 / 공통 모듈의 책임을 분리했습니다.
 
-## 9. 아쉬운 점 및 개선 방향
-
-- 서버 프록시 도입을 통한 API 키 보안 강화
-- React Query 도입을 통한 서버 상태 캐싱 및 데이터 관리 개선
-- Skeleton UI 적용을 통한 로딩 UX 개선
-- 무한 스크롤 또는 페이지네이션 도입으로 탐색 경험 향상
-
-## 10. 실행 방법
+## 실행 방법
 
 ```bash
 npm install
 npm run dev
 ```
 
-## 11. 프로젝트 구조 (FSD Lite)
+환경 변수:
 
-[Feature-Sliced Design](https://feature-sliced.design/)을 참고해, 서비스 규모에 맞게 **app · pages · features · widget · shared** 레이어를 사용합니다.
-
-### 디렉터리 구조
-
-```text
-src/
-├── app/                      # 앱 셸: 라우터, Provider, 전역 loader
-│   ├── AppRouter.tsx
-│   └── routes/
-├── pages/                    # 라우트 페이지 (조립·데이터 연결)
-│   ├── home.tsx
-│   ├── genre-movies.tsx
-│   ├── movie-detail.tsx
-│   └── error-page.tsx
-├── widget/                   # 화면 단위 UI 블록 (model + ui)
-│   ├── featured-movie/
-│   ├── genre-movies/         # 장르 필터 + 목록 캐러셀
-│   └── movie-detail/
-│       ├── model/            # 상세 표시용 데이터 가공
-│       └── ui/               # hero, overview, backdrop …
-├── features/
-│   └── movies/               # 영화 도메인 (API, hooks, 공용 컴포넌트)
-│       ├── api/
-│       ├── components/       # contents-list, content-row
-│       ├── constants/
-│       ├── hooks/
-│       ├── types/
-│       └── utils/            # getTmdbImgPath
-└── shared/                   # 도메인 무관 공용 모듈
-    ├── assets/
-    ├── components/{layout,ui}/
-    ├── constants/
-    ├── hooks/
-    └── utils/
+```bash
+VITE_TMDB_ACCESS_TOKEN=your_tmdb_access_token
 ```
 
-### 레이어 역할
+## 회고
 
-| 레이어 | 역할 | 예시 |
-|--------|------|------|
-| **app** | 라우팅·전역 설정 | `router.tsx`, `rootLoader.ts` |
-| **pages** | URL ↔ 화면 조립, Helmet, 데이터 훅 연결 | `movie-detail.tsx` |
-| **widget** | 큰 UI 블록 + 표시용 model | `movie-detail-hero`, `get-featured-movie` |
-| **features** | 도메인 API·타입·재사용 컴포넌트 | `useGetMovie`, `contents-list` |
-| **shared** | 앱 전역 UI·유틸 | `Header`, `Modal`, `AdultUI`, `ImageLazyLoadUI` |
-
-### import 규칙
-
-```text
-app, pages   →  widget, features, shared  ✅
-widget       →  features, shared         ✅
-features     →  shared                    ✅
-shared       →  features, widget          ❌
-widget A     →  widget B                  ❌
-```
-
-### import 예시
-
-```ts
-// pages
-import { MovieDetailSection } from '@/widget/movie-detail'
-import { FeaturedMovie } from '@/widget/featured-movie'
-import { GenreFilter, GenreMoviesList } from '@/widget/genre-movies'
-import useGetMovie from '@/features/movies/hooks/useGetMovie'
-
-// widget
-import type { IMovie } from '@/features/movies/types'
-import ImageLazyLoadUI from '@/shared/components/ui/ImageLazyLoadUI'
-```
-
-### Path alias
-
-`@/` → `src/` (`vite.config.ts`, `tsconfig.app.json`)
+직접 구현은 분명 불편했습니다.  
+하지만 그 과정 덕분에 캐싱, 중복 요청 제어, 스크롤 잠금, 검색 상태 동기화 같은 문제를 손으로 다뤄볼 수 있었고,  
+그 결과 **기본기와 함께 라이브러리의 필요성도 더 정확히 이해**할 수 있었습니다.
