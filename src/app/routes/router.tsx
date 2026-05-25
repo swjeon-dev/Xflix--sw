@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import ErrorPage from '@/pages/error-page'
 import { rootLoader } from '@/app/routes/rootLoader'
-import Home from '@/pages/home'
+import Home from '../../pages/home'
 import MovieDetail from '@/pages/movie-detail'
 import RootLayout from '@/shared/ui/layout/RootLayout'
 import { LoadingScreen } from '@/shared/ui/LoadingScreen'
