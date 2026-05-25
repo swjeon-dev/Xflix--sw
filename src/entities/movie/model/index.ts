@@ -1,7 +1,1 @@
-export type {
-  ICreditsPerson,
-  IFeaturedMovie,
-  IMovie,
-  IMovieApiReturn,
-  IMovieCredits,
-} from './movie.types'
+export type { IFeaturedMovie, IMovie, IMovieApiReturn } from './movie.types'
