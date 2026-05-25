@@ -39,8 +39,12 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
         <ol className='flex flex-col items-center gap-10 w-full main-page_px'>
           {NAV_ITEMS.map(item => (
-            <li key={item.id} className='text-6xl hover:opacity-80'>
-              <Link to={item.path} onClick={onClose}>
+            <li key={item.id}>
+              <Link
+                to={item.path}
+                onClick={onClose}
+                className={`text-6xl hover:opacity-80 pb-4 ${item.path.length > 2 && location.pathname.startsWith(item.path) && 'border-b-2 border-white'}`}
+              >
                 {item.label}
               </Link>
             </li>
@@ -91,8 +95,13 @@ function Header() {
         <nav className='flex w-full items-center text-white font-medium justify-end sm:justify-between'>
           <ol className='hidden gap-8 sm:flex text-xl'>
             {NAV_ITEMS.map(item => (
-              <li key={item.id} className='hover:opacity-80'>
-                <Link to={item.path}>{item.label}</Link>
+              <li key={item.id}>
+                <Link
+                  to={item.path}
+                  className={`hover:opacity-80 pb-2 ${item.path.length > 2 && location.pathname.startsWith(item.path) && 'border-b-2 border-white'}`}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ol>
