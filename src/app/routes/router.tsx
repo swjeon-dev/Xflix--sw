@@ -10,6 +10,8 @@ import { removeRootPath } from '@/shared/lib'
 import TVDetail from '@/pages/tv-detail'
 import MovieListView from '@/pages/movie-list'
 import TVListView from '@/pages/tv-list'
+import SearchListView from '@/pages/search-list'
+import { searchListLoader } from '@/app/routes/searchListLoader'
 
 export const LOADER_ID = 'root'
 
@@ -43,6 +45,11 @@ export const router = createBrowserRouter(
               element: <TVDetail />,
             },
           ],
+        },
+        {
+          path: removeRootPath(routes.SEARCH.LIST),
+          element: <SearchListView />,
+          loader: searchListLoader,
         },
       ],
     },

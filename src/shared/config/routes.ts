@@ -10,4 +10,14 @@ export const routes = {
     LIST: '/tv',
     DETAIL: (id: string | number) => `/tv/${id}`,
   },
+  SEARCH: {
+    LIST: '/search',
+    QUERY_KEY: 'query',
+    DETAIL: (query: string) => {
+      const params = new URLSearchParams({
+        query: query.trim(),
+      })
+      return `/search?${params.toString()}`
+    },
+  },
 } as const
