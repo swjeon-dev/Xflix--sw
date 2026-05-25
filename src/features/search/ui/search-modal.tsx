@@ -24,7 +24,9 @@ function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
     navigate(routes.SEARCH.DETAIL(term))
     setSearch('')
-    onClose()
+    setTimeout(() => {
+      onClose()
+    }, 300)
   }
 
   useEffect(() => {
