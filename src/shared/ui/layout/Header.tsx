@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router'
 import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
 import Modal from '@/shared/ui/Modal'
-import { useGetScrollY, useScrollDisable } from '@/shared/model'
+import { useBodyScrollLock, useGetScrollY } from '@/shared/model'
+import SearchModal from '@/features/search/ui/search-modal'
 
 const NAV_ITEMS = [
   { id: 1, label: '홈', path: routes.ROOT },
@@ -52,9 +53,12 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
   const location = useLocation()
   const scrollY = useGetScrollY()
   const isScroll = scrollY > 20
+
+  useBodyScrollLock(isMenuOpen, { below: 'sm' })
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
@@ -63,12 +67,16 @@ function Header() {
   const openMenu = useCallback(() => {
     setIsMenuOpen(true)
   }, [])
+  const openSearchModal = useCallback(() => {
+    setIsSearchModalOpen(true)
+  }, [])
+  const closeSearchModal = useCallback(() => {
+    setIsSearchModalOpen(false)
+  }, [])
 
   useEffect(() => {
     closeMenu()
   }, [location.key, closeMenu])
-
-  useScrollDisable(isMenuOpen, 'sm')
 
   return (
     <>
@@ -90,7 +98,7 @@ function Header() {
           </ol>
 
           <div className='flex gap-4'>
-            <button type='button' aria-label='검색'>
+            <button type='button' aria-label='검색' onClick={openSearchModal}>
               {ICONS.search}
             </button>
             <button
@@ -107,6 +115,7 @@ function Header() {
       </header>
 
       <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} />
+      <SearchModal isOpen={isSearchModalOpen} onClose={closeSearchModal} />
     </>
   )
 }
