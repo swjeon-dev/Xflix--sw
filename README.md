@@ -27,32 +27,32 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 
 영화 / TV 추천 섹션을 홈 화면에서 탐색할 수 있습니다.
 
-[![Home](./assets/thumbnail/home-thumbnail.png)](/docs/assets/home.webm)
+[![Home](docs/assets/thumbnail/home-thumbnail.jpg)](docs/assets/home.webm)
 
 Header 검색 버튼을 통해 검색 모달을 열고 검색어를 입력할 수 있습니다.
-![Search Modal](./assets/thumbnail/search-thumbnail.png)
+![Search Modal](docs/assets/thumbnail/search-thumbnail.jpg)
 
 ### Search Results
 
 검색 결과 페이지에서 영화 / TV 탭을 나누어 확인하고, 스크롤에 따라 다음 페이지를 불러옵니다.
-[![Search Results](./assets/thumbnail/search-result-thumbnail.png)](/docs/assets/search.webm)
+[![Search Results](docs/assets/thumbnail/search-result-thumbnail.jpg)](docs/assets/search.webm)
 
 ### Detail Page
 
 상세 페이지에서 콘텐츠 정보와 추천 콘텐츠를 함께 탐색할 수 있습니다.
-[![Movie Detail Page](./assets/thumbnail/movie-detail-thumbnail.png)](/docs/assets/movie-detail.webm)
+[![Movie Detail Page](docs/assets/thumbnail/movie-detail-thumbnail.jpg)](docs/assets/movie-detail.webm)
 
-[![TV Detail Page](./assets/thumbnail/tv-detail-thumbnail.png)](/docs/assets/tv-detail.webm)
+[![TV Detail Page](docs/assets/thumbnail/tv-detail-thumbnail.jpg)](docs/assets/tv-detail.webm)
 
 ### Trailer / Modal UX
 
 예고편 모달, ESC 종료, body scroll lock 등 모달 UX를 직접 구성했습니다.
-![Trailer Modal](./assets/thumbnail/trailer-thumbnail.png)
+![Trailer Modal](docs/assets/thumbnail/trailer-thumbnail.jpg)
 
 ### Mobile UX
 
 모바일 환경에서도 메뉴 및 모달 흐름이 자연스럽게 동작하도록 구성했습니다.
-[![Mobile UX](./assets/thumbnail/mobile-thumbnail.png)](/docs/assets/mobile.mp4)
+[![Mobile UX](docs/assets/thumbnail/mobile-thumbnail.jpg)](docs/assets/mobile.mp4)
 
 ## 주요 기능
 
