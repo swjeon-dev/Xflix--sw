@@ -27,7 +27,7 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 
 영화 / TV 추천 섹션을 홈 화면에서 탐색할 수 있습니다.
 
-[![Home](docs/assets/thumbnail/home-thumbnail.jpg)](docs/assets/home.webm)
+[![Home](docs/assets/thumbnail/home-thumbnail.jpg)](https://github.com/user-attachments/assets/5d217da4-4960-4cc9-9223-d81aaf8719a3)
 
 Header 검색 버튼을 통해 검색 모달을 열고 검색어를 입력할 수 있습니다.
 ![Search Modal](docs/assets/thumbnail/search-thumbnail.jpg)
@@ -35,14 +35,14 @@ Header 검색 버튼을 통해 검색 모달을 열고 검색어를 입력할 �
 ### Search Results
 
 검색 결과 페이지에서 영화 / TV 탭을 나누어 확인하고, 스크롤에 따라 다음 페이지를 불러옵니다.
-[![Search Results](docs/assets/thumbnail/search-result-thumbnail.jpg)](docs/assets/search.webm)
+[![Search Results](docs/assets/thumbnail/search-result-thumbnail.jpg)](https://github.com/user-attachments/assets/fac5246d-5102-4414-a1ce-57ce654305f8)
 
 ### Detail Page
 
 상세 페이지에서 콘텐츠 정보와 추천 콘텐츠를 함께 탐색할 수 있습니다.
-[![Movie Detail Page](docs/assets/thumbnail/movie-detail-thumbnail.jpg)](docs/assets/movie-detail.webm)
+[![Movie Detail Page](docs/assets/thumbnail/movie-detail-thumbnail.jpg)](https://github.com/user-attachments/assets/4bb99ee5-51a6-4280-b94a-c8d60e3aa468)
 
-[![TV Detail Page](docs/assets/thumbnail/tv-detail-thumbnail.jpg)](docs/assets/tv-detail.webm)
+[![TV Detail Page](docs/assets/thumbnail/tv-detail-thumbnail.jpg)](https://github.com/user-attachments/assets/2c8df949-74ce-44c5-ba8e-90c2c5df956e)
 
 ### Trailer / Modal UX
 
@@ -52,7 +52,7 @@ Header 검색 버튼을 통해 검색 모달을 열고 검색어를 입력할 �
 ### Mobile UX
 
 모바일 환경에서도 메뉴 및 모달 흐름이 자연스럽게 동작하도록 구성했습니다.
-[![Mobile UX](docs/assets/thumbnail/mobile-thumbnail.jpg)](docs/assets/mobile.mp4)
+[![Mobile UX](docs/assets/thumbnail/mobile-thumbnail.jpg)](https://github.com/user-attachments/assets/b8a8428a-ef5c-44d5-b2a2-7cf87981fb02)
 
 ## 주요 기능
 
