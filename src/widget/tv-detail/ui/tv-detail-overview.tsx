@@ -1,5 +1,5 @@
 import type { ITV } from '@/entities'
-import type { ITVMoreInfo } from '../model'
+import type { ITVMoreInfo } from '@/widget/tv-detail'
 
 interface TVDetailOverviewProps {
   tv: ITV

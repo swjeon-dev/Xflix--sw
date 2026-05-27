@@ -1,14 +1,26 @@
-import type { IMovie } from '@/entities/movie'
-import { getMovieMoreInfo } from '../model'
+import { Helmet } from 'react-helmet-async'
+import { getMovieMoreInfo } from '@/widget/movie-detail'
 import MovieDetailHero from './movie-detail-hero'
 import MovieDetailOverview from './movie-detail-overview'
+import { useGetMovie } from '@/features/movies'
+import { LoadingComponent } from '@/shared'
+import { MovieRelatedContent } from './index'
 
 interface MovieDetailSectionProps {
-  movie: IMovie | null
-  error: string | null
+  id: string
 }
 
-function MovieDetailSection({ movie, error }: MovieDetailSectionProps) {
+const DETAIL_QUERY = { append_to_response: 'credits' }
+
+function MovieDetailSection({ id }: MovieDetailSectionProps) {
+  const { error, isLoading, movie } = useGetMovie(id, DETAIL_QUERY)
+
+  if (isLoading) {
+    return (
+      <LoadingComponent style='relative min-h-[85vh] w-full main-page_px text-white' />
+    )
+  }
+
   if (!movie && error) {
     throw new Error(error || '현재 영화 정보를 가져올 수 없습니다')
   }
@@ -18,10 +30,16 @@ function MovieDetailSection({ movie, error }: MovieDetailSectionProps) {
   const movieMoreInfo = getMovieMoreInfo(movie)
 
   return (
-    <div className='pb-10 *:main-page_px'>
-      <MovieDetailHero movie={movie} movieMoreInfo={movieMoreInfo} />
-      <MovieDetailOverview movie={movie} movieMoreInfo={movieMoreInfo} />
-    </div>
+    <>
+      <Helmet>
+        <title>{movie.title || '영화 상세'}</title>
+      </Helmet>
+      <div className='pb-10 *:main-page_px'>
+        <MovieDetailHero movie={movie} movieMoreInfo={movieMoreInfo} />
+        <MovieDetailOverview movie={movie} movieMoreInfo={movieMoreInfo} />
+      </div>
+      <MovieRelatedContent id={id} />
+    </>
   )
 }
 
