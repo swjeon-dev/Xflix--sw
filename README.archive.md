@@ -19,7 +19,7 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 - `IntersectionObserver`, `URLSearchParams`, `matchMedia` 같은 브라우저 API를 React 코드와 어떻게 연결하는지
 - 그리고 반대로, **왜 React Query 같은 라이브러리가 실무에서 필요한지도 체감하는 것**
 
-즉, 약간의 불편함을 감수하더라도 **기본기 회복과 설계 판단력 강화**를 목표로 했습니다.
+즉, 약간의 불편함을 감수하더라도 **기본기 회복과 설계 감각을 키우는 것**을 목표로 했습니다.
 
 ## Screenshots
 
