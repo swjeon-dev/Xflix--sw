@@ -1,32 +1,27 @@
-import useListInfiniteScroll from '@/shared/model/infinite-scroll'
-import { API_ENDPOINT } from '@/shared/config/api-config'
-import { devLog } from '@/shared/lib'
-import { SkeletonUI } from '@/shared/ui'
-import type { IGenre } from '@/shared/types'
+import { useMemo } from 'react'
+import {
+  useListInfiniteScroll,
+  API_ENDPOINT,
+  devLog,
+  ListGridSkeleton,
+  SkeletonUI,
+  type IGenre,
+  type MediaVideoType,
+} from '@/shared'
 import {
   getAllDiscoverSearchParams,
   getDiscoverSearchParams,
-} from '../model/discover-params'
-import GenreMovieCard from './genre-movie-card'
+} from '@/widget/genre'
+import ContentCard from './content-card'
+import type { Media } from '@/entities/media'
 
-interface GenreMoviesListProps {
+interface ContentListProps {
   genres: IGenre[]
   selected: number
+  type: MediaVideoType
 }
 
-function GenreMoviesGridSkeleton() {
-  return (
-    <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
-      {Array.from({ length: 10 }).map((_, i) => (
-        <li key={i} className='aspect-[2/3]' aria-hidden>
-          <SkeletonUI />
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-function GenreMoviesList({ genres, selected }: GenreMoviesListProps) {
+function ContentListUI({ type, genres, selected }: ContentListProps) {
   const selectedGenre = genres.find(genre => genre.id === selected)
   const params =
     selected === 0
@@ -34,20 +29,28 @@ function GenreMoviesList({ genres, selected }: GenreMoviesListProps) {
       : getDiscoverSearchParams(selected)
 
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useListInfiniteScroll({
-      endPoint: API_ENDPOINT.MOVIE_FILTERED,
+    useListInfiniteScroll<Media>({
+      endPoint:
+        type === 'movie'
+          ? API_ENDPOINT.MOVIE_FILTERED
+          : API_ENDPOINT.TV_FILTERED,
       params,
       direction: 'vertical',
     })
 
-  const listTitle =
-    selected === 0 ? '전체 영화' : (selectedGenre?.name ?? '영화')
+  const listTitle = useMemo(() => {
+    if (type === 'movie') {
+      return selected === 0 ? '전체 영화' : (selectedGenre?.name ?? '영화')
+    } else if (type === 'tv') {
+      return selected === 0 ? '전체 TV' : (selectedGenre?.name ?? 'TV')
+    }
+  }, [type, selected, selectedGenre])
 
   if (isLoading) {
     return (
       <section className='main-page_px pb-20'>
         <h2 className='mb-6 text-xl font-bold text-white'>{listTitle}</h2>
-        <GenreMoviesGridSkeleton />
+        <ListGridSkeleton />
       </section>
     )
   }
@@ -77,7 +80,7 @@ function GenreMoviesList({ genres, selected }: GenreMoviesListProps) {
       <h2 className='mb-6 text-xl font-bold text-white'>{listTitle}</h2>
       <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
         {contents.map(content => (
-          <GenreMovieCard key={content.id} content={content} />
+          <ContentCard key={content.id} content={content} />
         ))}
         {isFetchingMore &&
           Array.from({ length: 5 }).map((_, i) => (
@@ -95,4 +98,4 @@ function GenreMoviesList({ genres, selected }: GenreMoviesListProps) {
   )
 }
 
-export default GenreMoviesList
+export default ContentListUI

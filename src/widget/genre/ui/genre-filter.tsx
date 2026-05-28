@@ -1,7 +1,8 @@
-import type { IGenreTab } from '../model/build-display-genres'
+import type { MediaVideoType } from '@/shared'
+import type { IGenreTab } from '@/widget/genre'
 
 interface GenreFilterProps {
-  type: 'movie' | 'tv'
+  type: MediaVideoType
   tabs: IGenreTab[]
   selected: number
   onSelect: (genreId: number) => void
