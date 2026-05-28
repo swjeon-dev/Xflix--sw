@@ -1,10 +1,7 @@
 // featuredMovie 책임 분리를 위한 모델
 import { useMemo } from 'react'
-import { API_ENDPOINT } from '@/features/movies'
-import { useGetContents } from '@/shared/model'
-import type { IFeaturedMovie, IMovie } from '@/entities/movie'
-import { getTmdbImgPath } from '@/shared/lib'
-import { routes } from '@/shared/config/routes'
+import { getTmdbImgPath, routes, API_ENDPOINT, useGetContents } from '@/shared'
+import type { IMovie, IFeaturedMovie } from '@/entities/movie'
 
 function useGetFeaturedMovie() {
   const { isLoading, error, contents } = useGetContents<IMovie>(

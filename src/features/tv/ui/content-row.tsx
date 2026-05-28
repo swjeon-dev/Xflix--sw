@@ -1,18 +1,17 @@
 import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 import { ICONS } from '@/shared/assets/icons'
-import { routes } from '@/shared/config/routes'
+import { routes } from '@/shared/config/routes-config'
 import { getTmdbImgPath } from '@/shared/lib'
 import { AdultUI } from '@/shared/ui'
 import type { ITV } from '@/entities/tv'
 import type { IGenre } from '@/shared/types'
-
-const LOADER_ID = 'root'
+import { ROOT_LOADER_ID } from '@/shared/config/router-config'
 
 function ContentRow({ content }: { content: ITV }) {
   const {
     genres: { tvGenres },
-  } = useRouteLoaderData(LOADER_ID) as { genres: { tvGenres: IGenre[] } }
+  } = useRouteLoaderData(ROOT_LOADER_ID) as { genres: { tvGenres: IGenre[] } }
   const navPath = (id: string | number) => routes.TV.DETAIL(id)
 
   const contentMoreInfo = useMemo(() => {

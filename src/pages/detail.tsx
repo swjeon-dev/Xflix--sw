@@ -1,12 +1,12 @@
 import { useParams } from 'react-router'
-import { Modal } from '@/shared'
+import { type MediaVideoType, Modal } from '@/shared'
 
 import { TVDetailSection } from '@/widget/tv-detail'
 import { FloatingBackButton } from '@/shared'
 import { MovieDetailSection } from '@/widget/movie-detail'
 
 interface DetailProps {
-  type: 'movie' | 'tv'
+  type: MediaVideoType
 }
 
 function Detail({ type }: DetailProps) {

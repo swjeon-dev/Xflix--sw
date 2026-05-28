@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { ICONS } from '@/shared/assets/icons'
 import { devLog } from '@/shared/lib'
-import type { ApiPath } from '@/shared/config/api-config'
-import ContentRow from './content-row'
+import type { ApiPath } from '@/shared/config'
 import { SkeletonUI } from '@/shared/ui'
-import useListInfiniteScroll from '@/shared/model/infinite-scroll'
+import { useListInfiniteScroll } from '@/shared/model'
 import type { IMovie } from '@/entities/movie'
+import ContentRow from './content-row'
 
 interface IContentsCarousel {
   title: string

@@ -4,7 +4,7 @@ import MovieDetailHero from './movie-detail-hero'
 import MovieDetailOverview from './movie-detail-overview'
 import { useGetMovie } from '@/features/movies'
 import { LoadingComponent } from '@/shared'
-import { MovieRelatedContent } from './index'
+import MovieRelatedContent from './movie-related-content'
 
 interface MovieDetailSectionProps {
   id: string

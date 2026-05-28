@@ -4,8 +4,7 @@ import { devLog } from '@/shared/lib'
 import type { ApiPath } from '@/shared/config/api-config'
 import ContentRow from './content-row'
 import { SkeletonUI } from '@/shared/ui'
-import { useGetContents } from '@/shared/model'
-import useListInfiniteScroll from '@/shared/model/infinite-scroll'
+import { useListInfiniteScroll } from '@/shared'
 import type { ITV } from '@/entities/tv'
 
 interface IContentsCarousel {
@@ -70,7 +69,6 @@ function ContentsCarousel({ title, endPoint, params }: IContentsCarousel) {
       params,
       scrollRef,
       direction: 'horizontal',
-      useContents: useGetContents<ITV>,
     })
 
   function updateScrollEdges() {

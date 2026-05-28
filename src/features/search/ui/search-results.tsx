@@ -1,7 +1,6 @@
-import { SkeletonUI } from '@/shared/ui'
-import { devLog } from '@/shared/lib'
-import type { ISearchData } from '../model/search.types'
+import { ListGridSkeleton, SkeletonUI, devLog } from '@/shared'
 import SearchResultCard from './search-result-card'
+import type { ISearchData } from '../model'
 
 interface SearchResultsProps {
   items: ISearchData[]
@@ -11,18 +10,6 @@ interface SearchResultsProps {
   loaderRef: (node: HTMLElement | null) => void
   emptyMessage: string
   onRetry: () => void
-}
-
-function SearchGridSkeleton() {
-  return (
-    <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
-      {Array.from({ length: 10 }).map((_, i) => (
-        <li key={i} className='aspect-[2/3]' aria-hidden>
-          <SkeletonUI />
-        </li>
-      ))}
-    </ul>
-  )
 }
 
 function SearchResults({
@@ -35,7 +22,7 @@ function SearchResults({
   onRetry,
 }: SearchResultsProps) {
   if (isLoading) {
-    return <SearchGridSkeleton />
+    return <ListGridSkeleton />
   }
 
   if (error) {
@@ -65,10 +52,7 @@ function SearchResults({
   return (
     <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {items.map(item => (
-        <SearchResultCard
-          key={`${item.media_type}-${item.id}`}
-          item={item}
-        />
+        <SearchResultCard key={`${item.media_type}-${item.id}`} item={item} />
       ))}
       {isFetchingMore &&
         Array.from({ length: 5 }).map((_, i) => (

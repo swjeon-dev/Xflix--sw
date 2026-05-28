@@ -1,12 +1,12 @@
 import { Link } from 'react-router'
 import { getTmdbImgPath } from '@/shared/lib'
-import { routes } from '@/shared/config/routes'
+import { routes } from '@/shared/config/routes-config'
 import { AdultUI } from '@/shared/ui'
 import {
   getSearchItemTitle,
   getSearchItemYear,
-} from '../model/get-search-item-title'
-import type { ISearchData } from '../model/search.types'
+} from '@/features/search/model/get-search-item-title'
+import type { ISearchData } from '@/features/search/model/search.types'
 
 interface SearchResultCardProps {
   item: ISearchData
