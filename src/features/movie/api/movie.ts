@@ -1,7 +1,5 @@
 import type { IMovie } from '@/entities/movie'
-import { IApiReturn } from '@/shared/types/api.types'
-import { tmdbFetch } from '@/shared/api/tmdb/client'
-import { API_ENDPOINT } from '@/shared/config/api-config'
+import { tmdbFetch, API_ENDPOINT, type IApiReturn } from '@/shared'
 
 export const getMovie = async (
   id: number | string,
@@ -13,4 +11,3 @@ export const getMovie = async (
     '현재 영화를 찾을 수 없습니다.',
   )
 }
-
