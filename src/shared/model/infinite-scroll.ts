@@ -1,21 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useGetContents } from '@/shared/model'
-import type { IMovie } from '@/entities/movie'
-import type { ApiPath } from '@/shared/config/api-config'
-import type { BaseMedia, ITmdbContents } from '@/shared/types'
+import { useGetContents, type ApiPath } from '@/shared'
 
-type ContentsHook<T extends BaseMedia> = (
-  endPoint: ApiPath,
-  queryParams?: Record<string, string | number | boolean>,
-) => {
-  error: string | null
-  isLoading: boolean
-  isFetching: boolean
-  contents: ITmdbContents<T> | null
-  refetch: () => void
-}
+import type { IMovie, ITV } from '@/entities'
 
-function mergeResults<T extends BaseMedia>(
+function mergeResults<T extends ITV | IMovie>(
   prev: T[],
   incoming: T[],
   page: number,
@@ -32,18 +20,16 @@ const ROOT_MARGIN = {
   vertical: '0px 0px 320px 0px',
 } as const
 
-export default function useListInfiniteScroll<T extends BaseMedia = IMovie>({
+export default function useListInfiniteScroll<T extends ITV | IMovie>({
   endPoint,
   params,
   scrollRef,
   direction = scrollRef ? 'horizontal' : 'vertical',
-  useContents = useGetContents as ContentsHook<T>,
 }: {
   endPoint: ApiPath
   params?: Record<string, string | number | boolean>
   scrollRef?: React.RefObject<HTMLElement | null>
   direction?: 'horizontal' | 'vertical'
-  useContents?: ContentsHook<T>
 }) {
   const [items, setItems] = useState<T[]>([])
   const [page, setPage] = useState(1)
@@ -56,7 +42,7 @@ export default function useListInfiniteScroll<T extends BaseMedia = IMovie>({
 
   const queryKey = JSON.stringify({ endPoint, params })
 
-  const { isLoading, isFetching, error, contents, refetch } = useContents(
+  const { isLoading, isFetching, error, contents, refetch } = useGetContents<T>(
     endPoint,
     { ...params, page },
   )
@@ -89,7 +75,7 @@ export default function useListInfiniteScroll<T extends BaseMedia = IMovie>({
     const nextHasMore = contents.page < contents.total_pages
     setHasMore(nextHasMore)
     hasMoreRef.current = nextHasMore
-    setItems(prev => mergeResults(prev, contents.results, contents.page))
+    setItems(prev => mergeResults<T>(prev, contents.results, contents.page))
     isFetchingRef.current = false
   }, [contents])
 

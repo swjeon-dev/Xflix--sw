@@ -1,4 +1,3 @@
-// import { API_CONFIG, API_ENDPOINT } from '../../../shared/config/api-config'
 import { API_CONFIG, API_ENDPOINT } from '@/shared/config/api-config'
 import { devLog } from '@/shared/lib'
 
