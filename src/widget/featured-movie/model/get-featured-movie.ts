@@ -25,6 +25,7 @@ function useGetFeaturedMovie() {
       title: content.title,
       backdropUrl,
       overview: content.overview,
+      date: content.release_date,
       detailUrl: routes.MOVIE.DETAIL(content.id),
     }
   }, [contents])

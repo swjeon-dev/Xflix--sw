@@ -18,6 +18,7 @@ export interface IFeaturedMovie {
   title: string
   backdropUrl: string
   overview: string
+  date: string
   detailUrl: string
 }
 

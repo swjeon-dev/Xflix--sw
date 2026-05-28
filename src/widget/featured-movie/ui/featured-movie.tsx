@@ -50,6 +50,9 @@ function FeaturedMovie() {
           {featuredContent.title}
         </h1>
         <p className='text-base md:text-lg text-white/90 mb-8 line-clamp-3 drop-shadow-md'>
+          {featuredContent.date}
+        </p>
+        <p className='text-base md:text-lg text-white/90 mb-8 line-clamp-3 drop-shadow-md'>
           {featuredContent.overview}
         </p>
       </div>
