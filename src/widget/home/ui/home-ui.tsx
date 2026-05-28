@@ -1,13 +1,11 @@
-import { HOME_MOVIE_CATEGORIES } from '@/features/movies/config'
-import { HOME_TV_CATEGORIES } from '@/features/tv/config'
-import { MovieCarousel } from '@/features/movies/ui'
-import { TVCarousel } from '@/features/tv/ui'
+import { HOME_MOVIE_CATEGORIES, HOME_TV_CATEGORIES } from '../config'
+import { ContentsCarousel } from '@/widget/media'
 
 function HomeUI() {
   return (
     <article>
       {HOME_MOVIE_CATEGORIES.map((category, idx) => (
-        <MovieCarousel
+        <ContentsCarousel
           key={idx}
           title={category.title}
           endPoint={category.endPoint}
@@ -15,7 +13,7 @@ function HomeUI() {
         />
       ))}
       {HOME_TV_CATEGORIES.map((category, idx) => (
-        <TVCarousel
+        <ContentsCarousel
           key={idx}
           title={category.title}
           endPoint={category.endPoint}

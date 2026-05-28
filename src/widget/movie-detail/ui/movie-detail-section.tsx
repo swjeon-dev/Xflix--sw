@@ -1,8 +1,7 @@
 import { Helmet } from 'react-helmet-async'
-import { getMovieMoreInfo } from '@/widget/movie-detail'
 import MovieDetailHero from './movie-detail-hero'
 import MovieDetailOverview from './movie-detail-overview'
-import { useGetMovie } from '@/features/movies'
+import { useGetMovie, getMovieMoreInfo } from '../model'
 import { LoadingComponent } from '@/shared'
 import MovieRelatedContent from './movie-related-content'
 

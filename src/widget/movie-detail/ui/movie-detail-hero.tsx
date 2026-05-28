@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { ICONS } from '@/shared'
-import { AdultUI, TrailerModal } from '@/shared'
+import { AdultUI, TrailerModal, ICONS } from '@/shared'
 import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '@/widget/movie-detail'
 import MovieBackdrop from './movie-backdrop'
