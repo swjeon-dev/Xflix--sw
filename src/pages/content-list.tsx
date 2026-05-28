@@ -4,7 +4,7 @@ import { useRouteLoaderData } from 'react-router'
 
 import { MediaVideoType, ROOT_LOADER_ID, type IGenre } from '@/shared'
 import { buildDisplayGenres, GenreFilter } from '@/widget/genre'
-import { ContentListUI } from '@/widget/media-list'
+import { ContentListUI } from '@/widget/media'
 
 function ContentList({ type }: { type: MediaVideoType }) {
   const {
