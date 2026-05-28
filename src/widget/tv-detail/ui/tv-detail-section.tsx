@@ -1,10 +1,11 @@
+import { Helmet } from 'react-helmet-async'
 import { getTVMoreInfo } from '@/widget/tv-detail'
 import TVDetailHero from './tv-detail-hero'
 import TVDetailOverview from './tv-detail-overview'
-import { Helmet } from 'react-helmet-async'
 import { LoadingComponent } from '@/shared'
-import { EpisodesList, useGetTv } from '@/features/tv'
-import { ISeason } from '@/entities/tv'
+import type { ISeason } from '@/entities/tv'
+import { useGetTV } from '@/widget/tv-detail'
+import { EpisodesList } from './episodes'
 
 interface TVDetailSectionProps {
   id: string
@@ -13,7 +14,7 @@ interface TVDetailSectionProps {
 const DETAIL_QUERY = { append_to_response: 'credits' }
 
 function TVDetailSection({ id }: TVDetailSectionProps) {
-  const { error, isLoading, tv } = useGetTv(id, DETAIL_QUERY)
+  const { error, isLoading, tv } = useGetTV(id, DETAIL_QUERY)
   if (isLoading) {
     return (
       <LoadingComponent style='relative min-h-[85vh] w-full main-page_px text-white' />

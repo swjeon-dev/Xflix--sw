@@ -1,6 +1,1 @@
-export { API_ENDPOINT } from '@/shared/config/api-config'
 export * from './api'
-export { useGetSeason, useGetTv } from './model'
-export { default as EpisodesList } from './ui/episodes-list'
-export { default as EpisodePreviewItem } from './ui/episode-row'
-export { default as EpisodesModal } from './ui/episodes-modal'

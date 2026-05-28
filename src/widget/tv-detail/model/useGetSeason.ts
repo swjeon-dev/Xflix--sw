@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getSeason } from '@/features/tv/api/season'
+import { getSeason } from '@/features/tv'
 import type { ISeason } from '@/entities/tv'
 
 interface IUseGetSeasonReturn {

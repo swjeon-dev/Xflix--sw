@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { getTmdbImgPath } from '@/shared/lib'
-import { SkeletonUI } from '@/shared/ui'
+import { SkeletonUI, getTmdbImgPath } from '@/shared'
 import type { IEpisode } from '@/entities/tv'
-import { useGetSeason } from '@/features/tv'
+import { useGetSeason } from '@/widget/tv-detail'
 import { EpisodePreviewItem } from './episode-row'
-import EpisodesModal from './episodes-modal'
+import EpisodeModal from './episode-modal'
 
 interface EpisodesListProps {
   tvId: number | string
@@ -72,7 +71,7 @@ function SeasonHeader({
   )
 }
 
-function EpisodePreviewSkeleton() {
+function EpisodesPreviewSkeleton() {
   return (
     <li className='p-3 rounded-lg bg-white/5' aria-hidden>
       <SkeletonUI />
@@ -109,7 +108,7 @@ function EpisodesList({
       <EpisodesListWrapper title={title}>
         <ul className='flex flex-col gap-2'>
           {Array.from({ length: 3 }).map((_, i) => (
-            <EpisodePreviewSkeleton key={i} />
+            <EpisodesPreviewSkeleton key={i} />
           ))}
         </ul>
       </EpisodesListWrapper>
@@ -171,7 +170,7 @@ function EpisodesList({
         )}
       </ul>
 
-      <EpisodesModal
+      <EpisodeModal
         isOpen={isModalOpen}
         seasonName={season.name}
         episodes={season.episodes}

@@ -1,6 +1,5 @@
 import type { ISeason } from '@/entities/tv'
-import type { IApiReturn } from '@/shared/types/api.types'
-import { tmdbFetch } from '@/shared/api/tmdb/client'
+import { tmdbFetch, type IApiReturn } from '@/shared'
 
 // [외부 수정] src/shared/config/api-config.ts — 선택 사항
 // TV_SEASON: (tvId: string | number, season: string | number) =>

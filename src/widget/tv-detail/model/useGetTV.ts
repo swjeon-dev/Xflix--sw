@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getTV } from '@/features/tv/api/tv'
+import { getTV } from '@/features/tv'
 import type { ITV } from '@/entities/tv'
 
 interface IFetchingDataReturn {
@@ -8,7 +8,7 @@ interface IFetchingDataReturn {
   tv: ITV | null
 }
 
-function useGetTv(
+function useGetTV(
   id: number | string,
   queryParams?: Record<string, string>,
 ): IFetchingDataReturn {
@@ -48,4 +48,4 @@ function useGetTv(
   return { error, isLoading, tv }
 }
 
-export default useGetTv
+export default useGetTV

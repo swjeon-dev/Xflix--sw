@@ -1,7 +1,5 @@
 import type { ITV } from '@/entities/tv'
-import type { IApiReturn } from '@/shared/types/api.types'
-import { tmdbFetch } from '@/shared/api/tmdb/client'
-import { API_ENDPOINT } from '@/shared/config/api-config'
+import { tmdbFetch, API_ENDPOINT, type IApiReturn } from '@/shared'
 
 export const getTV = async (
   id: number | string,
