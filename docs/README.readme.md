@@ -73,7 +73,8 @@ UI에서 fetch 세부 구현을 모르더라도 재사용할 수 있게 구성�
 ### 2. 커스텀 훅 기반 데이터 패칭
 
 - `shared/model/get-tmdb-contents.ts`
-- `features/movie/api/movie.ts`
+- `entities/movie/api/movie.ts`
+- `entities/tv/api/tv.ts`
 - `widget/tv-detail/model/useGetTV.ts`
 - `features/search/model/use-search.ts`
 - `shared/model/use-get-tmdb-videos.ts`
@@ -237,7 +238,7 @@ src/
 
 ## 최근 FSD 리팩토링
 
-- `features/movies`를 `features/movie`로 단수화해 슬라이스 네이밍을 통일했습니다.
+- movie/tv API를 `entities/*/api`로 이동하고 `features`에는 `search`만 유지했습니다.
 - TV 상세 전용 로직(`useGetTV`, `useGetSeason`, episodes UI)을 `widget/tv-detail`로 이동했습니다.
 - `widget/media-list`를 `widget/media`로 통합해 목록/캐러셀 공통 경로를 정리했습니다.
 - 홈 카테고리 상수를 `widget/home/config`로 이동해 홈 위젯의 책임을 명확히 했습니다.
