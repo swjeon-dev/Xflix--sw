@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
+import { routes } from '@/shared'
 
 function ErrorPage() {
   const error = useRouteError()
@@ -26,7 +27,7 @@ function ErrorPage() {
             {errorMessage}
           </p>
           <Link
-            to='/'
+            to={routes.ROOT}
             className='text-2xl font-bold text-white bg-red-600 px-4 py-3 rounded-md'
             replace
           >

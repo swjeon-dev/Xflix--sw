@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { ICONS } from '@/shared/assets/icons'
-import { routes } from '@/shared/config/routes'
+import { routes } from '@/shared/config/routes-config'
 import Modal from '@/shared/ui/Modal'
 import { useBodyScrollLock, useGetScrollY } from '@/shared/model'
 import SearchModal from '@/features/search/ui/search-modal'

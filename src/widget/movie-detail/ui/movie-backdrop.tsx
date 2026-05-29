@@ -1,5 +1,4 @@
-import { getTmdbImgPath } from '@/shared/lib'
-import ImageLazyLoadUI from '@/shared/ui/ImageLazyLoadUI'
+import { getTmdbImgPath, ImageLazyLoadUI } from '@/shared'
 
 function MovieBackdrop({
   path,

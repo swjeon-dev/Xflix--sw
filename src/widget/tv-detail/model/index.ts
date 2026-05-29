@@ -1,7 +1,3 @@
-export {
-  getActorsWithComma,
-  getDirector,
-  getGenresWithComma,
-  getTVMoreInfo,
-} from './model'
-export type { ITVMoreInfo } from './model'
+export * from './model'
+export { default as useGetSeason } from './useGetSeason'
+export { default as useGetTV } from './useGetTV'

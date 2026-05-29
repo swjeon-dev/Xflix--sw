@@ -123,7 +123,7 @@ src/
 ├── pages/
 ├── entities/
 ├── features/
-│   ├── movies/
+│   ├── movie/
 │   ├── search/
 │   └── tv/
 ├── widget/
@@ -131,6 +131,13 @@ src/
 ```
 
 FSD를 가볍게 적용한 구조로, 페이지 조립 / 기능 / 공통 모듈의 책임을 분리했습니다.
+
+## 최근 FSD 리팩토링 반영
+
+- `features/movies` -> `features/movie`로 단수화
+- TV 상세/에피소드 UI와 훅을 `widget/tv-detail`로 이동
+- `widget/media-list` -> `widget/media`로 통합
+- 홈 카테고리 상수를 `widget/home/config`로 이동
 
 ## 실행 방법
 

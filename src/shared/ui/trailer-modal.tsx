@@ -3,7 +3,7 @@ import { buildYoutubeEmbedUrl } from '@/shared/lib/helper/build-youtube-embed-ur
 import useGetTmdbVideos from '@/shared/model/use-get-tmdb-videos'
 import type { MediaVideoType } from '@/shared/model/video.types'
 import Modal from './Modal'
-import { LoadingComponent } from './LoadingScreen'
+import { LoadingComponent } from './Loader'
 
 interface TrailerModalProps {
   isOpen: boolean

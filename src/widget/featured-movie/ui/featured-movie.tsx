@@ -1,9 +1,9 @@
 // featuredMovie 책임 분리를 위한 컴포넌트
 import { Link } from 'react-router'
-import { devLog } from '@/shared/lib'
-import { LoadingComponent } from '@/shared/ui/LoadingScreen'
-import useGetFeaturedMovie from '@/widget/featured-movie/model/get-featured-movie'
-import { TrailerUI } from '@/shared/ui'
+import { devLog } from '@/shared'
+import { LoadingComponent } from '@/shared'
+import { TrailerUI } from '@/shared'
+import { useGetFeaturedMovie } from '@/widget/featured-movie'
 
 function FeaturedMovie() {
   const { isLoading, error, featuredContent } = useGetFeaturedMovie()
@@ -49,6 +49,9 @@ function FeaturedMovie() {
         <h1 className='text-4xl md:text-6xl mb-4 text-white drop-shadow-lg'>
           {featuredContent.title}
         </h1>
+        <p className='text-base md:text-lg text-white/90 mb-8 line-clamp-3 drop-shadow-md'>
+          {featuredContent.date}
+        </p>
         <p className='text-base md:text-lg text-white/90 mb-8 line-clamp-3 drop-shadow-md'>
           {featuredContent.overview}
         </p>

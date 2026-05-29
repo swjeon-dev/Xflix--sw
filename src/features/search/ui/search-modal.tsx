@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Modal } from '@/shared/ui'
-import { routes } from '@/shared/config/routes'
+import { routes } from '@/shared/config/routes-config'
 import { useBodyScrollLock } from '@/shared/model'
 
 interface SearchModalProps {

@@ -1,4 +1,5 @@
 export * from './featured-movie'
-export * from './genre-movies'
+export * from './home'
+export * from './genre'
 export * from './movie-detail'
-export * from './genre-filter'
+export * from './tv-detail'
