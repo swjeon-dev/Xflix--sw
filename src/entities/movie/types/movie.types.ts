@@ -1,5 +1,4 @@
-import type { IApiReturn } from '@/shared/types/api.types'
-import type { BaseMedia, ICredits, IGenre } from '@/shared/types/contents.types'
+import type { IApiReturn, BaseMedia, ICredits, IGenre } from '@/shared'
 
 export interface IMovie extends BaseMedia {
   adult: boolean

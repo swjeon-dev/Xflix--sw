@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { getTmdbImgPath, routes } from '@/shared'
 import type { Media } from '@/entities/media'
-import { isMovie } from '../model'
+import { isMovie } from '@/entities/media'
 
 function ContentCard({ content }: { content: Media }) {
   const posterUrl = getTmdbImgPath({

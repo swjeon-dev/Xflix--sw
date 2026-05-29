@@ -1,4 +1,4 @@
-import type { IApiReturn } from '@/shared/types/api.types'
+import type { IApiReturn } from '@/shared'
 
 export interface IGuestStar {
   character: string

@@ -3,7 +3,7 @@ import { ICONS, devLog, SkeletonUI, useListInfiniteScroll } from '@/shared'
 import type { ApiPath } from '@/shared'
 import ContentCol from './carousel-col'
 import type { Media } from '@/entities'
-import { isMovie } from '../model'
+import { isMovie } from '@/entities/media'
 
 interface IContentsCarousel {
   title: string

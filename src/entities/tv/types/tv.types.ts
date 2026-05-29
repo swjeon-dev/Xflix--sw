@@ -1,6 +1,5 @@
-import type { IApiReturn } from '@/shared/types/api.types'
-import type { BaseMedia, ICredits, IGenre } from '@/shared/types/contents.types'
-import { ISeason } from './season.types'
+import type { IApiReturn, BaseMedia, ICredits, IGenre } from '@/shared'
+import type { ISeason } from './season.types'
 
 type CreatedBy = {
   id: number

@@ -7,7 +7,7 @@ import { AdultUI } from '@/shared'
 import type { Media } from '@/entities'
 import type { IGenre, MediaVideoType } from '@/shared'
 import { ROOT_LOADER_ID } from '@/shared'
-import { isMovie } from '../model'
+import { isMovie } from '@/entities/media'
 
 function ContentCol({
   type,
