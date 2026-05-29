@@ -7,4 +7,5 @@ export type {
   ISeasonApiReturn,
   ITV,
   ITVApiReturn,
-} from './model'
+} from './types'
+export * from './api'

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getMovie } from '../../../features/movie/api/movie'
+import { getMovie } from '@/entities/movie'
 import type { IMovie } from '@/entities/movie'
 
 interface IFetchingDataReturn {

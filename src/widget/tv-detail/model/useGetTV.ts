@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getTV } from '@/features/tv'
+import { getTV } from '@/entities/tv'
 import type { ITV } from '@/entities/tv'
 
 interface IFetchingDataReturn {

@@ -1,9 +1,5 @@
-import type { ISeason } from '@/entities/tv'
+import type { ISeason } from '../types'
 import { tmdbFetch, type IApiReturn } from '@/shared'
-
-// [외부 수정] src/shared/config/api-config.ts — 선택 사항
-// TV_SEASON: (tvId: string | number, season: string | number) =>
-//   `/tv/${tvId}/season/${season}`,
 
 const tvSeasonPath = (tvId: string | number, season: string | number) =>
   `/tv/${tvId}/season/${season}`

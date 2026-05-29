@@ -1,4 +1,4 @@
-import type { IMovie } from '@/entities/movie'
+import type { IMovie } from '../types'
 import { tmdbFetch, API_ENDPOINT, type IApiReturn } from '@/shared'
 
 export const getMovie = async (

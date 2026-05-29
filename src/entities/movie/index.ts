@@ -1,1 +1,2 @@
-export type { IFeaturedMovie, IMovie, IMovieApiReturn } from './model'
+export type { IFeaturedMovie, IMovie, IMovieApiReturn } from './types'
+export * from './api'

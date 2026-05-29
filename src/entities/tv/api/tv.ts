@@ -1,4 +1,4 @@
-import type { ITV } from '@/entities/tv'
+import type { ITV } from '../types'
 import { tmdbFetch, API_ENDPOINT, type IApiReturn } from '@/shared'
 
 export const getTV = async (
