@@ -145,7 +145,7 @@ src/
 ├── pages/
 ├── entities/
 ├── features/
-│   ├── movies/
+│   ├── movie/
 │   ├── search/
 │   └── tv/
 ├── widget/
@@ -153,6 +153,13 @@ src/
 ```
 
 이 구조를 통해 페이지 조립, 도메인 기능, 공통 모듈의 책임을 분리했습니다.
+
+### 리팩토링으로 개선한 점
+
+- `features/movies`를 `features/movie`로 정리해 도메인 네이밍 혼선을 줄였습니다.
+- TV 상세 전용 로직을 `widget/tv-detail`로 이동해 "기능"과 "화면 조합" 경계를 분명히 했습니다.
+- `widget/media-list`를 `widget/media`로 통합해 목록/캐러셀 재사용 지점을 단순화했습니다.
+- 홈 카테고리 설정을 `widget/home/config`로 이동해 홈 화면의 응집도를 높였습니다.
 
 ## 기술 스택
 

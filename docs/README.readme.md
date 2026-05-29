@@ -73,8 +73,8 @@ UI에서 fetch 세부 구현을 모르더라도 재사용할 수 있게 구성�
 ### 2. 커스텀 훅 기반 데이터 패칭
 
 - `shared/model/get-tmdb-contents.ts`
-- `features/movies/model/get-tmdb-movies.ts`
-- `features/tv/model/get-tmdb-tvs.ts`
+- `features/movie/api/movie.ts`
+- `widget/tv-detail/model/useGetTV.ts`
 - `features/search/model/use-search.ts`
 - `shared/model/use-get-tmdb-videos.ts`
 
@@ -200,23 +200,18 @@ src/
 │   ├── movie/
 │   └── tv/
 ├── features/
-│   ├── movies/
-│   │   ├── api/
-│   │   ├── config/
-│   │   ├── model/
-│   │   └── ui/
+│   ├── movie/
+│   │   └── api/
 │   ├── search/
 │   │   ├── model/
 │   │   └── ui/
 │   └── tv/
-│       ├── api/
-│       ├── config/
-│       ├── model/
-│       └── ui/
+│       └── api/
 ├── widget/
 │   ├── featured-movie/
-│   ├── genre-movies/
-│   ├── genre-tv/
+│   ├── genre/
+│   ├── home/
+│   ├── media/
 │   ├── movie-detail/
 │   └── tv-detail/
 └── shared/
@@ -239,6 +234,13 @@ src/
 | `features` | 유저 액션 / 도메인 기능        | 검색, 영화 fetch, TV 시즌 조회            |
 | `widget`   | 화면 단위 조합 블록            | `movie-detail`, `genre-movies`            |
 | `shared`   | 공통 UI / 훅 / 유틸 / API      | `Modal`, `useBodyScrollLock`, `tmdbFetch` |
+
+## 최근 FSD 리팩토링
+
+- `features/movies`를 `features/movie`로 단수화해 슬라이스 네이밍을 통일했습니다.
+- TV 상세 전용 로직(`useGetTV`, `useGetSeason`, episodes UI)을 `widget/tv-detail`로 이동했습니다.
+- `widget/media-list`를 `widget/media`로 통합해 목록/캐러셀 공통 경로를 정리했습니다.
+- 홈 카테고리 상수를 `widget/home/config`로 이동해 홈 위젯의 책임을 명확히 했습니다.
 
 ## 현재 라우트
 

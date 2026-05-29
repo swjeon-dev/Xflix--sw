@@ -48,7 +48,15 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 - **`IntersectionObserver` 기반 무한 스크롤**을 가로 / 세로 리스트에 공통 적용했습니다.
 - **검색 모달 + `/search?query=` 라우팅**으로 검색 상태를 URL과 연결했습니다.
 - **Portal 모달 + body scroll lock + ESC 종료**까지 모달 UX를 직접 구성했습니다.
-- **FSD Lite 구조**로 `app / pages / entities / features / widget / shared` 책임을 분리했습니다.
+- **FSD 리팩토링**으로 `app / pages / entities / features / widget / shared` 책임과 의존 방향을 정리했습니다.
+
+## FSD 리팩토링 요약 (GitHub)
+
+- `features/movies`를 `features/movie`로 단수화해 도메인 네이밍을 통일했습니다.
+- TV 상세 전용 로직(`useGetTV`, `useGetSeason`, episodes UI)을 `widget/tv-detail`로 이관해 위젯 응집도를 높였습니다.
+- `widget/media-list`를 `widget/media`로 통합해 목록/캐러셀 공통 컴포넌트 경로를 일원화했습니다.
+- 홈 카테고리 설정을 `widget/home/config`로 이동해 홈 화면의 책임을 명확히 했습니다.
+- `features/tv`는 API 중심 진입점으로 축소해 레이어 역할을 분리했습니다.
 
 ## 주요 기능
 
@@ -79,7 +87,9 @@ npm install
 npm run dev
 ```
 
-## 더 보기
+<!-- ## 더 보기
 
 - 상세 설명: `docs/portfolio.md`
-- 이전 상세 README 보관본: `README.archive.md`
+- GitHub 상세 문서: `docs/README.readme.md`
+- 포트폴리오/블로그용 문서: `docs/README.blog.md`
+- 이전 상세 README 보관본: `README.archive.md` -->

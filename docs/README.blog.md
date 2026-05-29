@@ -170,13 +170,14 @@ src/
 │   ├── movie/
 │   └── tv/
 ├── features/
-│   ├── movies/
+│   ├── movie/
 │   ├── search/
 │   └── tv/
 ├── widget/
 │   ├── featured-movie/
-│   ├── genre-movies/
-│   ├── genre-tv/
+│   ├── genre/
+│   ├── home/
+│   ├── media/
 │   ├── movie-detail/
 │   └── tv-detail/
 └── shared/
@@ -191,6 +192,13 @@ src/
 
 FSD를 엄격하게 전부 적용했다기보다,  
 프로젝트 규모에 맞게 `app / pages / entities / features / widget / shared`의 책임을 명확히 나누는 방향으로 사용했습니다.
+
+## 최근 FSD 리팩토링 요약
+
+- `features/movies` -> `features/movie`로 단수 네이밍을 통일했습니다.
+- TV 상세 전용 훅/에피소드 UI를 `widget/tv-detail`로 이동해 레이어 응집도를 높였습니다.
+- `widget/media-list`를 `widget/media`로 통합해 공통 UI 경로를 단일화했습니다.
+- 홈 카테고리 상수를 `widget/home/config`로 이동해 홈 화면의 책임을 명확히 했습니다.
 
 ## 현재 제공하는 라우트
 
