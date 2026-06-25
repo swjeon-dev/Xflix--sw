@@ -1,8 +1,8 @@
 import type { IApiReturn } from '@/shared/types/api.types'
-import { API_CONFIG } from '@/shared/config/api-config'
+import { API_CONFIG } from '@/shared/config/api'
 import { devLog } from '@/shared/lib'
 
-type QueryParams = Record<string, string | number | boolean>
+export type QueryParams = Record<string, string | number | boolean>
 
 function buildUrl(endpoint: string, query?: QueryParams): string {
   const { BASE_URL, LANGUAGE } = API_CONFIG

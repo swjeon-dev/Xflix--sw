@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getTmdbContents } from '@/shared/api/tmdb/contents'
-import type { ApiPath } from '@/shared/config/api-config'
-import type { ITmdbContents } from '@/shared/types'
+
+import { tmdbFetch, type ITmdbContents, type QueryParams } from '@/shared'
 import type { Media } from '@/entities'
 
 interface IFetchingDataReturn<T extends Media> {
@@ -12,9 +11,10 @@ interface IFetchingDataReturn<T extends Media> {
   refetch: () => void
 }
 
+// 무한 스크롤 컴포넌트 사용을 위한 hook
 function useGetContents<T extends Media>(
-  endPoint: ApiPath,
-  queryParams?: Record<string, string | number | boolean>,
+  endPoint: string,
+  queryParams?: QueryParams,
 ): IFetchingDataReturn<T> {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -42,7 +42,7 @@ function useGetContents<T extends Media>(
       if (isInitialPage) setIsLoading(true)
       setIsFetching(true)
 
-      const result = await getTmdbContents<T>(endPoint as string, parsedQuery)
+      const result = await tmdbFetch<ITmdbContents<T>>(endPoint, parsedQuery)
 
       if (cancelled) return
 

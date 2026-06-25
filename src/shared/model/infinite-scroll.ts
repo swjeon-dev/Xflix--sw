@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useGetContents } from '@/shared/model'
+
 import type { IMovie } from '@/entities/movie'
-import type { ApiPath } from '@/shared/config/api-config'
-import type { BaseMedia, ITmdbContents } from '@/shared/types'
+import type { BaseMedia, ITmdbContents, QueryParams } from '@/shared'
 
 type ContentsHook<T extends BaseMedia> = (
-  endPoint: ApiPath,
-  queryParams?: Record<string, string | number | boolean>,
+  endPoint: string,
+  queryParams?: QueryParams,
 ) => {
   error: string | null
   isLoading: boolean
@@ -37,13 +36,13 @@ export default function useListInfiniteScroll<T extends BaseMedia = IMovie>({
   params,
   scrollRef,
   direction = scrollRef ? 'horizontal' : 'vertical',
-  useContents = useGetContents as ContentsHook<T>,
+  useContents,
 }: {
-  endPoint: ApiPath
+  endPoint: string
   params?: Record<string, string | number | boolean>
   scrollRef?: React.RefObject<HTMLElement | null>
   direction?: 'horizontal' | 'vertical'
-  useContents?: ContentsHook<T>
+  useContents: ContentsHook<T>
 }) {
   const [items, setItems] = useState<T[]>([])
   const [page, setPage] = useState(1)

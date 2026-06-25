@@ -1,16 +1,29 @@
 import type { IMovie } from '@/entities/movie'
-import { IApiReturn } from '@/shared/types/api.types'
-import { tmdbFetch } from '@/shared/api/tmdb/client'
-import { API_ENDPOINT } from '@/shared/config/api-config'
+import {
+  type IApiReturn,
+  type QueryParams,
+  tmdbFetch,
+  API_ENDPOINT,
+} from '@/shared'
 
 export const getMovie = async (
-  id: number | string,
-  query?: Record<string, string | number | boolean>,
+  id: string,
+  queryParams?: QueryParams,
 ): Promise<IApiReturn<IMovie>> => {
   return tmdbFetch<IMovie>(
     API_ENDPOINT.MOVIE_DETAIL(id),
-    query,
+    queryParams,
     '현재 영화를 찾을 수 없습니다.',
   )
 }
 
+export const getMovieList = async (
+  endPoint: string,
+  queryParams?: QueryParams,
+): Promise<IApiReturn<IMovie[]>> => {
+  return tmdbFetch<IMovie[]>(
+    endPoint,
+    queryParams,
+    '현재 영화 목록을 찾을 수 없습니다.',
+  )
+}

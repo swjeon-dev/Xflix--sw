@@ -1,8 +1,12 @@
-import useListInfiniteScroll from '@/shared/model/infinite-scroll'
-import { API_ENDPOINT } from '@/shared/config/api-config'
-import { devLog } from '@/shared/lib'
-import { SkeletonUI } from '@/shared/ui'
-import type { IGenre } from '@/shared/types'
+import { API_ENDPOINT } from '@/shared/config/api'
+import {
+  devLog,
+  SkeletonUI,
+  useListInfiniteScroll,
+  useGetContents,
+  type IGenre,
+} from '@/shared'
+import type { IMovie } from '@/entities/movie'
 import {
   getAllDiscoverSearchParams,
   getDiscoverSearchParams,
@@ -38,6 +42,7 @@ function GenreMoviesList({ genres, selected }: GenreMoviesListProps) {
       endPoint: API_ENDPOINT.MOVIE_FILTERED,
       params,
       direction: 'vertical',
+      useContents: useGetContents<IMovie>,
     })
 
   const listTitle =

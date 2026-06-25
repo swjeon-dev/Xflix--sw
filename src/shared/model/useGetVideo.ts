@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { tmdbFetch } from '@/shared/api/tmdb'
-import { API_ENDPOINT } from '@/shared/config/api-config'
-import type { IVideo, IVideoReturn, MediaVideoType } from './video.types'
 
-interface IUseGetTmdbVideosReturn {
+import { tmdbFetch } from '@/shared'
+import type { IVideo, IVideoReturn, MediaVideoType } from './video.types'
+import { getVideosEndpoint } from '../api/tmdb/video'
+
+interface IUseGetVideoReturn {
   error: string | null
   isLoading: boolean
   videos: IVideo[]
@@ -20,16 +21,10 @@ function pickYoutubeTrailer(videos: IVideo[]): IVideo | null {
   )
 }
 
-function getVideosEndpoint(id: string | number, mediaType: MediaVideoType) {
-  return mediaType === 'movie'
-    ? API_ENDPOINT.MOVIE_VIDEOS(id)
-    : API_ENDPOINT.TV_VIDEOS(id)
-}
-
-function useGetTmdbVideos(
-  id?: string | number,
+function useGetVideo(
+  id: string,
   mediaType: MediaVideoType = 'movie',
-): IUseGetTmdbVideosReturn {
+): IUseGetVideoReturn {
   const [videos, setVideos] = useState<IVideo[]>([])
   const [trailer, setTrailer] = useState<IVideo | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -45,7 +40,7 @@ function useGetTmdbVideos(
     }
 
     let cancelled = false
-    const contentId = id
+
     const errorMessage =
       mediaType === 'movie'
         ? '영화 영상 정보를 찾을 수 없습니다.'
@@ -54,7 +49,7 @@ function useGetTmdbVideos(
     async function fetchVideos() {
       setIsLoading(true)
       const result = await tmdbFetch<IVideoReturn>(
-        getVideosEndpoint(contentId, mediaType),
+        getVideosEndpoint(id, mediaType),
         undefined,
         errorMessage,
       )
@@ -72,9 +67,9 @@ function useGetTmdbVideos(
     return () => {
       cancelled = true
     }
-  }, [id, mediaType])
+  }, [id])
 
   return { error, isLoading, videos, trailer }
 }
 
-export default useGetTmdbVideos
+export default useGetVideo

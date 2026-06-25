@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { getTmdbImgPath } from '@/shared/lib'
 import { SkeletonUI } from '@/shared/ui'
 import type { IEpisode } from '@/entities/tv'
-import useGetSeason from '../model/use-get-season'
+import useGetSeason from '../model/useGetSeason'
 import { EpisodePreviewItem } from './episode-row'
 import EpisodesModal from './episodes-modal'
 
@@ -86,7 +86,10 @@ function EpisodesList({
   title = '에피소드',
   previewCount = 5,
 }: EpisodesListProps) {
-  const { season, isLoading, error, refetch } = useGetSeason(tvId, seasonNumber)
+  const { season, isLoading, error, refetch } = useGetSeason(
+    String(tvId),
+    seasonNumber,
+  )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedEpisode, setSelectedEpisode] = useState<IEpisode | null>(null)
 

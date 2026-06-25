@@ -1,6 +1,6 @@
 // featuredMovie 책임 분리를 위한 모델
 import { useMemo } from 'react'
-import { API_ENDPOINT } from '@/features/movies'
+import { API_ENDPOINT } from '@/shared/config/api'
 import { useGetContents } from '@/shared/model'
 import type { IFeaturedMovie, IMovie } from '@/entities/movie'
 import { getTmdbImgPath } from '@/shared/lib'

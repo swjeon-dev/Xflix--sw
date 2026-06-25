@@ -30,27 +30,27 @@ export const API_ENDPOINT = {
   // TV_RECOMMEND: (id: string | number) => `/tv/${id}/recommendations`,
   TV_POPULAR: '/tv/popular',
   TV_TOP_RATED: '/tv/top_rated',
-  TV_DETAIL: (id: string | number) => `/tv/${id}`,
-  TV_SEASONS: (seriesId: string | number, seasonNumber: string | number) =>
+  TV_DETAIL: (id: string) => `/tv/${id}`,
+  TV_SEASONS: (seriesId: string, seasonNumber: string) =>
     `/tv/${seriesId}/season/${seasonNumber}`,
 
-  MOVIE_VIDEOS: (id: string | number) => `/movie/${id}/videos`,
-  TV_VIDEOS: (seriesId: string | number) => `/tv/${seriesId}/videos`,
+  MOVIE_VIDEOS: (id: string) => `/movie/${id}/videos`,
+  TV_VIDEOS: (seriesId: string) => `/tv/${seriesId}/videos`,
 
   MOVIE_FILTERED: '/discover/movie',
   MOVIE_UPCOMING: '/movie/upcoming',
   MOVIE_POPULAR: '/movie/popular',
   MOVIE_TOP_RATED: '/movie/top_rated',
-  MOVIE_DETAIL: (id: string | number) => `/movie/${id}`,
-  MOVIE_SIMILAR: (id: string | number) => `/movie/${id}/similar`,
-  MOVIE_RECOMMEND: (id: string | number) => `/movie/${id}/recommendations`,
+  MOVIE_DETAIL: (id: string) => `/movie/${id}`,
+  MOVIE_SIMILAR: (id: string) => `/movie/${id}/similar`,
+  MOVIE_RECOMMEND: (id: string) => `/movie/${id}/recommendations`,
 
   SEARCH_MULTI: '/search/multi',
 } as const
 
 export type ApiPath = {
   [K in keyof typeof API_ENDPOINT]: (typeof API_ENDPOINT)[K] extends (
-    arg: string | number,
+    arg: string,
   ) => infer R
     ? R
     : (typeof API_ENDPOINT)[K]
