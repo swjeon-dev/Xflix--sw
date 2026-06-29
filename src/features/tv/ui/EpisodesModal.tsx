@@ -97,7 +97,7 @@ function EpisodesModal({
             <button
               type='button'
               className='shrink-0 w-9 h-9 rounded-full hover:bg-white/10 text-xl leading-none'
-              aria-label='닫기'
+              aria-label='modal close button'
               onClick={onClose}
             >
               ×
