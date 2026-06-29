@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { useBodyScrollLock, MediaVideoType } from '@/shared'
 import TrailerModalContents from './ui/TrailerModalContents'
 import TrailerModalWrapper from './ui/TrailerModalWrapper'
@@ -19,10 +21,24 @@ export default function TrailerModalView({
 }: TrailerModalViewProps) {
   useBodyScrollLock(isOpen)
 
+  useEffect(() => {
+    if (!isOpen) return
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose])
+
   if (!isOpen) return null
 
   return (
-    <TrailerModalWrapper onClose={onClose}>
+    <TrailerModalWrapper contentTitle={contentTitle} onClose={onClose}>
       <TrailerModalContents
         contentId={contentId}
         contentTitle={contentTitle}
