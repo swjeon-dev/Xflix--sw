@@ -1,4 +1,4 @@
-export { default as MovieBackdrop } from './movie-backdrop'
-export { default as MovieDetailHero } from './movie-detail-hero'
-export { default as MovieDetailOverview } from './movie-detail-overview'
-export { default as MovieDetailSection } from './movie-detail-section'
+export { default as MovieBackdrop } from './MovieBackdrop'
+export { default as MovieDetailHero } from './MovieDetailHero'
+export { default as MovieDetailOverview } from './MovieDetailOverview'
+export { default as MovieDetailSection } from './MovieDetailSection'

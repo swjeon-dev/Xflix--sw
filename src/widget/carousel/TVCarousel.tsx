@@ -34,7 +34,7 @@ function TVCarousel({
       error={error}
       onRetry={refetch}
       loaderRef={loaderRef}
-      renderItem={tv => <TVCard key={tv.id} content={tv} />}
+      renderItem={tv => <TVCard key={`${tv.id}-tv-carousel`} content={tv} />}
     />
   )
 }

@@ -1,7 +1,7 @@
 // featuredMovie 책임 분리를 위한 컴포넌트
 import { Link } from 'react-router'
 
-import useGetFeaturedMovie from '@/widget/home/model/get-featured-movie'
+import { useGetFeaturedMovie } from '@/widget/home'
 import { TrailerUI, LoadingComponent, devLog } from '@/shared'
 
 function FeaturedMovie() {

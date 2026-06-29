@@ -1,1 +1,1 @@
-export { default as FeaturedMovie } from './featured-movie'
+export { default as FeaturedMovie } from './FeaturedMovie'

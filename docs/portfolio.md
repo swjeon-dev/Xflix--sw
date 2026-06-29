@@ -79,7 +79,7 @@ TMDB 요청은 `shared/api/tmdb` 아래에 모아 두고, endpoint는 `shared/co
 
 - `useGetContents`
 - `useGetMovie`
-- `useGetTvs`
+- `useGetTVs`
 - `useGetTmdbVideos`
 - `useSearch`
 

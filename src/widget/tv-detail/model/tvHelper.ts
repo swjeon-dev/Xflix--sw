@@ -1,12 +1,12 @@
 import type { ITV } from '@/entities/tv'
 
-export function getDirector(tv: ITV) {
+function getDirector(tv: ITV) {
   if (!tv.credits) return null
 
   return tv.created_by.length > 0 ? tv.created_by[0].name : null
 }
 
-export function getActorsWithComma(tv: ITV) {
+function getActorsWithComma(tv: ITV) {
   if (!tv.credits?.cast.length) return null
 
   return tv.credits.cast
@@ -15,13 +15,13 @@ export function getActorsWithComma(tv: ITV) {
     .join(', ')
 }
 
-export function getGenresWithComma(tv: ITV) {
+function getGenresWithComma(tv: ITV) {
   if (!tv.genres?.length) return null
 
   return tv.genres.map(genre => genre.name).join(', ')
 }
 
-export function getTVMoreInfo(tv: ITV) {
+function getTVMoreInfo(tv: ITV) {
   return {
     actors: getActorsWithComma(tv),
     genres: getGenresWithComma(tv),
@@ -29,4 +29,12 @@ export function getTVMoreInfo(tv: ITV) {
   }
 }
 
-export type ITVMoreInfo = ReturnType<typeof getTVMoreInfo>
+type ITVMoreInfo = ReturnType<typeof getTVMoreInfo>
+
+export {
+  getDirector,
+  getActorsWithComma,
+  getGenresWithComma,
+  getTVMoreInfo,
+  type ITVMoreInfo,
+}

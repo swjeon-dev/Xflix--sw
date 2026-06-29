@@ -1,8 +1,1 @@
-export {
-  getActorsWithComma,
-  getCrewByJob,
-  getGenresWithComma,
-  getMovieMoreInfo,
-  runtimeToHours,
-} from './model'
-export type { IMovieMoreInfo } from './model'
+export { getMovieMoreInfo, type IMovieMoreInfo } from './movieHelper'

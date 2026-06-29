@@ -6,13 +6,13 @@ Xflix 프로젝트에서 URL을 만들고 TMDB 데이터를 fetch하는 규칙�
 
 ## 1. 원칙
 
-| 원칙 | 설명 |
-|---|---|
-| **단일 조립** | TMDB fetch URL 문자열은 `buildUrl`(`client.ts`)에서만 조립 |
+| 원칙               | 설명                                                                |
+| ------------------ | ------------------------------------------------------------------- |
+| **단일 조립**      | TMDB fetch URL 문자열은 `buildUrl`(`client.ts`)에서만 조립          |
 | **단일 HTTP 진입** | TMDB HTTP 요청은 `tmdbFetch`만 사용 (`client.ts` 내부 `fetch` 제외) |
-| **path catalog** | TMDB path는 `API_ENDPOINT`(`config/api.ts`)에만 정의 |
-| **외부 URL 헬퍼** | TMDB 이미지·YouTube embed는 전용 헬퍼만 사용 |
-| **패턴 유지** | 단건 상세 vs 목록 fetch는 아래 **두 패턴**으로 구분 (혼용하지 않음) |
+| **path catalog**   | TMDB path는 `API_ENDPOINT`(`config/api.ts`)에만 정의                |
+| **외부 URL 헬퍼**  | TMDB 이미지·YouTube embed는 전용 헬퍼만 사용                        |
+| **패턴 유지**      | 단건 상세 vs 목록 fetch는 아래 **두 패턴**으로 구분 (혼용하지 않음) |
 
 ---
 
@@ -55,12 +55,12 @@ import { API_ENDPOINT } from '@/features/movies'
 {BASE_URL}{endpoint}?language={LANGUAGE}&{optionalQuery}
 ```
 
-| 항목 | 출처 |
-|---|---|
-| `BASE_URL` | `API_CONFIG` |
+| 항목       | 출처                          |
+| ---------- | ----------------------------- |
+| `BASE_URL` | `API_CONFIG`                  |
 | `endpoint` | `API_ENDPOINT` 또는 `ApiPath` |
 | `language` | `buildUrl`이 항상 부착 (`ko`) |
-| 추가 query | `tmdbFetch` 2번째 인자 |
+| 추가 query | `tmdbFetch` 2번째 인자        |
 
 구현: `src/shared/api/tmdb/client.ts`
 
@@ -89,14 +89,14 @@ Page / Hook
             └─ buildUrl → fetch
 ```
 
-| 예시 | api 함수 | hook |
-|---|---|---|
-| 영화 상세 | `getMovie` | `useGetMovie` |
-| TV 상세 | `getTV` | `useGetTv` |
-| TV 시즌 | `getSeason` | `useGetSeason` |
-| 장르 목록 | `getGenres` | — |
+| 예시      | api 함수                          | hook               |
+| --------- | --------------------------------- | ------------------ |
+| 영화 상세 | `getMovie`                        | `useGetMovie`      |
+| TV 상세   | `getTV`                           | `useGetTV`         |
+| TV 시즌   | `getSeason`                       | `useGetSeason`     |
+| 장르 목록 | `getGenres`                       | —                  |
 | 영상 목록 | `getVideosEndpoint` + `tmdbFetch` | `useGetTmdbVideos` |
-| 인증 | `apiValidCheck` | — |
+| 인증      | `apiValidCheck`                   | —                  |
 
 **규칙**
 
@@ -124,13 +124,13 @@ Page / Widget / Config
                  └─ tmdbFetch → buildUrl → fetch
 ```
 
-| 예시 | endpoint 전달 위치 | query |
-|---|---|---|
-| 홈 무비 캐러셀 | `home-movie-categories.ts` | — |
-| 홈 TV 캐러셀 | `home-tv-categories.ts` | — |
-| 장르 영화 목록 | `genre-movies-list.tsx` | `getDiscoverSearchParams` |
-| 피처드 무비 | `get-featured-movie.ts` | — |
-| 상세 유사/추천 | `MovieDetail.tsx` | — |
+| 예시           | endpoint 전달 위치         | query                     |
+| -------------- | -------------------------- | ------------------------- |
+| 홈 무비 캐러셀 | `home-movie-categories.ts` | —                         |
+| 홈 TV 캐러셀   | `home-tv-categories.ts`    | —                         |
+| 장르 영화 목록 | `genre-movies-list.tsx`    | `getDiscoverSearchParams` |
+| 피처드 무비    | `get-featured-movie.ts`    | —                         |
+| 상세 유사/추천 | `MovieDetail.tsx`          | —                         |
 
 **규칙**
 
@@ -160,12 +160,12 @@ useListInfiniteScroll({
 
 ### 패턴 선택 기준
 
-| 질문 | 선택 |
-|---|---|
-| 응답이 단건 리소스인가? | **패턴 A** — `getMovie`, `getTV` … |
-| 페이지네이션 목록인가? | **패턴 B** — `endPoint` + `useGetContents` |
-| endpoint가 화면마다 달라지는가? | **패턴 B** |
-| `movie / tv` 분기가 필요한가? | **api 레이어** (`video.ts`, `genres.ts`) |
+| 질문                            | 선택                                       |
+| ------------------------------- | ------------------------------------------ |
+| 응답이 단건 리소스인가?         | **패턴 A** — `getMovie`, `getTV` …         |
+| 페이지네이션 목록인가?          | **패턴 B** — `endPoint` + `useGetContents` |
+| endpoint가 화면마다 달라지는가? | **패턴 B**                                 |
+| `movie / tv` 분기가 필요한가?   | **api 레이어** (`video.ts`, `genres.ts`)   |
 
 ### 예외 — feature hook에서 `tmdbFetch` 직접
 
@@ -182,12 +182,12 @@ useListInfiniteScroll({
 
 ### 명시 (호출부·params 헬퍼)
 
-| API | query 예 |
-|---|---|
+| API      | query 예                         |
+| -------- | -------------------------------- |
 | discover | `with_genres`, `page`, `sort_by` |
-| search | `query`, `page`, `include_adult` |
-| detail | `append_to_response` |
-| videos | 없음 |
+| search   | `query`, `page`, `include_adult` |
+| detail   | `append_to_response`             |
+| videos   | 없음                             |
 
 ### hook의 `JSON.stringify` / `parse`
 
@@ -290,19 +290,19 @@ MovieDetail
 
 ## 11. PR 체크리스트
 
-| # | 확인 항목 | 기준 |
-|---|---|---|
-| 1 | `fetch(`가 `client.ts` 외에 있는가? | `tmdbFetch`만 |
-| 2 | path가 `API_ENDPOINT` 밖에 있는가? | catalog로 이동 |
-| 3 | query에 `language`를 넣었는가? | 제거 |
-| 4 | hook에 `movie/tv` endpoint 분기가 있는가? | `shared/api/tmdb` 또는 `features/api`로 |
-| 5 | 목록 fetch가 hook 밖에서 `tmdbFetch`를 직접 호출하는가? | `useGetContents` 경로 |
-| 6 | TMDB 이미지·YouTube URL을 UI에서 직접 조립하는가? | 헬퍼 사용 |
-| 7 | `BASE_URL + endpoint` 수동 concat이 있는가? | `buildUrl` 경로 |
-| 8 | 앱 path 하드코딩 | `routes` 사용 |
-| 9 | `API_ENDPOINT`를 feature barrel에서 re-export하는가? | `@/shared/config/api`만 |
-| 10 | 단건 fetch인데 `endPoint` prop으로 넘기는가? | 패턴 A api 함수로 |
-| 11 | 목록인데 api 함수를 새로 만드는가? | 패턴 B `endPoint` + `useGetContents` |
+| #   | 확인 항목                                               | 기준                                    |
+| --- | ------------------------------------------------------- | --------------------------------------- |
+| 1   | `fetch(`가 `client.ts` 외에 있는가?                     | `tmdbFetch`만                           |
+| 2   | path가 `API_ENDPOINT` 밖에 있는가?                      | catalog로 이동                          |
+| 3   | query에 `language`를 넣었는가?                          | 제거                                    |
+| 4   | hook에 `movie/tv` endpoint 분기가 있는가?               | `shared/api/tmdb` 또는 `features/api`로 |
+| 5   | 목록 fetch가 hook 밖에서 `tmdbFetch`를 직접 호출하는가? | `useGetContents` 경로                   |
+| 6   | TMDB 이미지·YouTube URL을 UI에서 직접 조립하는가?       | 헬퍼 사용                               |
+| 7   | `BASE_URL + endpoint` 수동 concat이 있는가?             | `buildUrl` 경로                         |
+| 8   | 앱 path 하드코딩                                        | `routes` 사용                           |
+| 9   | `API_ENDPOINT`를 feature barrel에서 re-export하는가?    | `@/shared/config/api`만                 |
+| 10  | 단건 fetch인데 `endPoint` prop으로 넘기는가?            | 패턴 A api 함수로                       |
+| 11  | 목록인데 api 함수를 새로 만드는가?                      | 패턴 B `endPoint` + `useGetContents`    |
 
 ---
 
@@ -310,19 +310,19 @@ MovieDetail
 
 점검일: 2026-06-24 (재검토)
 
-| # | 항목 | 상태 | 비고 |
-|---|---|---|---|
-| 1 | `fetch`는 `tmdbFetch`만 | ✅ | `client.ts`만 raw `fetch` |
-| 2 | path는 `API_ENDPOINT`에 집중 | ✅ | `getVideosEndpoint` → `shared/api/tmdb/video.ts` |
-| 3 | `language` query 중복 없음 | ✅ | |
-| 4 | `movie/tv` 분기 api 레이어 | ✅ | `video.ts`, `genres.ts` |
-| 5 | 목록은 `useGetContents` 경로 | ✅ | 캐러셀·장르·피처드 |
-| 6 | 이미지·YouTube 헬퍼 | ✅ | |
-| 7 | `BASE_URL` 수동 concat 없음 | ✅ | |
-| 8 | `routes` 사용 | ✅ | |
-| 9 | feature re-export 없음 | ✅ | `features/tv` re-export 제거됨 |
-| 10 | 패턴 A/B 구분 | ✅ | `MovieDetail`: `useGetMovie` + `ContentsList` |
-| 11 | `API_ENDPOINT` import | ✅ | `@/shared/config/api`에서 직접 import |
+| #   | 항목                         | 상태 | 비고                                             |
+| --- | ---------------------------- | ---- | ------------------------------------------------ |
+| 1   | `fetch`는 `tmdbFetch`만      | ✅   | `client.ts`만 raw `fetch`                        |
+| 2   | path는 `API_ENDPOINT`에 집중 | ✅   | `getVideosEndpoint` → `shared/api/tmdb/video.ts` |
+| 3   | `language` query 중복 없음   | ✅   |                                                  |
+| 4   | `movie/tv` 분기 api 레이어   | ✅   | `video.ts`, `genres.ts`                          |
+| 5   | 목록은 `useGetContents` 경로 | ✅   | 캐러셀·장르·피처드                               |
+| 6   | 이미지·YouTube 헬퍼          | ✅   |                                                  |
+| 7   | `BASE_URL` 수동 concat 없음  | ✅   |                                                  |
+| 8   | `routes` 사용                | ✅   |                                                  |
+| 9   | feature re-export 없음       | ✅   | `features/tv` re-export 제거됨                   |
+| 10  | 패턴 A/B 구분                | ✅   | `MovieDetail`: `useGetMovie` + `ContentsList`    |
+| 11  | `API_ENDPOINT` import        | ✅   | `@/shared/config/api`에서 직접 import            |
 
 ---
 

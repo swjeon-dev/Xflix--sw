@@ -4,15 +4,15 @@ const BASE_PARAMS = {
   sort_by: 'popularity.desc',
 } as const
 
-function getSearchParams(genreId: number) {
+function getDiscoverParams(genreId: number) {
   return {
     ...BASE_PARAMS,
     with_genres: String(genreId),
   }
 }
 
-function getAllSearchParams() {
+function getAllDiscoverParams() {
   return { ...BASE_PARAMS }
 }
 
-export { getSearchParams, getAllSearchParams }
+export { getDiscoverParams, getAllDiscoverParams }

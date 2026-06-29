@@ -1,7 +1,7 @@
 import type { IMovie } from '@/entities/movie'
 import { getMovieMoreInfo } from '../model'
-import MovieDetailHero from './movie-detail-hero'
-import MovieDetailOverview from './movie-detail-overview'
+import MovieDetailHero from './MovieDetailHero'
+import MovieDetailOverview from './MovieDetailOverview'
 
 interface MovieDetailSectionProps {
   movie: IMovie | null

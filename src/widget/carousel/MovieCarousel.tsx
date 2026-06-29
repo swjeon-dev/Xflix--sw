@@ -34,7 +34,9 @@ function MovieCarousel({
       error={error}
       onRetry={refetch}
       loaderRef={loaderRef}
-      renderItem={movie => <MovieCard content={movie} />}
+      renderItem={movie => (
+        <MovieCard key={`${movie.id}-movie-carousel`} content={movie} />
+      )}
     />
   )
 }

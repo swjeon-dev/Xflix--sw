@@ -1,27 +1,20 @@
-import { useMemo, useState } from 'react'
+import { API_ENDPOINT } from '@/shared/config/api'
+import type { ITV } from '@/entities/tv'
+import type { IGenre } from '@/shared'
+import { GenreSection } from '@/widget/genre'
 
-import { buildDisplayGenres, GenreFilter, type IGenre } from '@/shared'
+import GenreTVCard from './GenreTVCard'
 
-import GenreTVList from './GenreTVList'
-
-interface GenreTVSectionProps {
-  genres: IGenre[]
-}
-
-function GenreTVSection({ genres }: GenreTVSectionProps) {
-  const [selected, setSelected] = useState(0)
-  const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
-
+function GenreTVSection({ genres }: { genres: IGenre[] }) {
   return (
-    <>
-      <GenreFilter
-        label='TV'
-        tabs={displayGenres.tabs}
-        selected={selected}
-        onSelect={setSelected}
-      />
-      <GenreTVList genres={displayGenres.lists} selected={selected} />
-    </>
+    <GenreSection<ITV>
+      label='TV'
+      genres={genres}
+      endPoint={API_ENDPOINT.TV_FILTERED}
+      allTitle='전체 TV'
+      fallbackTitle='TV'
+      renderItem={tv => <GenreTVCard content={tv} />}
+    />
   )
 }
 

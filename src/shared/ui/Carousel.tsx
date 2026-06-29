@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { devLog, SkeletonUI, type BaseMedia } from '@/shared'
-import { ICONS } from '../assets'
+import { ICONS, devLog, SkeletonUI, type BaseMedia } from '@/shared'
 
 interface CarouselProps<T extends BaseMedia> {
   title: string

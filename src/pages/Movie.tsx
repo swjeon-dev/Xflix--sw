@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 import { useRouteLoaderData } from 'react-router'
 
-import { GenreMovieSection } from '@/widget/genre-movies'
 import type { IGenre } from '@/shared'
+import { GenreMovieSection } from '@/widget/genre-movie'
 
 const LOADER_ID = 'root'
 

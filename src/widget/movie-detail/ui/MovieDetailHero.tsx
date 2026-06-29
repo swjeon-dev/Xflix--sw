@@ -3,7 +3,7 @@ import { ICONS } from '@/shared/assets/icons'
 import { AdultUI, TrailerModal } from '@/shared/ui'
 import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '../model'
-import MovieBackdrop from './movie-backdrop'
+import MovieBackdrop from './MovieBackdrop'
 
 interface MovieDetailHeroProps {
   movie: IMovie

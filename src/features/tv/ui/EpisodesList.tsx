@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { getTmdbImgPath } from '@/shared/lib'
 import { SkeletonUI } from '@/shared/ui'
 import type { IEpisode } from '@/entities/tv'
-import useGetSeason from '../model/useGetSeason'
+import { useGetSeason } from '@/features/tv'
 import { EpisodePreviewItem } from './EpisodeCard'
 import EpisodesModal from './EpisodesModal'
 

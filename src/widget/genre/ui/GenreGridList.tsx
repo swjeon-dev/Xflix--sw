@@ -1,25 +1,11 @@
-import {
-  API_ENDPOINT,
-  devLog,
-  SkeletonUI,
-  useGetContents,
-  useListInfiniteScroll,
-  type IGenre,
-  getAllSearchParams,
-  getSearchParams,
-} from '@/shared'
-import type { ITV } from '@/entities/tv'
+import { devLog, SkeletonUI } from '@/shared'
 
-import GenreTVCard from './GenreTVCard'
+const GRID_CLASS =
+  'grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'
 
-interface GenreTVListProps {
-  genres: IGenre[]
-  selected: number
-}
-
-function GenreTVGridSkeleton() {
+function GenreGridSkeleton() {
   return (
-    <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+    <ul className={GRID_CLASS}>
       {Array.from({ length: 10 }).map((_, i) => (
         <li key={i} className='aspect-[2/3]' aria-hidden>
           <SkeletonUI />
@@ -29,26 +15,32 @@ function GenreTVGridSkeleton() {
   )
 }
 
-function GenreTVList({ genres, selected }: GenreTVListProps) {
-  const selectedGenre = genres.find(genre => genre.id === selected)
-  const params =
-    selected === 0 ? getAllSearchParams() : getSearchParams(selected)
+interface GenreGridListProps<T> {
+  listTitle: string
+  items: T[]
+  isLoading: boolean
+  isFetchingMore: boolean
+  error: string | null
+  loaderRef: (node: HTMLElement | null) => void
+  onRetry: () => void
+  renderItem: (item: T) => React.ReactNode
+}
 
-  const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useListInfiniteScroll<ITV>({
-      endPoint: API_ENDPOINT.TV_FILTERED,
-      params,
-      direction: 'vertical',
-      useContents: useGetContents<ITV>,
-    })
-
-  const listTitle = selected === 0 ? '전체 TV' : (selectedGenre?.name ?? 'TV')
-
+function GenreGridList<T>({
+  listTitle,
+  items,
+  isLoading,
+  isFetchingMore,
+  error,
+  loaderRef,
+  onRetry,
+  renderItem,
+}: GenreGridListProps<T>) {
   if (isLoading) {
     return (
       <section className='main-page_px pb-20'>
         <h2 className='mb-6 text-xl font-bold text-white'>{listTitle}</h2>
-        <GenreTVGridSkeleton />
+        <GenreGridSkeleton />
       </section>
     )
   }
@@ -63,7 +55,7 @@ function GenreTVList({ genres, selected }: GenreTVListProps) {
         <button
           type='button'
           className='rounded border border-white/30 px-4 py-2 text-white'
-          onClick={refetch}
+          onClick={onRetry}
         >
           다시 시도
         </button>
@@ -71,15 +63,13 @@ function GenreTVList({ genres, selected }: GenreTVListProps) {
     )
   }
 
-  if (contents.length === 0) return null
+  if (items.length === 0) return null
 
   return (
     <section className='main-page_px pb-20'>
       <h2 className='mb-6 text-xl font-bold text-white'>{listTitle}</h2>
-      <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
-        {contents.map(content => (
-          <GenreTVCard key={content.id} content={content} />
-        ))}
+      <ul className={GRID_CLASS}>
+        {items.map(item => renderItem(item))}
         {isFetchingMore &&
           Array.from({ length: 5 }).map((_, i) => (
             <li key={`loading-${i}`} className='aspect-[2/3]' aria-hidden>
@@ -96,4 +86,4 @@ function GenreTVList({ genres, selected }: GenreTVListProps) {
   )
 }
 
-export default GenreTVList
+export default GenreGridList

@@ -76,7 +76,7 @@ Header 검색 버튼을 통해 검색 모달을 열고 검색어를 입력할 �
 
 - `useGetContents`
 - `useGetMovie`
-- `useGetTvs`
+- `useGetTVs`
 - `useGetTmdbVideos`
 - `useSearch`
 
