@@ -1,39 +1,28 @@
 import { useEffect, useState } from 'react'
 
 import { tmdbFetch } from '@/shared'
-import type { IVideo, IVideoReturn, MediaVideoType } from './video.types'
-import { getVideosEndpoint } from '../api/tmdb/video'
+import type { IVideoReturn, MediaVideoType } from '@/shared/model/video.types'
+import { getVideosEndpoint } from '../api'
+import { pickYoutubeTrailerUrl, type YoutubeEmbedVariant } from '../lib'
 
 interface IUseGetVideoReturn {
   error: string | null
   isLoading: boolean
-  videos: IVideo[]
-  trailer: IVideo | null
-}
-function pickYoutubeTrailer(videos: IVideo[]): IVideo | null {
-  const youtube = videos.filter(video => video.site === 'YouTube')
-
-  return (
-    youtube.find(video => video.type === 'Trailer' && video.official) ??
-    youtube.find(video => video.type === 'Trailer') ??
-    youtube[0] ??
-    null
-  )
+  trailerUrl: string | null
 }
 
 function useGetVideo(
   id: string,
   mediaType: MediaVideoType = 'movie',
+  variant: YoutubeEmbedVariant,
 ): IUseGetVideoReturn {
-  const [videos, setVideos] = useState<IVideo[]>([])
-  const [trailer, setTrailer] = useState<IVideo | null>(null)
+  const [trailerUrl, setTrailerUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (!id) {
-      setVideos([])
-      setTrailer(null)
+      setTrailerUrl(null)
       setError(null)
       setIsLoading(false)
       return
@@ -48,17 +37,20 @@ function useGetVideo(
 
     async function fetchVideos() {
       setIsLoading(true)
+      setTrailerUrl(null)
+      setError(null)
+
       const result = await tmdbFetch<IVideoReturn>(
         getVideosEndpoint(id, mediaType),
         undefined,
         errorMessage,
       )
 
+      const results = result.data?.results ?? []
+
       if (cancelled) return
 
-      const results = result.data?.results ?? []
-      setVideos(results)
-      setTrailer(pickYoutubeTrailer(results))
+      setTrailerUrl(pickYoutubeTrailerUrl(results, variant))
       setError(result.error)
       setIsLoading(false)
     }
@@ -67,9 +59,9 @@ function useGetVideo(
     return () => {
       cancelled = true
     }
-  }, [id])
+  }, [id, mediaType, variant])
 
-  return { error, isLoading, videos, trailer }
+  return { error, isLoading, trailerUrl }
 }
 
 export default useGetVideo

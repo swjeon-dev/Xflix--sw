@@ -1,8 +1,9 @@
 // featuredMovie 책임 분리를 위한 컴포넌트
 import { Link } from 'react-router'
 
+import { TrailerBackground } from '@/features/trailer'
 import { useGetFeaturedMovie } from '@/widget/home'
-import { TrailerUI, LoadingComponent, devLog } from '@/shared'
+import { LoadingComponent, devLog } from '@/shared'
 
 function FeaturedMovie() {
   const { isLoading, error, featuredContent } = useGetFeaturedMovie()
@@ -28,10 +29,11 @@ function FeaturedMovie() {
         aria-label={`${featuredContent.title} 상세 페이지로 이동`}
       >
         <div className='absolute inset-0'>
-          <TrailerUI
+          <TrailerBackground
             contentId={featuredContent.id}
             contentTitle={featuredContent.title}
             backdropUrl={featuredContent.backdropUrl}
+            mediaType='movie'
           />
           <div className='absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent' />
           <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent' />

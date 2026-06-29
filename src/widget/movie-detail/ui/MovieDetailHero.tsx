@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { ICONS } from '@/shared/assets/icons'
-import { AdultUI, TrailerModal } from '@/shared/ui'
+
+import { AdultUI, ICONS } from '@/shared'
+import { TrailerModalView } from '@/features/trailer'
 import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '../model'
 import MovieBackdrop from './MovieBackdrop'
@@ -40,7 +41,7 @@ function MovieDetailHero({ movie, movieMoreInfo }: MovieDetailHeroProps) {
         </div>
       </div>
       <MovieBackdrop path={movie.backdrop_path} title={movie.title} />
-      <TrailerModal
+      <TrailerModalView
         isOpen={isTrailerOpen}
         onClose={() => setIsTrailerOpen(false)}
         contentId={movie.id}

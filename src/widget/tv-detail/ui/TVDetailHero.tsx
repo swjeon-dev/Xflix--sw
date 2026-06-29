@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { ICONS } from '@/shared'
-import { AdultUI, TrailerModal } from '@/shared'
+import { AdultUI, ICONS } from '@/shared'
+import { TrailerModalView } from '@/features/trailer'
 import type { ITV } from '@/entities/tv'
 import TVBackdrop from './TVBackdrop'
 
@@ -41,7 +41,7 @@ function TVDetailHero({ tv }: TVDetailHeroProps) {
         </div>
       </div>
       <TVBackdrop path={tv.backdrop_path} title={tv.name} />
-      <TrailerModal
+      <TrailerModalView
         isOpen={isTrailerOpen}
         onClose={() => setIsTrailerOpen(false)}
         contentId={tv.id}
