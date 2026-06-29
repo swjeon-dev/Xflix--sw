@@ -1,4 +1,5 @@
 export * from './buildDisplayGenres'
+export { default as isNavActive } from './isNavActive'
 export { devLog } from './logger'
 export { removeRootPath } from './path'
 export { getTmdbImgPath } from './buildImageUrl'
