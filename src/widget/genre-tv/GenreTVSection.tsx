@@ -13,7 +13,7 @@ function GenreTVSection({ genres }: { genres: IGenre[] }) {
       endPoint={API_ENDPOINT.TV_FILTERED}
       allTitle='전체 TV'
       fallbackTitle='TV'
-      renderItem={tv => <GenreTVCard content={tv} />}
+      renderItem={tv => <GenreTVCard key={tv.id} content={tv} />}
     />
   )
 }
