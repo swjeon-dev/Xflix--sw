@@ -1,17 +1,15 @@
 import { createBrowserRouter } from 'react-router'
+
 import ErrorPage from '@/pages/Error'
-import { rootLoader } from '@/app/routes/rootLoader'
 import Home from '@/pages/Home'
 import MovieDetail from '@/pages/MovieDetail'
-import RootLayout from '@/shared/ui/layout/RootLayout'
-import { LoadingScreen } from '@/shared/ui/LoadingScreen'
-import { routes } from '@/shared/config/routes'
-import { removeRootPath } from '@/shared/lib'
 import TVDetail from '@/pages/TVDetail'
 import Movie from '@/pages/Movie'
 import TV from '@/pages/TV'
 import Search from '@/pages/Search'
+import { rootLoader } from '@/app/routes/rootLoader'
 import { searchListLoader } from '@/app/routes/searchListLoader'
+import { LoadingScreen, routes, removeRootPath, RootLayout } from '@/shared'
 
 export const LOADER_ID = 'root'
 
@@ -22,6 +20,7 @@ export const router = createBrowserRouter(
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       loader: rootLoader,
+      shouldRevalidate: () => false,
       id: LOADER_ID,
       HydrateFallback: () => <LoadingScreen />,
       children: [

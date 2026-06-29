@@ -21,11 +21,10 @@ function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
     if (!term) return
 
-    navigate(routes.SEARCH.DETAIL(term))
     setSearch('')
-    setTimeout(() => {
-      onClose()
-    }, 300)
+    onClose()
+
+    return navigate(routes.SEARCH.DETAIL(term))
   }
 
   useEffect(() => {
