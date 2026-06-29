@@ -9,6 +9,8 @@ export const routes = {
     PARAMETER: '/:id',
     LIST: '/tv',
     DETAIL: (id: string | number) => `/tv/${id}`,
+    SEASON: (tvId: string | number, season: string | number) =>
+      `/tv/${tvId}/season/${season}`,
   },
   SEARCH: {
     LIST: '/search',

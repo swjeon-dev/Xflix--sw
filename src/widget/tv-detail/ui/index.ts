@@ -1,4 +1,4 @@
-export { default as TVBackdrop } from './tv-backdrop'
-export { default as TVDetailHero } from './tv-detail-hero'
-export { default as TVDetailOverview } from './tv-detail-overview'
-export { default as TVDetailSection } from './tv-detail-section'
+export { default as TVBackdrop } from './TVBackdrop'
+export { default as TVDetailHero } from './TVDetailHero'
+export { default as TVDetailOverview } from './TVDetailOverview'
+export { default as TVDetailSection } from './TVDetailSection'

@@ -1,5 +1,5 @@
-import { API_ENDPOINT } from '@/shared/config/api'
-import { devLog } from '@/shared'
+import { API_ENDPOINT } from '../../config/api'
+import { devLog } from '../../lib'
 import { tmdbFetch } from './client'
 
 interface IAuthResponse {

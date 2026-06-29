@@ -1,12 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router'
-import Modal from '@/shared/ui/Modal'
-import { LoadingComponent } from '@/shared/ui/LoadingScreen'
+
+import { Modal, FloatingBackButton, LoadingComponent } from '@/shared'
 import { API_ENDPOINT } from '@/shared/config/api'
-import ContentsList from '@/features/movies/ui/ContentsCarousel'
-import useGetMovie from '@/features/movies/model/useGetMovie'
+import { useGetMovie } from '@/features/movies'
 import { MovieDetailSection } from '@/widget/movie-detail'
-import FloatingBackButton from '@/shared/ui/floating-back-button'
+import { MovieCarousel } from '@/widget/carousel'
 
 const DETAIL_QUERY = { append_to_response: 'credits' }
 
@@ -27,13 +26,15 @@ function MovieDetail() {
       </Helmet>
       <article key={id}>
         <MovieDetailSection movie={movie} error={error} />
-        <ContentsList
+        <MovieCarousel
           title='비슷한 장르 영화'
           endPoint={API_ENDPOINT.MOVIE_SIMILAR(id ?? '')}
+          params={{ region: 'KR', page: 1 }}
         />
-        <ContentsList
+        <MovieCarousel
           title='추천하는 영화'
           endPoint={API_ENDPOINT.MOVIE_RECOMMEND(id ?? '')}
+          params={{ region: 'KR', page: 1 }}
         />
       </article>
       <Modal>

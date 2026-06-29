@@ -1,16 +1,16 @@
 import { createBrowserRouter } from 'react-router'
-import ErrorPage from '@/pages/error-page'
+import ErrorPage from '@/pages/Error'
 import { rootLoader } from '@/app/routes/rootLoader'
-import Home from '@/pages/home'
-import MovieDetail from '@/pages/movie-detail'
+import Home from '@/pages/Home'
+import MovieDetail from '@/pages/MovieDetail'
 import RootLayout from '@/shared/ui/layout/RootLayout'
 import { LoadingScreen } from '@/shared/ui/LoadingScreen'
 import { routes } from '@/shared/config/routes'
 import { removeRootPath } from '@/shared/lib'
-import TVDetail from '@/pages/tv-detail'
-import MovieListView from '@/pages/movie-list'
-import TVListView from '@/pages/tv-list'
-import SearchListView from '@/pages/search-list'
+import TVDetail from '@/pages/TVDetail'
+import Movie from '@/pages/Movie'
+import TV from '@/pages/TV'
+import Search from '@/pages/Search'
 import { searchListLoader } from '@/app/routes/searchListLoader'
 
 export const LOADER_ID = 'root'
@@ -29,7 +29,7 @@ export const router = createBrowserRouter(
         {
           path: removeRootPath(routes.MOVIE.LIST),
           children: [
-            { index: true, element: <MovieListView /> },
+            { index: true, element: <Movie /> },
             {
               path: removeRootPath(routes.MOVIE.PARAMETER),
               element: <MovieDetail />,
@@ -39,7 +39,7 @@ export const router = createBrowserRouter(
         {
           path: removeRootPath(routes.TV.LIST),
           children: [
-            { index: true, element: <TVListView /> },
+            { index: true, element: <TV /> },
             {
               path: removeRootPath(routes.TV.PARAMETER),
               element: <TVDetail />,
@@ -48,7 +48,7 @@ export const router = createBrowserRouter(
         },
         {
           path: removeRootPath(routes.SEARCH.LIST),
-          element: <SearchListView />,
+          element: <Search />,
           loader: searchListLoader,
         },
       ],

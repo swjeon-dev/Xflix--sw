@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import { buildYoutubeEmbedUrl } from '@/shared'
-import useGetTmdbVideos from '@/shared/model/useGetVideo'
-import type { MediaVideoType } from '@/shared/model/video.types'
+
+import { buildYoutubeEmbedUrl } from '../lib'
+import { useGetVideo, type MediaVideoType } from '../model'
 import Modal from './Modal'
 import { LoadingComponent } from './LoadingScreen'
 
@@ -46,7 +46,7 @@ function TrailerModal({
   contentTitle,
   mediaType,
 }: TrailerModalProps) {
-  const { trailer, isLoading, error } = useGetTmdbVideos(
+  const { trailer, isLoading, error } = useGetVideo(
     isOpen ? String(contentId) : '',
     mediaType,
   )

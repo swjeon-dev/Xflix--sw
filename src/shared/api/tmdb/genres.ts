@@ -1,7 +1,7 @@
-import { IApiReturn } from '@/shared/types/api.types'
-import { IGenre } from '@/shared/types/contents.types'
+import { IApiReturn } from '../../types'
+import { IGenre } from '../../types/contents.types'
 import { tmdbFetch } from './client'
-import { API_ENDPOINT } from '@/shared/config/api'
+import { API_ENDPOINT } from '../../config/api'
 
 type GenreType = 'movie' | 'tv'
 

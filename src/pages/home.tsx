@@ -1,9 +1,7 @@
 import { Helmet } from 'react-helmet-async'
-import { FeaturedMovie } from '@/widget/featured-movie'
-import { HOME_MOVIE_CATEGORIES } from '@/features/movies/config/home-movie-categories'
-import { HOME_TV_CATEGORIES } from '@/features/tv/config/home-tv-categories'
-import MovieCarousel from '@/features/movies/ui/contents-list'
-import TVCarousel from '@/features/tv/ui/contents-list'
+
+import { FeaturedMovie, MOVIE_CATEGORIES, TV_CATEGORIES } from '@/widget/home'
+import { MovieCarousel, TVCarousel } from '@/widget/carousel'
 
 function Home() {
   return (
@@ -13,7 +11,7 @@ function Home() {
       </Helmet>
       <FeaturedMovie />
       <article>
-        {HOME_MOVIE_CATEGORIES.map((category, idx) => (
+        {MOVIE_CATEGORIES.map((category, idx) => (
           <MovieCarousel
             key={idx}
             title={category.title}
@@ -21,7 +19,8 @@ function Home() {
             params={{ region: 'KR', page: 1 }}
           />
         ))}
-        {HOME_TV_CATEGORIES.map((category, idx) => (
+
+        {TV_CATEGORIES.map((category, idx) => (
           <TVCarousel
             key={idx}
             title={category.title}

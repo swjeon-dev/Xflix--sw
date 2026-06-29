@@ -1,0 +1,5 @@
+export { default as TVCard } from './TVCard'
+// export { default as TVCarousel } from './TVCarousel_'
+export { default as EpisodesList } from './EpisodesList'
+export { default as EpisodeCard } from './EpisodeCard'
+export { default as EpisodesModal } from './EpisodesModal'

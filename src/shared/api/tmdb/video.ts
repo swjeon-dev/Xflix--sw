@@ -1,4 +1,5 @@
-import { API_ENDPOINT, type MediaVideoType } from '@/shared'
+import { API_ENDPOINT } from '../../config/api'
+import type { MediaVideoType } from '../../model/video.types'
 
 function getVideosEndpoint(id: string, mediaType: MediaVideoType) {
   return mediaType === 'movie'

@@ -4,7 +4,7 @@ import { ICONS } from '@/shared/assets/icons'
 import { routes } from '@/shared/config/routes'
 import Modal from '@/shared/ui/Modal'
 import { useBodyScrollLock, useGetScrollY } from '@/shared/model'
-import SearchModal from '@/features/search/ui/search-modal'
+import SearchModal from '@/features/search/ui/SearchModal'
 
 const NAV_ITEMS = [
   { id: 1, label: '홈', path: routes.ROOT },

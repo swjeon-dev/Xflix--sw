@@ -1,11 +1,14 @@
 import type { ITV } from '@/entities/tv'
-import type { IApiReturn } from '@/shared/types/api.types'
-import { tmdbFetch } from '@/shared/api/tmdb/client'
-import { API_ENDPOINT } from '@/shared/config/api-config'
+import {
+  type IApiReturn,
+  type QueryParams,
+  tmdbFetch,
+  API_ENDPOINT,
+} from '@/shared'
 
 export const getTV = async (
-  id: number | string,
-  query?: Record<string, string | number | boolean>,
+  id: string,
+  query?: QueryParams,
 ): Promise<IApiReturn<ITV>> => {
   return tmdbFetch<ITV>(
     API_ENDPOINT.TV_DETAIL(id),

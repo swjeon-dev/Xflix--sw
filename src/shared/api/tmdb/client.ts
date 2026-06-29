@@ -1,6 +1,6 @@
-import type { IApiReturn } from '@/shared/types/api.types'
-import { API_CONFIG } from '@/shared/config/api'
-import { devLog } from '@/shared/lib'
+import type { IApiReturn } from '../../types'
+import { API_CONFIG } from '../../config/api'
+import { devLog } from '../../lib'
 
 export type QueryParams = Record<string, string | number | boolean>
 
