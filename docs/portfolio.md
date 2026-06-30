@@ -141,18 +141,23 @@ TMDB 요청은 `shared/api/tmdb` 아래에 모아 두고, endpoint는 `shared/co
 
 ```text
 src/
-├── app/
+├── app/routes/          # router, RootLayout, loader
 ├── pages/
 ├── entities/
 ├── features/
-│   ├── movies/
-│   ├── search/
+│   ├── movies/   # api · model · ui
+│   ├── search/   # api · lib · model · ui · SearchModalView
+│   ├── trailer/  # api · lib · model · ui · TrailerModalView
 │   └── tv/
 ├── widget/
+│   ├── header/   # AppHeader (검색·모바일 메뉴 조합)
+│   ├── footer/
+│   └── …
 └── shared/
 ```
 
-이 구조를 통해 페이지 조립, 도메인 기능, 공통 모듈의 책임을 분리했습니다.
+`RootLayout`은 `app` 레이어에서 `widget/header`, `widget/footer`를 조합하고,  
+검색 모달(`SearchModalView`)만 `features/search`에서 가져오도록 레이어 역전을 피했습니다.
 
 ## 기술 스택
 

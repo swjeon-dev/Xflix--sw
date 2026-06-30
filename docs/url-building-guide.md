@@ -167,10 +167,16 @@ useListInfiniteScroll({
 | endpoint가 화면마다 달라지는가? | **패턴 B**                                 |
 | `movie / tv` 분기가 필요한가?   | **api 레이어** (`video.ts`, `genres.ts`)   |
 
-### 예외 — feature hook에서 `tmdbFetch` 직접
+### feature api 레이어
 
-`use-search.ts`처럼 **feature 전용**이고 목록 인프라를 쓰지 않는 경우, hook에서 `tmdbFetch`를 직접 호출할 수 있습니다.  
-이때도 endpoint는 `API_ENDPOINT`에서만 가져옵니다.
+검색처럼 **feature 전용** endpoint는 `features/search/api/search.ts`의 `getSearch`로 분리하고,  
+`useSearch` hook은 api 함수만 호출합니다. endpoint는 `API_ENDPOINT`에서만 가져옵니다.
+
+```typescript
+// features/search/api/search.ts
+export const getSearch = async (query: string, page: number) =>
+  tmdbFetch<ISearchResult>(API_ENDPOINT.SEARCH_MULTI, { query, page, include_adult: false })
+```
 
 ---
 
