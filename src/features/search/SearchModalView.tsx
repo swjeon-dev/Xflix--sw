@@ -1,5 +1,4 @@
-import SearchForm from './ui/SearchForm'
-import SearchModalWrapper from './ui/SearchModalWrapper'
+import { SearchForm, SearchModalWrapper } from './ui'
 
 interface SearchModalViewProps {
   isOpen: boolean

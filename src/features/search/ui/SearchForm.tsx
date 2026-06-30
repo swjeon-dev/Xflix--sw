@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
 import { routes } from '@/shared'
@@ -23,18 +23,6 @@ function SearchForm({ onClose }: SearchFormProps) {
 
     return navigate(routes.SEARCH.DETAIL(term))
   }
-
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose()
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [onClose])
 
   return (
     <form

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { Modal, useBodyScrollLock } from '@/shared'
 
 interface SearchModalWrapperProps {
@@ -12,6 +14,19 @@ function SearchModalWrapper({
   children,
 }: SearchModalWrapperProps) {
   useBodyScrollLock(isOpen)
+
+  useEffect(() => {
+    if (!isOpen) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
