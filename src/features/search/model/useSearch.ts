@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { tmdbFetch } from '@/shared/api/tmdb'
-import { API_ENDPOINT } from '@/shared/config/api'
-import type { ISearchData, ISearchResult } from './search.types'
+
+import type { ISearchData } from './search.types'
+import { getSearch } from '../api'
 
 export type SearchMediaType = 'movie' | 'tv'
 
@@ -91,14 +91,7 @@ function useSearch({
       setIsFetchingMore(!isInitialPage)
       isFetchingRef.current = true
 
-      const response = await tmdbFetch<ISearchResult>(
-        API_ENDPOINT.SEARCH_MULTI,
-        {
-          query: trimmedQuery,
-          include_adult: false,
-          page,
-        },
-      )
+      const response = await getSearch(trimmedQuery, page)
 
       if (cancelled) return
 
