@@ -1,6 +1,6 @@
 import { DialogWrapper } from '@/shared/ui'
 import { useModal } from '@/entities/modal'
-import TrailerModal from '@/features/trailer/TrailerModal'
+import TrailerModal from '@/features/trailer/ui/TrailerModal'
 
 const MODAL_COMPONENTS: Record<string, React.ComponentType<any>> = {
   trailer: TrailerModal,

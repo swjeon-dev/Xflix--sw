@@ -1,7 +1,7 @@
 import { MediaVideoType } from '@/shared'
 import { useModal } from '@/entities/modal'
-import TrailerModalWrapper from './ui/TrailerModalWrapper'
-import TrailerModalContents from './ui/TrailerModalContents'
+import TrailerModalWrapper from './TrailerModalWrapper'
+import TrailerModalContents from './TrailerModalContents'
 
 interface TrailerModalContentsProps {
   contentId: number | string

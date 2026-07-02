@@ -1,2 +1,4 @@
 export { default as useGetVideo } from './useGetVideo'
 export type { VideoStatus, IUseGetVideoReturn } from './useGetVideo'
+export { default as useTrailerPlay } from './useTrailerPlay'
+export { default as useYoutubePlayer } from './useYoutubePlayer'

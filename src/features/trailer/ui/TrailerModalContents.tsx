@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
-
 import { LoadingComponent, type MediaVideoType } from '@/shared'
-import useGetVideo from '../model/useGetVideo'
+import { useTrailerPlay } from '../model'
 import TrailerError from './TrailerError'
 import YoutubePlayer from './YoutubePlayer'
 
@@ -16,37 +14,31 @@ function TrailerModalContents({
   contentTitle,
   mediaType,
 }: TrailerModalContentsProps) {
-  const [playbackUnavailable, setPlaybackUnavailable] = useState(false)
-  const { trailerUrl, isLoading, status, error } = useGetVideo(
-    contentId.toString(),
-    mediaType,
-    'modal',
-  )
+  const {
+    isLoading,
+    isError,
+    isEmpty,
+    isReady,
+    trailerUrl,
+    error,
+    markUnavailable,
+  } = useTrailerPlay(contentId.toString(), mediaType, 'modal')
 
-  useEffect(() => {
-    setPlaybackUnavailable(false)
-  }, [contentId, mediaType])
-
-  if (isLoading) {
+  if (isLoading)
     return (
       <LoadingComponent style='absolute inset-0 flex items-center justify-center bg-black text-white' />
     )
-  }
 
-  if (status === 'error') {
-    return <TrailerError variant='error' message={error} />
-  }
-
-  if (status === 'empty' || !trailerUrl || playbackUnavailable) {
-    return <TrailerError variant='empty' />
-  }
+  if (isError) return <TrailerError variant='error' message={error} />
+  if (isEmpty) return <TrailerError variant='empty' />
+  if (!isReady || !trailerUrl) return null
 
   return (
     <YoutubePlayer
       title={contentTitle}
       src={trailerUrl}
       variant='modal'
-      onUnavailable={() => setPlaybackUnavailable(true)}
+      onUnavailable={markUnavailable}
     />
   )
 }
