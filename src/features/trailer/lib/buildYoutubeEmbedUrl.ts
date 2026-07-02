@@ -1,5 +1,3 @@
-import { IVideo } from '@/shared'
-
 type YoutubeEmbedVariant = 'background' | 'modal'
 
 function buildYoutubeEmbedUrl(paramKey: string, variant: YoutubeEmbedVariant) {
@@ -11,7 +9,7 @@ function buildYoutubeEmbedUrl(paramKey: string, variant: YoutubeEmbedVariant) {
     playsinline: '1',
     modestbranding: '1',
     rel: '0',
-    origin: window.location.origin, // API + postMessage 검증
+    origin: window.location.origin,
   })
 
   if (variant === 'background') {
@@ -25,28 +23,36 @@ function buildYoutubeEmbedUrl(paramKey: string, variant: YoutubeEmbedVariant) {
     Object.entries(extraParams).forEach(([key, value]) => {
       params.set(key, value.toString())
     })
-
-    return `${base}?${params.toString()}`
   }
 
   return `${base}?${params.toString()}`
 }
 
-function pickYoutubeTrailerUrl(
-  videos: IVideo[],
+function getYoutubePlayerVars(
+  key: string,
   variant: YoutubeEmbedVariant,
-): string | null {
-  const youtube = videos.filter(video => video.site === 'YouTube')
+): YT.PlayerVars {
+  const playerVars: YT.PlayerVars = {
+    autoplay: 1,
+    controls: variant === 'background' ? 0 : 1,
+    playsinline: 1,
+    modestbranding: 1,
+    rel: 0,
+    enablejsapi: 1,
+    origin: window.location.origin,
+  }
 
-  const trailer =
-    youtube.find(video => video.type === 'Trailer' && video.official) ??
-    youtube.find(video => video.type === 'Trailer') ??
-    youtube[0] ??
-    null
+  if (variant === 'background') {
+    playerVars.mute = 1
+    playerVars.loop = 1
+    playerVars.playlist = key
+  }
 
-  const trailerUrl = trailer ? buildYoutubeEmbedUrl(trailer.key, variant) : null
-
-  return trailerUrl
+  return playerVars
 }
 
-export { type YoutubeEmbedVariant, pickYoutubeTrailerUrl }
+export {
+  buildYoutubeEmbedUrl,
+  getYoutubePlayerVars,
+  type YoutubeEmbedVariant,
+}

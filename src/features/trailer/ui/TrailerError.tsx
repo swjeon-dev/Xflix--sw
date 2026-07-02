@@ -1,11 +1,19 @@
+type TrailerFeedbackVariant = 'empty' | 'error'
+
 interface TrailerErrorProps {
-  error: string | null
+  variant: TrailerFeedbackVariant
+  message?: string | null
 }
 
-function TrailerError({ error }: TrailerErrorProps) {
+const DEFAULT_MESSAGES: Record<TrailerFeedbackVariant, string> = {
+  empty: '등록된 영상이 없습니다.',
+  error: '영상 정보를 불러오지 못했습니다.',
+}
+
+function TrailerError({ variant, message }: TrailerErrorProps) {
   return (
     <div className='absolute inset-0 flex items-center justify-center p-8 text-center text-white/80'>
-      {error ?? '재생할 트레일러를 찾을 수 없습니다.'}
+      {message ?? DEFAULT_MESSAGES[variant]}
     </div>
   )
 }

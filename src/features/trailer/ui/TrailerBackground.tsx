@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { devLog, type MediaVideoType } from '@/shared'
 import useGetVideo from '../model/useGetVideo'
 import YoutubePlayer from './YoutubePlayer'
@@ -15,17 +17,27 @@ function TrailerBackground({
   backdropUrl,
   mediaType = 'movie',
 }: TrailerBackgroundProps) {
-  const { trailerUrl, isLoading, error } = useGetVideo(
+  const [playbackUnavailable, setPlaybackUnavailable] = useState(false)
+  const { trailerUrl, isLoading, status, error } = useGetVideo(
     contentId.toString(),
     mediaType,
     'background',
   )
 
-  if (error) {
+  useEffect(() => {
+    setPlaybackUnavailable(false)
+  }, [contentId, mediaType])
+
+  if (status === 'error' && error) {
     devLog({ message: error, type: 'error' })
   }
 
-  if (isLoading || !trailerUrl) {
+  if (
+    isLoading ||
+    status !== 'ready' ||
+    !trailerUrl ||
+    playbackUnavailable
+  ) {
     return (
       <img
         src={backdropUrl}
@@ -36,7 +48,12 @@ function TrailerBackground({
   }
 
   return (
-    <YoutubePlayer title={contentTitle} src={trailerUrl} variant='background' />
+    <YoutubePlayer
+      title={contentTitle}
+      src={trailerUrl}
+      variant='background'
+      onUnavailable={() => setPlaybackUnavailable(true)}
+    />
   )
 }
 

@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react'
 import { tmdbFetch } from '@/shared'
 import type { IVideoReturn, MediaVideoType } from '@/shared/model/video.types'
 import { getVideosEndpoint } from '../api'
-import { pickYoutubeTrailerUrl, type YoutubeEmbedVariant } from '../lib'
+import { findPlayableYoutubeUrl, type YoutubeEmbedVariant } from '../lib'
+
+type VideoStatus = 'idle' | 'loading' | 'ready' | 'empty' | 'error'
 
 interface IUseGetVideoReturn {
   error: string | null
   isLoading: boolean
+  status: VideoStatus
   trailerUrl: string | null
 }
 
@@ -18,13 +21,13 @@ function useGetVideo(
 ): IUseGetVideoReturn {
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [status, setStatus] = useState<VideoStatus>('idle')
 
   useEffect(() => {
     if (!id) {
       setTrailerUrl(null)
       setError(null)
-      setIsLoading(false)
+      setStatus('idle')
       return
     }
 
@@ -32,11 +35,11 @@ function useGetVideo(
 
     const errorMessage =
       mediaType === 'movie'
-        ? '영화 영상 정보를 찾을 수 없습니다.'
-        : 'TV 프로그램 영상 정보를 찾을 수 없습니다.'
+        ? '영화 영상 정보를 불러오지 못했습니다.'
+        : 'TV 프로그램 영상 정보를 불러오지 못했습니다.'
 
     async function fetchVideos() {
-      setIsLoading(true)
+      setStatus('loading')
       setTrailerUrl(null)
       setError(null)
 
@@ -46,13 +49,30 @@ function useGetVideo(
         errorMessage,
       )
 
-      const results = result.data?.results ?? []
-
       if (cancelled) return
 
-      setTrailerUrl(pickYoutubeTrailerUrl(results, variant))
-      setError(result.error)
-      setIsLoading(false)
+      if (result.error) {
+        setTrailerUrl(null)
+        setError(result.error)
+        setStatus('error')
+        return
+      }
+
+      const url = await findPlayableYoutubeUrl(
+        result.data?.results ?? [],
+        variant,
+      )
+
+      if (!url) {
+        setTrailerUrl(null)
+        setError(null)
+        setStatus('empty')
+        return
+      }
+
+      setTrailerUrl(url)
+      setError(null)
+      setStatus('ready')
     }
 
     fetchVideos()
@@ -61,7 +81,13 @@ function useGetVideo(
     }
   }, [id, mediaType, variant])
 
-  return { error, isLoading, trailerUrl }
+  return {
+    error,
+    isLoading: status === 'loading',
+    status,
+    trailerUrl,
+  }
 }
 
 export default useGetVideo
+export type { VideoStatus, IUseGetVideoReturn }
