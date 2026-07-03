@@ -1,5 +1,6 @@
 import { useEffect, useRef, ReactNode } from 'react'
-import clsx from 'clsx'
+
+import { cn } from '@/shared/lib'
 
 interface DialogWrapperProps {
   isOpen: boolean
@@ -38,7 +39,7 @@ function DialogWrapper({
         onClose()
       }}
       onClick={e => e.target === e.currentTarget && onClose()}
-      className={clsx(BASE_DIALOG_CLASS, className)}
+      className={cn(BASE_DIALOG_CLASS, className)}
     >
       {children}
     </dialog>

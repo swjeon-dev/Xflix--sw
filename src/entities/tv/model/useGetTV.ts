@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import type { ITV } from '@/entities/tv'
+
 import { getTV } from '../api/tv'
+import type { ITV } from './tv.types'
 
 export interface IFetchingDataReturn {
   error: string | null

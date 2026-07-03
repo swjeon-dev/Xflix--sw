@@ -36,13 +36,7 @@ function EpisodeStill({
   )
 }
 
-function EpisodeMeta({
-  episode,
-  overviewClamp = false,
-}: {
-  episode: IEpisode
-  overviewClamp?: boolean
-}) {
+function EpisodeMeta({ episode }: { episode: IEpisode }) {
   const runtime = formatRuntime(episode.runtime)
 
   return (
@@ -65,15 +59,7 @@ function EpisodeMeta({
         )}
       </div>
       {episode.overview && (
-        <p
-          className={
-            overviewClamp
-              ? 'text-sm text-white/80 line-clamp-2'
-              : 'text-sm text-white/80'
-          }
-        >
-          {episode.overview}
-        </p>
+        <p className='text-sm text-white/80'>{episode.overview}</p>
       )}
       {episode.guest_stars.length > 0 && (
         <p className='text-xs text-white/50'>
@@ -89,44 +75,6 @@ function EpisodeMeta({
   )
 }
 
-/** 목록용 — 클릭 시 모달에서 상세 표시 */
-export function EpisodePreviewItem({
-  episode,
-  onClick,
-}: {
-  episode: IEpisode
-  onClick: (episode: IEpisode) => void
-}) {
-  const thumbUrl = getTmdbImgPath({ path: episode.still_path, size: 'w154' })
-
-  return (
-    <li>
-      <button
-        type='button'
-        className='w-full flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-left'
-        onClick={() => onClick(episode)}
-      >
-        {thumbUrl ? (
-          <img
-            src={thumbUrl}
-            alt=''
-            className='w-16 h-10 rounded object-cover shrink-0 bg-gray-800'
-          />
-        ) : (
-          <div className='w-16 h-10 rounded bg-gray-800 shrink-0 flex items-center justify-center text-xs text-white/40'>
-            {episode.episode_number}
-          </div>
-        )}
-        <span className='min-w-0 flex-1 truncate text-sm text-white'>
-          <span className='text-white/50 mr-2'>{episode.episode_number}화</span>
-          {episode.name}
-        </span>
-      </button>
-    </li>
-  )
-}
-
-/** 모달용 — 전체 상세 */
 function EpisodeCard({ episode }: { episode: IEpisode }) {
   return (
     <article className='flex flex-col gap-4'>

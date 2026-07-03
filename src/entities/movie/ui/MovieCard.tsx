@@ -2,30 +2,31 @@ import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 
 import { ICONS, routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
-import type { ITV } from '@/entities/tv'
+import type { IMovie } from '../model/movie.types'
+import { useModal } from '@/entities/modal'
 
 const LOADER_ID = 'root'
 
-function TVCard({ content }: { content: ITV }) {
+function MovieCard({ content }: { content: IMovie }) {
   const {
-    genres: { tvGenres },
-  } = useRouteLoaderData(LOADER_ID) as { genres: { tvGenres: IGenre[] } }
+    genres: { movieGenres },
+  } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
+  const { openModal } = useModal()
 
   const contentMoreInfo = useMemo(() => {
     const myGenres =
       content.genre_ids
-        ?.map(id => tvGenres.find(g => g.id === id))
+        ?.map(id => movieGenres.find(g => g.id === id))
         .filter((genre): genre is IGenre => !!genre) ?? []
 
     return {
-      title: content.name,
+      title: content.title,
       overview: content.overview,
       adult: content.adult,
-      year: content.first_air_date,
-      genres: myGenres.length > 2 ? myGenres.slice(0, 2) : myGenres,
-      first_air_date: content.first_air_date,
+      year: content.release_date ?? null,
+      genres: myGenres,
     }
-  }, [content, tvGenres])
+  }, [content, movieGenres])
 
   const lowImageUrl = getTmdbImgPath({
     size: 'w300',
@@ -35,7 +36,7 @@ function TVCard({ content }: { content: ITV }) {
   return (
     <li className='relative aspect-video min-w-[300px] md:min-w-[380px] transition-colors ease-in delay-150 duration-150 z-10 group/button-hover'>
       <Link
-        to={routes.TV.DETAIL(content.id)}
+        to={routes.MOVIE.DETAIL(content.id)}
         className='absolute inset-0 hover:opacity-60'
         aria-label={`${contentMoreInfo.title} 상세보기`}
       >
@@ -69,16 +70,22 @@ function TVCard({ content }: { content: ITV }) {
           </span>
         </div>
         <div className='flex gap-2'>
-          {[
-            { icon: ICONS.play, label: '재생' },
-            // { icon: ICONS.plus, label: '목록 추가' },
-          ].map((item, idx) => (
+          {[{ icon: ICONS.play, label: '재생' }].map((item, idx) => (
             <button
               key={idx}
               type='button'
               aria-label={item.label}
               className='p-2 bg-white/20 hover:bg-red-600 rounded-full backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center pointer-events-auto'
-              onClick={e => e.stopPropagation()}
+              onClick={() => {
+                openModal({
+                  type: 'trailer',
+                  props: {
+                    contentId: content.id,
+                    contentTitle: content.title,
+                    mediaType: 'movie',
+                  },
+                })
+              }}
             >
               <span className='w-5 h-5 fill-white flex items-center justify-center'>
                 {item.icon}
@@ -91,4 +98,4 @@ function TVCard({ content }: { content: ITV }) {
   )
 }
 
-export default TVCard
+export default MovieCard

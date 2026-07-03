@@ -1,14 +1,8 @@
 import { RouterProvider } from 'react-router'
 import { router } from '@/app/routes/router'
-import GlobalModalContainer from './providers/GlobalModalContainer'
 
 function AppRouter() {
-  return (
-    <>
-      <RouterProvider router={router} />
-      <GlobalModalContainer />
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default AppRouter

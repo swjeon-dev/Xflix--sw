@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+
 import { getSeason } from '../api/season'
-import type { ISeason } from '@/entities/tv'
+import type { ISeason } from './season.types'
 
 interface IUseGetSeasonReturn {
   error: string | null

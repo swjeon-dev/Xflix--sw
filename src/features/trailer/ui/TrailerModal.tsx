@@ -1,20 +1,27 @@
-import { MediaVideoType } from '@/shared'
-import { useModal } from '@/entities/modal'
+import type { MediaVideoType } from '@/shared'
 import TrailerModalWrapper from './TrailerModalWrapper'
 import TrailerModalContents from './TrailerModalContents'
 
-interface TrailerModalContentsProps {
+interface TrailerModalProps {
   contentId: number | string
   contentTitle: string
   mediaType: MediaVideoType
+  onClose: () => void
 }
 
-export default function TrailerModal(props: TrailerModalContentsProps) {
-  const { closeModal } = useModal()
-
+export default function TrailerModal({
+  onClose,
+  contentId,
+  contentTitle,
+  mediaType,
+}: TrailerModalProps) {
   return (
-    <TrailerModalWrapper onClose={closeModal}>
-      <TrailerModalContents {...props} />
+    <TrailerModalWrapper onClose={onClose}>
+      <TrailerModalContents
+        contentId={contentId}
+        contentTitle={contentTitle}
+        mediaType={mediaType}
+      />
     </TrailerModalWrapper>
   )
 }

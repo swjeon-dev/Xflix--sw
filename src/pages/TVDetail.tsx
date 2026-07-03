@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router'
 
-import { Modal, FloatingBackButton, LoadingComponent } from '@/shared'
-import { EpisodesList, useGetTV } from '@/features/tv'
-import { TVDetailSection } from '@/widget/tv-detail'
+import { FloatingBackButton, LoadingComponent } from '@/shared'
+import { useGetTV } from '@/entities/tv'
+import { TVDetailSection, TVEpisodesSection } from '@/widget/tv-detail'
 
 const DETAIL_QUERY = { append_to_response: 'credits' }
 
@@ -26,7 +26,7 @@ function TVDetail() {
         <TVDetailSection tv={tv} error={error} />
 
         {tv?.seasons?.map(season => (
-          <EpisodesList
+          <TVEpisodesSection
             key={season.id}
             tvId={id!}
             seasonNumber={season.season_number}
@@ -34,9 +34,8 @@ function TVDetail() {
           />
         ))}
       </article>
-      <Modal>
-        <FloatingBackButton />
-      </Modal>
+
+      <FloatingBackButton />
     </>
   )
 }

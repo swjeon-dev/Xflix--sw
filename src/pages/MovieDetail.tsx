@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router'
 
-import { Modal, FloatingBackButton, LoadingComponent } from '@/shared'
+import { FloatingBackButton, LoadingComponent } from '@/shared'
 import { API_ENDPOINT } from '@/shared/config/api'
-import { useGetMovie } from '@/features/movies'
+import { useGetMovie } from '@/entities/movie'
 import { MovieDetailSection } from '@/widget/movie-detail'
 import { MovieCarousel } from '@/widget/carousel'
 
@@ -37,9 +37,8 @@ function MovieDetail() {
           params={{ region: 'KR', page: 1 }}
         />
       </article>
-      <Modal>
-        <FloatingBackButton />
-      </Modal>
+
+      <FloatingBackButton />
     </>
   )
 }

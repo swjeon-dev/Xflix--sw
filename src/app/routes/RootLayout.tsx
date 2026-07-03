@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 
 import { AppHeader } from '@/widget/header'
 import { Footer } from '@/widget/footer'
+import GlobalModalContainer from '../providers/GlobalModalContainer'
 
 function RootLayout() {
   return (
@@ -16,6 +17,7 @@ function RootLayout() {
         <Footer />
         <ScrollRestoration />
       </div>
+      <GlobalModalContainer />
     </>
   )
 }

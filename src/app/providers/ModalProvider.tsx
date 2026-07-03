@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { ModalContext, type ModalState } from '@/entities/modal/model'
+import { ModalContext, type ModalState } from '@/entities/modal'
 
 // 모달 provider 생성
 function ModalProvider({ children }: { children: React.ReactNode }) {

@@ -2,18 +2,14 @@ import { Link, useLocation } from 'react-router'
 
 import isNavActive from '@/shared/lib/isNavActive'
 
-import type { NavItem } from '../config/navItems'
+import { NAV_ITEMS } from '../config/navItems'
 
-interface DesktopNavProps {
-  items: readonly NavItem[]
-}
-
-function DesktopNav({ items }: DesktopNavProps) {
+function DesktopNav() {
   const { pathname } = useLocation()
 
   return (
     <ol className='hidden gap-8 sm:flex text-xl'>
-      {items.map(item => (
+      {NAV_ITEMS.map(item => (
         <li key={item.id}>
           <Link
             to={item.path}

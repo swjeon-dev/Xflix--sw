@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+
 import { getMovie } from '../api/movie'
-import type { IMovie } from '@/entities/movie'
+import type { IMovie } from './movie.types'
 import type { QueryParams } from '@/shared'
 
 interface IUseGetMovieReturn {
@@ -16,6 +17,7 @@ function useGetMovie(
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(() => Boolean(id))
   const [movie, setMovie] = useState<IMovie | null>(null)
+  const queryKey = queryParams ? JSON.stringify(queryParams) : ''
 
   useEffect(() => {
     if (!id) {
@@ -31,7 +33,10 @@ function useGetMovie(
       setMovie(null)
       setError(null)
 
-      const result = await getMovie(id, queryParams)
+      const parsedQuery = queryKey
+        ? (JSON.parse(queryKey) as QueryParams)
+        : undefined
+      const result = await getMovie(id, parsedQuery)
 
       if (cancelled) return
 
@@ -44,7 +49,7 @@ function useGetMovie(
     return () => {
       cancelled = true
     }
-  }, [id])
+  }, [id, queryKey])
 
   return { error, isLoading, movie }
 }

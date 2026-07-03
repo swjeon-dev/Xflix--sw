@@ -1,6 +1,8 @@
+type ModalType = 'trailer' | 'search' | 'mobileNavigation' | 'episodes'
+
 // 모달 상태 타입
 interface ModalState {
-  type: string
+  type: ModalType
   props?: any
   className?: string
 }
@@ -12,4 +14,4 @@ interface ModalContextProps {
   closeModal: () => void
 }
 
-export type { ModalState, ModalContextProps }
+export type { ModalState, ModalContextProps, ModalType }

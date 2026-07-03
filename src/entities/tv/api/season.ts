@@ -1,4 +1,4 @@
-import type { ISeason } from '@/entities/tv'
+import type { ISeason } from '../model/season.types'
 import { tmdbFetch, type IApiReturn, API_ENDPOINT } from '@/shared'
 
 export const getSeason = async (

@@ -1,22 +1,55 @@
-import { DialogWrapper } from '@/shared/ui'
-import { useModal } from '@/entities/modal'
-import TrailerModal from '@/features/trailer/ui/TrailerModal'
+import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router'
+import { DialogWrapper } from '@/shared'
+import { cn } from '@/shared/lib'
+import { useModal, type ModalType } from '@/entities/modal'
+import { TrailerModal } from '@/features/trailer'
+import { SearchModal } from '@/features/search'
+import { EpisodesModal } from '@/features/episodes'
+import { MobileModalNavigation } from '@/widget/mobile-nav'
 
-const MODAL_COMPONENTS: Record<string, React.ComponentType<any>> = {
+const MODAL_DIALOG_CLASS: Record<ModalType, string> = {
+  trailer: '',
+  search: 'items-start bg-black/90 pt-[20vh]',
+  mobileNavigation: 'backdrop:bg-black/100 text-white p-0 md:p-0',
+  episodes: '',
+}
+
+const MODAL_COMPONENTS: Record<ModalType, React.ComponentType<any>> = {
   trailer: TrailerModal,
+  search: SearchModal,
+  mobileNavigation: MobileModalNavigation,
+  episodes: EpisodesModal,
 }
 
 export default function GlobalModalContainer() {
   const { currentModal, closeModal } = useModal()
+  const location = useLocation()
+  const prevLocation = useRef(location.pathname)
+
+  useEffect(() => {
+    const currentLocation = location.pathname
+
+    if (prevLocation.current === currentLocation) return
+
+    prevLocation.current = currentLocation
+    closeModal()
+  }, [location.pathname])
 
   if (!currentModal) return null
 
   const { type, props, className } = currentModal
-  const ModalContent = MODAL_COMPONENTS[type]
+  const ModalComponent = MODAL_COMPONENTS[type]
+
+  if (!ModalComponent) throw new Error(`Modal component for ${type} not found`)
 
   return (
-    <DialogWrapper isOpen={true} onClose={closeModal} className={className}>
-      {ModalContent && <ModalContent {...props} onClose={closeModal} />}
+    <DialogWrapper
+      isOpen={Boolean(currentModal)}
+      onClose={closeModal}
+      className={cn(MODAL_DIALOG_CLASS[type], className)}
+    >
+      <ModalComponent {...props} onClose={closeModal} />
     </DialogWrapper>
   )
 }

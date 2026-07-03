@@ -1,20 +1,21 @@
-import { useState } from 'react'
 import { getTmdbImgPath } from '@/shared/lib'
 import { SkeletonUI } from '@/shared/ui'
-import type { IEpisode } from '@/entities/tv'
-import { useGetSeason } from '@/features/tv'
-import { EpisodePreviewItem } from './EpisodeCard'
-import EpisodesModal from './EpisodesModal'
+import { useModal } from '@/entities/modal'
+import {
+  EpisodePreviewItem,
+  useGetSeason,
+  type IEpisode,
+  type ISeason,
+} from '@/entities/tv'
 
-interface EpisodesListProps {
+interface TVEpisodesSectionProps {
   tvId: number | string
   seasonNumber?: number
   title?: string
-  /** 목록에 보여줄 미리보기 개수 (나머지는 모달에서) */
   previewCount?: number
 }
 
-function EpisodesListWrapper({
+function SectionWrapper({
   title,
   children,
 }: {
@@ -80,61 +81,69 @@ function EpisodePreviewSkeleton() {
   )
 }
 
-function EpisodesList({
+function EpisodesError({ onRetry }: { onRetry?: () => void }) {
+  return (
+    <div className='flex flex-col gap-4 items-center py-8'>
+      <p className='text-lg text-white/70'>
+        에피소드 목록을 불러오지 못했습니다.
+      </p>
+      {onRetry && (
+        <button
+          type='button'
+          className='px-4 py-2 rounded bg-white/10 hover:bg-white/20'
+          onClick={onRetry}
+        >
+          다시 시도
+        </button>
+      )}
+    </div>
+  )
+}
+
+function openEpisodesModal(
+  openModal: ReturnType<typeof useModal>['openModal'],
+  season: ISeason,
+  episode: IEpisode | null = null,
+) {
+  openModal({
+    type: 'episodes',
+    props: {
+      seasonName: season.name,
+      episodes: season.episodes,
+      initialEpisode: episode,
+    },
+  })
+}
+
+function TVEpisodesSection({
   tvId,
   seasonNumber = 1,
   title = '에피소드',
   previewCount = 5,
-}: EpisodesListProps) {
+}: TVEpisodesSectionProps) {
+  const { openModal } = useModal()
   const { season, isLoading, error, refetch } = useGetSeason(
     String(tvId),
     seasonNumber,
   )
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedEpisode, setSelectedEpisode] = useState<IEpisode | null>(null)
-
-  function openModal(episode: IEpisode | null = null) {
-    setSelectedEpisode(episode)
-    setIsModalOpen(true)
-  }
-
-  function closeModal() {
-    setIsModalOpen(false)
-    setSelectedEpisode(null)
-  }
-
-  function handleSelectEpisode(episode: IEpisode | null) {
-    setSelectedEpisode(episode)
-  }
 
   if (isLoading) {
     return (
-      <EpisodesListWrapper title={title}>
+      <SectionWrapper title={title}>
         <ul className='flex flex-col gap-2'>
           {Array.from({ length: 3 }).map((_, i) => (
             <EpisodePreviewSkeleton key={i} />
           ))}
         </ul>
-      </EpisodesListWrapper>
+      </SectionWrapper>
     )
   }
 
   if (error) {
     return (
-      <EpisodesListWrapper title={title}>
-        <div className='flex flex-col gap-4 items-center py-8'>
-          <p className='text-lg text-white/70'>
-            에피소드 목록을 불러오지 못했습니다.
-          </p>
-          <button
-            type='button'
-            className='px-4 py-2 rounded bg-white/10 hover:bg-white/20'
-            onClick={refetch}
-          >
-            다시 시도
-          </button>
-        </div>
-      </EpisodesListWrapper>
+      <SectionWrapper title={title}>
+        <EpisodesError onRetry={refetch} />
+      </SectionWrapper>
     )
   }
 
@@ -144,13 +153,13 @@ function EpisodesList({
   const remainingCount = season.episodes.length - previewEpisodes.length
 
   return (
-    <EpisodesListWrapper title={title}>
+    <SectionWrapper title={title}>
       <SeasonHeader
         seasonName={season.name}
         posterPath={season.poster_path}
         episodeCount={season.episodes.length}
         airDate={season.air_date}
-        onOpenAll={() => openModal(null)}
+        onOpenAll={() => openEpisodesModal(openModal, season)}
       />
 
       <ul className='flex flex-col gap-2'>
@@ -158,7 +167,7 @@ function EpisodesList({
           <EpisodePreviewItem
             key={episode.id}
             episode={episode}
-            onClick={ep => openModal(ep)}
+            onClick={ep => openEpisodesModal(openModal, season, ep)}
           />
         ))}
         {remainingCount > 0 && (
@@ -166,24 +175,15 @@ function EpisodesList({
             <button
               type='button'
               className='w-full py-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors'
-              onClick={() => openModal(null)}
+              onClick={() => openEpisodesModal(openModal, season)}
             >
               + {remainingCount}화 더 보기
             </button>
           </li>
         )}
       </ul>
-
-      <EpisodesModal
-        isOpen={isModalOpen}
-        seasonName={season.name}
-        episodes={season.episodes}
-        selectedEpisode={selectedEpisode}
-        onClose={closeModal}
-        onSelectEpisode={handleSelectEpisode}
-      />
-    </EpisodesListWrapper>
+    </SectionWrapper>
   )
 }
 
-export default EpisodesList
+export default TVEpisodesSection

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router'
 
 import { routes } from '@/shared'
 
-interface SearchFormProps {
+interface SearchModalContentsProps {
   onClose: () => void
 }
 
-function SearchForm({ onClose }: SearchFormProps) {
+function SearchModalContents({ onClose }: SearchModalContentsProps) {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
@@ -20,15 +20,13 @@ function SearchForm({ onClose }: SearchFormProps) {
 
     setSearch('')
     onClose()
-
-    return navigate(routes.SEARCH.DETAIL(term))
+    navigate(routes.SEARCH.DETAIL(term))
   }
 
   return (
     <form
       onSubmit={onSubmit}
-      onClick={e => e.stopPropagation()}
-      className='flex w-full max-w-3xl flex-col gap-4'
+      className='flex w-full flex-col gap-4'
     >
       <h2 id='search-modal-title' className='text-2xl font-semibold text-white'>
         검색
@@ -42,7 +40,6 @@ function SearchForm({ onClose }: SearchFormProps) {
         autoFocus
         className='w-full rounded-md border border-white/20 bg-zinc-900 px-4 py-3 text-lg text-white placeholder:text-white/40 outline-none focus:border-white/50'
       />
-
       <button
         type='submit'
         className='w-fit rounded bg-red-600 px-6 py-2 font-semibold text-white transition-colors hover:bg-red-700'
@@ -53,4 +50,4 @@ function SearchForm({ onClose }: SearchFormProps) {
   )
 }
 
-export default SearchForm
+export default SearchModalContents

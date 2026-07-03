@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { AdultUI, ICONS } from '@/shared'
-import { TrailerModalView } from '@/features/trailer'
+import { useModal } from '@/entities/modal'
 import type { ITV } from '@/entities/tv'
 import TVBackdrop from './TVBackdrop'
 
@@ -9,7 +8,7 @@ interface TVDetailHeroProps {
 }
 
 function TVDetailHero({ tv }: TVDetailHeroProps) {
-  const [isTrailerOpen, setIsTrailerOpen] = useState(false)
+  const { openModal } = useModal()
 
   const airingDate =
     tv.first_air_date === tv.last_air_date
@@ -30,7 +29,16 @@ function TVDetailHero({ tv }: TVDetailHeroProps) {
           <button
             type='button'
             className='px-3 md:px-4 py-4 flex gap-2 items-center rounded-md bg-gray-200 text-black hover:bg-gray-200/95 text-sm'
-            onClick={() => setIsTrailerOpen(true)}
+            onClick={() =>
+              openModal({
+                type: 'trailer',
+                props: {
+                  contentId: tv.id,
+                  contentTitle: tv.name,
+                  mediaType: 'tv',
+                },
+              })
+            }
           >
             {ICONS.play}
             <span className='text-lg font-semibold'>재생</span>
@@ -41,13 +49,6 @@ function TVDetailHero({ tv }: TVDetailHeroProps) {
         </div>
       </div>
       <TVBackdrop path={tv.backdrop_path} title={tv.name} />
-      <TrailerModalView
-        isOpen={isTrailerOpen}
-        onClose={() => setIsTrailerOpen(false)}
-        contentId={tv.id}
-        contentTitle={tv.name}
-        mediaType='tv'
-      />
     </div>
   )
 }
