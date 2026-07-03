@@ -24,10 +24,7 @@ function SearchModalContents({ onClose }: SearchModalContentsProps) {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className='flex w-full flex-col gap-4'
-    >
+    <form onSubmit={onSubmit} className='flex w-full flex-col gap-4'>
       <h2 id='search-modal-title' className='text-2xl font-semibold text-white'>
         검색
       </h2>
@@ -38,6 +35,7 @@ function SearchModalContents({ onClose }: SearchModalContentsProps) {
         value={search}
         onChange={e => setSearch(e.target.value)}
         autoFocus
+        autoComplete='off'
         className='w-full rounded-md border border-white/20 bg-zinc-900 px-4 py-3 text-lg text-white placeholder:text-white/40 outline-none focus:border-white/50'
       />
       <button
