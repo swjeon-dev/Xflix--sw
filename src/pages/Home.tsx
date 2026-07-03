@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 
-import { FeaturedMovie, MOVIE_CATEGORIES, TV_CATEGORIES } from '@/widget/home'
-import { MovieCarousel, TVCarousel } from '@/widget/carousel'
+import { FeaturedMovie, MOVIE_CATEGORIES, TV_CATEGORIES } from '@/widgets/home'
+import { MovieCarousel, TVCarousel } from '@/widgets/carousel'
 
 function Home() {
   return (

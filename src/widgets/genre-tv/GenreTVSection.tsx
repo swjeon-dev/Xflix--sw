@@ -1,7 +1,7 @@
 import { API_ENDPOINT } from '@/shared/config/api'
 import type { ITV } from '@/entities/tv'
 import type { IGenre } from '@/shared'
-import { GenreSection } from '@/widget/genre'
+import { GenreSection } from '@/widgets/genre'
 
 import GenreTVCard from './GenreTVCard'
 

@@ -4,8 +4,8 @@ import { useParams } from 'react-router'
 import { FloatingBackButton, LoadingComponent } from '@/shared'
 import { API_ENDPOINT } from '@/shared/config/api'
 import { useGetMovie } from '@/entities/movie'
-import { MovieDetailSection } from '@/widget/movie-detail'
-import { MovieCarousel } from '@/widget/carousel'
+import { MovieDetailSection } from '@/widgets/movie-detail'
+import { MovieCarousel } from '@/widgets/carousel'
 
 const DETAIL_QUERY = { append_to_response: 'credits' }
 

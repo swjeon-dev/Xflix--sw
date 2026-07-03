@@ -2,7 +2,7 @@
 import { Link } from 'react-router'
 
 import { TrailerBackground } from '@/features/trailer'
-import { useGetFeaturedMovie } from '@/widget/home'
+import { useGetFeaturedMovie } from '@/widgets/home'
 import { LoadingComponent, devLog } from '@/shared'
 
 function FeaturedMovie() {

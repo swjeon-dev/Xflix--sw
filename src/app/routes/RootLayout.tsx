@@ -1,8 +1,8 @@
 import { Outlet, ScrollRestoration } from 'react-router'
 import { Helmet } from 'react-helmet-async'
 
-import { AppHeader } from '@/widget/header'
-import { Footer } from '@/widget/footer'
+import { AppHeader } from '@/widgets/header'
+import { Footer } from '@/widgets/footer'
 import GlobalModalContainer from '../providers/GlobalModalContainer'
 
 function RootLayout() {

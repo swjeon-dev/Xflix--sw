@@ -6,7 +6,7 @@ import { useModal, type ModalType } from '@/entities/modal'
 import { TrailerModal } from '@/features/trailer'
 import { SearchModal } from '@/features/search'
 import { EpisodesModal } from '@/features/episodes'
-import { MobileModalNavigation } from '@/widget/mobile-nav'
+import { MobileModalNavigation } from '@/widgets/mobile-nav'
 
 const MODAL_DIALOG_CLASS: Record<ModalType, string> = {
   trailer: '',

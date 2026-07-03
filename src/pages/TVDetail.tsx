@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 
 import { FloatingBackButton, LoadingComponent } from '@/shared'
 import { useGetTV } from '@/entities/tv'
-import { TVDetailSection, TVEpisodesSection } from '@/widget/tv-detail'
+import { TVDetailSection, TVEpisodesSection } from '@/widgets/tv-detail'
 
 const DETAIL_QUERY = { append_to_response: 'credits' }
 
