@@ -1,6 +1,5 @@
 export { useGetScrollY } from './useGetScrollY'
 export { useBodyScrollLock } from './useBodyScrollLock'
-export { default as useGetContents } from './useGetContents'
 export { default as useListInfiniteScroll } from './useListInfiniteScroll'
 export type { IVideo, IVideoReturn, MediaVideoType } from './video.types'
 export * from './video.types'

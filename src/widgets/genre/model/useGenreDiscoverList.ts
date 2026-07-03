@@ -1,11 +1,10 @@
 import {
   getAllDiscoverParams,
   getDiscoverParams,
-  useGetContents,
   useListInfiniteScroll,
   type IGenre,
 } from '@/shared'
-import type { Media } from '@/entities'
+import { useGetContents, type Media } from '@/entities/media'
 
 interface UseGenreDiscoverListParams {
   genres: IGenre[]

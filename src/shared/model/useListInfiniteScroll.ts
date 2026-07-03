@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import type { IMovie } from '@/entities/movie'
 import type { BaseMedia, ITmdbContents, QueryParams } from '@/shared'
 
 type ContentsHook<T extends BaseMedia> = (
@@ -31,7 +30,7 @@ const ROOT_MARGIN = {
   vertical: '0px 0px 320px 0px',
 } as const
 
-export default function useListInfiniteScroll<T extends BaseMedia = IMovie>({
+export default function useListInfiniteScroll<T extends BaseMedia>({
   endPoint,
   params,
   scrollRef,

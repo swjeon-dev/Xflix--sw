@@ -1,1 +1,1 @@
-export type { Media } from './types'
+export * from './model'

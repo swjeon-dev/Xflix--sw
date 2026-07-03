@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 
+import { Carousel, useListInfiniteScroll } from '@/shared'
 import type { ITV } from '@/entities/tv'
 import { TVCard } from '@/entities/tv'
-import { Carousel, useGetContents, useListInfiniteScroll } from '@/shared'
+import { useGetContents } from '@/entities/media'
 
 function TVCarousel({
   title,

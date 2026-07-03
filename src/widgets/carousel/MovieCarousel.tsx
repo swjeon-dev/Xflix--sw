@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 
+import { Carousel, useListInfiniteScroll } from '@/shared'
 import type { IMovie } from '@/entities/movie'
 import { MovieCard } from '@/entities/movie'
-import { Carousel, useGetContents, useListInfiniteScroll } from '@/shared'
+import { useGetContents } from '@/entities/media'
 
 function MovieCarousel({
   title,
