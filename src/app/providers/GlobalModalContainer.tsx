@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router'
-import { DialogWrapper, useModal, type ModalType } from '@/shared'
+import { DialogWrapper, useModal } from '@/shared'
+import type { ModalType } from '@/app/model'
 import { cn } from '@/shared/lib'
 import { TrailerModal } from '@/features/trailer'
 import { SearchModal } from '@/features/search'
@@ -38,7 +39,7 @@ export default function GlobalModalContainer() {
   if (!currentModal) return null
 
   const { type, props, className } = currentModal
-  const ModalComponent = MODAL_COMPONENTS[type]
+  const ModalComponent = MODAL_COMPONENTS[type as ModalType]
 
   if (!ModalComponent) throw new Error(`Modal component for ${type} not found`)
 
@@ -46,9 +47,9 @@ export default function GlobalModalContainer() {
     <DialogWrapper
       isOpen={Boolean(currentModal)}
       onClose={closeModal}
-      className={cn(MODAL_DIALOG_CLASS[type], className)}
+      className={cn(MODAL_DIALOG_CLASS[type as ModalType], className)}
     >
-      <ModalComponent {...props} onClose={closeModal} />
+      <ModalComponent {...(props as object)} onClose={closeModal} />
     </DialogWrapper>
   )
 }

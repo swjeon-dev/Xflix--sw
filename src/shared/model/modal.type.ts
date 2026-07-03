@@ -1,15 +1,13 @@
-type ModalType = 'trailer' | 'search' | 'mobileNavigation' | 'episodes'
-
-interface ModalState {
-  type: ModalType
-  props?: any
+interface ModalStateBase {
+  type: string
+  props?: unknown
   className?: string
 }
 
 interface ModalContextProps {
-  currentModal: ModalState | null
-  openModal: (modal: ModalState) => void
+  currentModal: ModalStateBase | null
+  openModal: (modal: ModalStateBase) => void
   closeModal: () => void
 }
 
-export type { ModalState, ModalContextProps, ModalType }
+export type { ModalStateBase, ModalContextProps }

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
-import { ModalContext, type ModalState } from '@/shared'
+import { ModalContext, type ModalStateBase } from '@/shared'
+import type { ModalState } from '@/app/model'
 
 function ModalProvider({ children }: { children: React.ReactNode }) {
   const [currentModal, setCurrentModal] = useState<ModalState | null>(null)
-  const openModal = (modal: ModalState) => {
-    setCurrentModal(modal)
+  const openModal = (modal: ModalStateBase) => {
+    setCurrentModal(modal as ModalState)
   }
   const closeModal = () => {
     setCurrentModal(null)
