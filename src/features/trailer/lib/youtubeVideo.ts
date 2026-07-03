@@ -1,6 +1,8 @@
-import { IVideo } from '@/shared'
-
-import { buildYoutubeEmbedUrl, type YoutubeEmbedVariant } from './buildYoutubeEmbedUrl'
+import type { IVideo } from '../model/video.types'
+import {
+  buildYoutubeEmbedUrl,
+  type YoutubeEmbedVariant,
+} from './buildYoutubeEmbedUrl'
 
 function getYoutubeVideoCandidates(videos: IVideo[]): IVideo[] {
   const youtube = videos.filter(video => video.site === 'YouTube')

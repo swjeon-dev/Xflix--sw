@@ -1,4 +1,4 @@
-export interface IVideo {
+interface IVideo {
   iso_639_1: string
   iso_3166_1: string
   name: string
@@ -11,9 +11,11 @@ export interface IVideo {
   published_at: string
 }
 
-export interface IVideoReturn {
+interface IVideoReturn {
   id: number
   results: IVideo[]
 }
 
-export type MediaVideoType = 'movie' | 'tv'
+type MediaVideoType = 'movie' | 'tv'
+
+export type { IVideo, IVideoReturn, MediaVideoType }

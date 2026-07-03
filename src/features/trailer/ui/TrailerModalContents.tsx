@@ -1,4 +1,5 @@
-import { LoadingComponent, type MediaVideoType } from '@/shared'
+import { LoadingComponent } from '@/shared'
+import type { MediaVideoType } from '../model/video.types'
 import { useTrailerPlay } from '../model'
 import TrailerError from './TrailerError'
 import YoutubePlayer from './YoutubePlayer'

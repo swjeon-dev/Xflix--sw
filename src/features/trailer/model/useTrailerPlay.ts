@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import type { MediaVideoType } from '@/shared'
+import type { MediaVideoType } from './video.types'
 import useGetVideo from './useGetVideo'
 
 function useTrailerPlay(

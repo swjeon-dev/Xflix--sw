@@ -1,4 +1,4 @@
-import type { MediaVideoType } from '@/shared'
+import type { MediaVideoType } from '../model/video.types'
 import TrailerModalWrapper from './TrailerModalWrapper'
 import TrailerModalContents from './TrailerModalContents'
 

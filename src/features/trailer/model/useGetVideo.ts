@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { tmdbFetch } from '@/shared'
-import type { IVideoReturn, MediaVideoType } from '@/shared/model/video.types'
+import type {
+  IVideoReturn,
+  MediaVideoType,
+} from '@/features/trailer/model/video.types'
 import { getVideosEndpoint } from '../api'
 import { findPlayableYoutubeUrl, type YoutubeEmbedVariant } from '../lib'
 

@@ -1,4 +1,5 @@
-import { devLog, type MediaVideoType } from '@/shared'
+import { devLog } from '@/shared'
+import type { MediaVideoType } from '../model/video.types'
 import { useTrailerPlay } from '../model'
 import YoutubePlayer from './YoutubePlayer'
 
