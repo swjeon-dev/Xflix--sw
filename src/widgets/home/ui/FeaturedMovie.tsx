@@ -1,9 +1,9 @@
 // featuredMovie 책임 분리를 위한 컴포넌트
 import { Link } from 'react-router'
 
-import { TrailerBackground } from '@/features/trailer'
-import { useGetFeaturedMovie } from '@/widgets/home'
 import { LoadingComponent, devLog } from '@/shared'
+import { useGetFeaturedMovie } from '../model'
+import TrailerBackground from './TrailerBackground'
 
 function FeaturedMovie() {
   const { isLoading, error, featuredContent } = useGetFeaturedMovie()

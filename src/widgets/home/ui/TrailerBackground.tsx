@@ -1,7 +1,9 @@
 import { devLog } from '@/shared'
-import type { MediaVideoType } from '../model/video.types'
-import { useTrailerPlay } from '../model'
-import YoutubePlayer from './YoutubePlayer'
+import {
+  useTrailerPlay,
+  type MediaVideoType,
+  YoutubePlayer,
+} from '@/features/trailer'
 
 interface TrailerBackgroundProps {
   contentId: number | string
