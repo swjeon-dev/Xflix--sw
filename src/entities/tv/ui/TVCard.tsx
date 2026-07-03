@@ -2,7 +2,7 @@ import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 
 import { ICONS, routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
-import { useModal } from '@/entities/modal'
+import { useModal } from '@/shared'
 import type { ITV } from '../model/tv.types'
 
 const LOADER_ID = 'root'

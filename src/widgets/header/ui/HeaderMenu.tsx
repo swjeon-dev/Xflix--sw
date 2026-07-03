@@ -1,4 +1,4 @@
-import { useModal } from '@/entities/modal'
+import { useModal } from '@/shared'
 import { ICONS } from '@/shared/assets/icons'
 
 function HeaderMenu() {

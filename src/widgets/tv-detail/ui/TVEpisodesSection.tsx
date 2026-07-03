@@ -1,6 +1,6 @@
 import { getTmdbImgPath } from '@/shared/lib'
 import { SkeletonUI } from '@/shared/ui'
-import { useModal } from '@/entities/modal'
+import { useModal } from '@/shared'
 import {
   EpisodePreviewItem,
   useGetSeason,

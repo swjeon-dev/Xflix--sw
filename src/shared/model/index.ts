@@ -1,3 +1,6 @@
 export { useGetScrollY } from './useGetScrollY'
 export { useBodyScrollLock } from './useBodyScrollLock'
 export { default as useListInfiniteScroll } from './useListInfiniteScroll'
+export { default as useModal } from './useModal'
+export { default as ModalContext } from './ModalContext'
+export type * from './modal.type'

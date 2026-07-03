@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { ICONS, routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
 import type { IMovie } from '../model/movie.types'
-import { useModal } from '@/entities/modal'
+import { useModal } from '@/shared'
 
 const LOADER_ID = 'root'
 

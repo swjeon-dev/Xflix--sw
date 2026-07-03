@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-import { ModalContext, type ModalState } from '@/entities/modal'
+import { ModalContext, type ModalState } from '@/shared'
 
-// 모달 provider 생성
 function ModalProvider({ children }: { children: React.ReactNode }) {
   const [currentModal, setCurrentModal] = useState<ModalState | null>(null)
   const openModal = (modal: ModalState) => {
