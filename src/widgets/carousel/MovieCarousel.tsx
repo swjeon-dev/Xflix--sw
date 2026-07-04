@@ -1,19 +1,12 @@
 import { useRef } from 'react'
 
-import { Carousel, useListInfiniteScroll } from '@/shared'
+import { TrailerOpenButton } from '@/features/trailer/ui'
 import type { IMovie } from '@/entities/movie'
 import { MovieCard } from '@/entities/movie'
 import { useGetContents } from '@/entities/media'
+import { Carousel, GenreCarouselProps, useListInfiniteScroll } from '@/shared'
 
-function MovieCarousel({
-  title,
-  endPoint,
-  params,
-}: {
-  title: string
-  endPoint: string
-  params?: Record<string, string | number | boolean>
-}) {
+function MovieCarousel({ title, endPoint, params }: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
@@ -36,7 +29,17 @@ function MovieCarousel({
       onRetry={refetch}
       loaderRef={loaderRef}
       renderItem={movie => (
-        <MovieCard key={`${movie.id}-movie-carousel`} content={movie} />
+        <MovieCard
+          key={`${movie.id}-movie-carousel`}
+          content={movie}
+          action={
+            <TrailerOpenButton
+              contentId={movie.id.toString()}
+              contentTitle={movie.title}
+              mediaType='movie'
+            />
+          }
+        />
       )}
     />
   )

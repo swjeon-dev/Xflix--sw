@@ -1,17 +1,20 @@
 import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 
-import { ICONS, routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
-import { useModal } from '@/shared'
+import { routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
 import type { ITV } from '../model/tv.types'
 
 const LOADER_ID = 'root'
 
-function TVCard({ content }: { content: ITV }) {
+interface TVCardProps {
+  content: ITV
+  action: React.ReactNode
+}
+
+function TVCard({ content, action }: TVCardProps) {
   const {
     genres: { tvGenres },
   } = useRouteLoaderData(LOADER_ID) as { genres: { tvGenres: IGenre[] } }
-  const { openModal } = useModal()
 
   const contentMoreInfo = useMemo(() => {
     const myGenres =
@@ -69,30 +72,7 @@ function TVCard({ content }: { content: ITV }) {
             {contentMoreInfo.overview}
           </span>
         </div>
-        <div className='flex gap-2'>
-          {[{ icon: ICONS.play, label: '재생' }].map((item, idx) => (
-            <button
-              key={idx}
-              type='button'
-              aria-label={item.label}
-              className='p-2 bg-white/20 hover:bg-red-600 rounded-full backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center pointer-events-auto'
-              onClick={() => {
-                openModal({
-                  type: 'trailer',
-                  props: {
-                    contentId: content.id,
-                    contentTitle: content.name,
-                    mediaType: 'tv',
-                  },
-                })
-              }}
-            >
-              <span className='w-5 h-5 fill-white flex items-center justify-center'>
-                {item.icon}
-              </span>
-            </button>
-          ))}
-        </div>
+        <div className='flex gap-2'>{action}</div>
       </div>
     </li>
   )

@@ -1,20 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { ICONS, devLog, SkeletonUI, type BaseMedia } from '@/shared'
-
-interface CarouselProps<T extends BaseMedia> {
-  title: string
-  items: T[]
-  isLoading?: boolean
-  isFetchingMore?: boolean
-  error?: string | null
-  onRetry?: () => void
-  loaderRef?: (node: HTMLElement | null) => void
-  scrollRef: React.RefObject<HTMLUListElement | null>
-  renderItem: (item: T) => React.ReactNode
-}
-
-type ScrollDirection = 'LEFT' | 'RIGHT'
+import { ICONS, devLog, SkeletonUI, type BaseMedia } from '../index'
+import type {
+  CarouselProps,
+  ScrollButtonProps,
+  ScrollDirection,
+  WrapperProps,
+} from '../types'
 
 function CardSkeleton() {
   return (
@@ -27,13 +19,7 @@ function CardSkeleton() {
   )
 }
 
-function ScrollButton({
-  direction,
-  onClick,
-}: {
-  direction: ScrollDirection
-  onClick: (direction: ScrollDirection) => void
-}) {
+function ScrollButton({ direction, onClick }: ScrollButtonProps) {
   return (
     <button
       className={`absolute top-0 bottom-0 ${direction === 'LEFT' ? 'left-0' : 'right-0'} w-10 bg-gray-400/60 justify-center items-center z-[11] hidden group-hover:flex`}
@@ -44,13 +30,7 @@ function ScrollButton({
   )
 }
 
-function Wrapper({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
+function Wrapper({ title, children }: WrapperProps) {
   return (
     <div className='flex flex-col gap-4 p-4 text-white overflow-hidden my-10 main-page_px'>
       <h2 className='text-2xl font-bold'>{title}</h2>

@@ -1,8 +1,8 @@
 import { devLog } from '@/shared'
 import {
   useTrailerPlay,
-  type MediaVideoType,
   YoutubePlayer,
+  type MediaVideoType,
 } from '@/features/trailer'
 
 interface TrailerBackgroundProps {

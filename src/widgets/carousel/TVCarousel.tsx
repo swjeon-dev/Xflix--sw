@@ -1,19 +1,12 @@
 import { useRef } from 'react'
 
-import { Carousel, useListInfiniteScroll } from '@/shared'
+import { TrailerOpenButton } from '@/features/trailer'
 import type { ITV } from '@/entities/tv'
 import { TVCard } from '@/entities/tv'
 import { useGetContents } from '@/entities/media'
+import { Carousel, GenreCarouselProps, useListInfiniteScroll } from '@/shared'
 
-function TVCarousel({
-  title,
-  endPoint,
-  params,
-}: {
-  title: string
-  endPoint: string
-  params?: Record<string, string | number | boolean>
-}) {
+function TVCarousel({ title, endPoint, params }: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
@@ -35,7 +28,19 @@ function TVCarousel({
       error={error}
       onRetry={refetch}
       loaderRef={loaderRef}
-      renderItem={tv => <TVCard key={`${tv.id}-tv-carousel`} content={tv} />}
+      renderItem={tv => (
+        <TVCard
+          key={`${tv.id}-tv-carousel`}
+          content={tv}
+          action={
+            <TrailerOpenButton
+              contentId={tv.id.toString()}
+              contentTitle={tv.name}
+              mediaType='tv'
+            />
+          }
+        />
+      )}
     />
   )
 }

@@ -1,17 +1,20 @@
 import { Link, useRouteLoaderData } from 'react-router'
 import { useMemo } from 'react'
 
-import { ICONS, routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
+import { routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
 import type { IMovie } from '../model/movie.types'
-import { useModal } from '@/shared'
 
 const LOADER_ID = 'root'
 
-function MovieCard({ content }: { content: IMovie }) {
+interface MovieCardProps {
+  content: IMovie
+  action: React.ReactNode
+}
+
+function MovieCard({ content, action }: MovieCardProps) {
   const {
     genres: { movieGenres },
   } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
-  const { openModal } = useModal()
 
   const contentMoreInfo = useMemo(() => {
     const myGenres =
@@ -69,30 +72,7 @@ function MovieCard({ content }: { content: IMovie }) {
             {contentMoreInfo.overview}
           </span>
         </div>
-        <div className='flex gap-2'>
-          {[{ icon: ICONS.play, label: '재생' }].map((item, idx) => (
-            <button
-              key={idx}
-              type='button'
-              aria-label={item.label}
-              className='p-2 bg-white/20 hover:bg-red-600 rounded-full backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center pointer-events-auto'
-              onClick={() => {
-                openModal({
-                  type: 'trailer',
-                  props: {
-                    contentId: content.id,
-                    contentTitle: content.title,
-                    mediaType: 'movie',
-                  },
-                })
-              }}
-            >
-              <span className='w-5 h-5 fill-white flex items-center justify-center'>
-                {item.icon}
-              </span>
-            </button>
-          ))}
-        </div>
+        <div className='flex gap-2'>{action}</div>
       </div>
     </li>
   )
