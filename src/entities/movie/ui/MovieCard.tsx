@@ -1,10 +1,9 @@
-import { Link, useRouteLoaderData } from 'react-router'
+import { Link } from 'react-router'
 import { useMemo } from 'react'
 
+import { useGenre } from '@/entities/genre'
 import { routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
 import type { IMovie } from '../model/movie.types'
-
-const LOADER_ID = 'root'
 
 interface MovieCardProps {
   content: IMovie
@@ -12,9 +11,7 @@ interface MovieCardProps {
 }
 
 function MovieCard({ content, action }: MovieCardProps) {
-  const {
-    genres: { movieGenres },
-  } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
+  const { movieGenres } = useGenre()
 
   const contentMoreInfo = useMemo(() => {
     const myGenres =

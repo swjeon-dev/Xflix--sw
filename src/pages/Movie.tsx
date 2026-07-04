@@ -1,15 +1,10 @@
 import { Helmet } from 'react-helmet-async'
-import { useRouteLoaderData } from 'react-router'
 
-import type { IGenre } from '@/shared'
 import { GenreMovieSection } from '@/widgets/genre-movie'
-
-const LOADER_ID = 'root'
+import { useGenre } from '@/entities/genre'
 
 function Movie() {
-  const {
-    genres: { movieGenres },
-  } = useRouteLoaderData(LOADER_ID) as { genres: { movieGenres: IGenre[] } }
+  const { movieGenres } = useGenre()
 
   return (
     <>

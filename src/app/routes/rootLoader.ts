@@ -1,7 +1,8 @@
+import { type GenreContextValue } from '@/entities/genre'
 import { apiValidCheck } from '@/shared/api/tmdb/auth'
-import { getGenres } from '@/shared/api/tmdb/genres'
+import { getGenres } from '@/shared'
 
-export const rootLoader = async () => {
+export const rootLoader = async (): Promise<GenreContextValue> => {
   const auth = await apiValidCheck()
 
   if (auth.error) {
@@ -14,9 +15,7 @@ export const rootLoader = async () => {
   ])
 
   return {
-    genres: {
-      movieGenres: movieGenres.data ?? [],
-      tvGenres: tvGenres.data ?? [],
-    },
+    movieGenres: movieGenres.data ?? [],
+    tvGenres: tvGenres.data ?? [],
   }
 }

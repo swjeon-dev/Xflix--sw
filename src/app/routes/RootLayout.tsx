@@ -4,20 +4,23 @@ import { Helmet } from 'react-helmet-async'
 import { AppHeader } from '@/widgets/header'
 import { Footer } from '@/widgets/footer'
 import GlobalModalContainer from '../providers/GlobalModalContainer'
+import GenreProvider from '../providers/GenreProvider'
 
 function RootLayout() {
   return (
     <>
       <Helmet titleTemplate='%s | XFlix' defaultTitle='...' />
-      <div className='min-h-screen bg-black'>
-        <AppHeader />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
-        <ScrollRestoration />
-      </div>
-      <GlobalModalContainer />
+      <GenreProvider>
+        <div className='min-h-screen bg-black'>
+          <AppHeader />
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+          <ScrollRestoration />
+        </div>
+        <GlobalModalContainer />
+      </GenreProvider>
     </>
   )
 }

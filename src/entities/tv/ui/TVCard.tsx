@@ -1,10 +1,9 @@
-import { Link, useRouteLoaderData } from 'react-router'
+import { Link } from 'react-router'
 import { useMemo } from 'react'
 
+import { useGenre } from '@/entities/genre'
 import { routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
 import type { ITV } from '../model/tv.types'
-
-const LOADER_ID = 'root'
 
 interface TVCardProps {
   content: ITV
@@ -12,9 +11,7 @@ interface TVCardProps {
 }
 
 function TVCard({ content, action }: TVCardProps) {
-  const {
-    genres: { tvGenres },
-  } = useRouteLoaderData(LOADER_ID) as { genres: { tvGenres: IGenre[] } }
+  const { tvGenres } = useGenre()
 
   const contentMoreInfo = useMemo(() => {
     const myGenres =
