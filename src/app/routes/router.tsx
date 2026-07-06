@@ -7,10 +7,8 @@ import TVDetail from '@/pages/TVDetail'
 import Movie from '@/pages/Movie'
 import TV from '@/pages/TV'
 import Search from '@/pages/Search'
-import { rootLoader } from '@/app/routes/rootLoader'
-import { searchListLoader } from '@/app/routes/searchListLoader'
 import { LoadingScreen, routes, removeRootPath } from '@/shared'
-import RootLayout from './RootLayout'
+import { rootLoader, searchListLoader, RootLayout } from './index'
 
 export const LOADER_ID = 'root'
 

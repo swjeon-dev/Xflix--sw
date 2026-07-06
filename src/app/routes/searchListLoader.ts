@@ -1,4 +1,5 @@
 import { redirect, type LoaderFunctionArgs } from 'react-router'
+
 import { routes } from '@/shared/config/routes'
 
 export function searchListLoader({ request }: LoaderFunctionArgs) {

@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet-async'
 
 import { AppHeader } from '@/widgets/header'
 import { Footer } from '@/widgets/footer'
-import GlobalModalContainer from '../providers/GlobalModalContainer'
-import GenreProvider from '../providers/GenreProvider'
+import { GlobalModalContainer, GenreProvider } from '../providers'
 
 function RootLayout() {
   return (

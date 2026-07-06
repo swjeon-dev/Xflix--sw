@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router'
-import { DialogWrapper, useModal } from '@/shared'
-import type { ModalType } from '@/app/model'
-import { cn } from '@/shared/lib'
+
 import { TrailerModal } from '@/features/trailer'
 import { SearchModal } from '@/features/search'
 import { EpisodesModal } from '@/features/episodes'
 import { MobileModalNavigation } from '@/widgets/mobile-nav'
+import { DialogWrapper, useModal, cn } from '@/shared'
+import type { ModalType } from '../model'
 
 const MODAL_DIALOG_CLASS: Record<ModalType, string> = {
   trailer: '',
