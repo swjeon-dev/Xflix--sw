@@ -1,32 +1,31 @@
 import { Link } from 'react-router'
 import { useMemo } from 'react'
 
-import { useGenre } from '@/entities/genre'
-import { routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
+import {
+  routes,
+  getTmdbImgPath,
+  AdultUI,
+  type IGenre,
+  genreFiltered,
+} from '@/shared'
 import type { IMovie } from '../model/movie.types'
 
 interface MovieCardProps {
   content: IMovie
   action: React.ReactNode
+  genres: IGenre[]
 }
 
-function MovieCard({ content, action }: MovieCardProps) {
-  const { movieGenres } = useGenre()
-
+function MovieCard({ content, action, genres }: MovieCardProps) {
   const contentMoreInfo = useMemo(() => {
-    const myGenres =
-      content.genre_ids
-        ?.map(id => movieGenres.find(g => g.id === id))
-        .filter((genre): genre is IGenre => !!genre) ?? []
-
     return {
       title: content.title,
       overview: content.overview,
       adult: content.adult,
       year: content.release_date ?? null,
-      genres: myGenres,
+      genres: genreFiltered(content.genre_ids, genres),
     }
-  }, [content, movieGenres])
+  }, [content, genres])
 
   const lowImageUrl = getTmdbImgPath({
     size: 'w300',

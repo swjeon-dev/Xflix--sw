@@ -1,32 +1,31 @@
 import { Link } from 'react-router'
 import { useMemo } from 'react'
 
-import { useGenre } from '@/entities/genre'
-import { routes, getTmdbImgPath, AdultUI, type IGenre } from '@/shared'
+import {
+  routes,
+  getTmdbImgPath,
+  AdultUI,
+  genreFiltered,
+  type IGenre,
+} from '@/shared'
 import type { ITV } from '../model/tv.types'
 
 interface TVCardProps {
   content: ITV
   action: React.ReactNode
+  genres: IGenre[]
 }
 
-function TVCard({ content, action }: TVCardProps) {
-  const { tvGenres } = useGenre()
-
+function TVCard({ content, action, genres }: TVCardProps) {
   const contentMoreInfo = useMemo(() => {
-    const myGenres =
-      content.genre_ids
-        ?.map(id => tvGenres.find(g => g.id === id))
-        .filter((genre): genre is IGenre => !!genre) ?? []
-
     return {
       title: content.name,
       overview: content.overview,
       adult: content.adult,
       year: content.first_air_date,
-      genres: myGenres.length > 2 ? myGenres.slice(0, 2) : myGenres,
+      genres: genreFiltered(content.genre_ids, genres),
     }
-  }, [content, tvGenres])
+  }, [content, genres])
 
   const lowImageUrl = getTmdbImgPath({
     size: 'w300',
