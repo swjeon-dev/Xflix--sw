@@ -4,7 +4,7 @@ import { buildDisplayGenres, GenreFilter, type IGenre } from '@/shared'
 import type { Media } from '@/entities'
 
 import GenreGridList from './GenreGridList'
-import { useGenreDiscoverList } from '@/widgets/genre/model'
+import { useGenreDiscoverList } from '@/widgets/genre-section/model'
 
 interface GenreSectionProps<T extends Media> {
   label: '영화' | 'TV'

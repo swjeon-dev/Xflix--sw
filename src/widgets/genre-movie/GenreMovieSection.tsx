@@ -1,7 +1,7 @@
 import { API_ENDPOINT } from '@/shared/config/api'
 import type { IGenre } from '@/shared'
 import type { IMovie } from '@/entities/movie'
-import { GenreSection } from '@/widgets/genre'
+import { GenreSection } from '@/widgets/genre-section'
 
 import GenreMovieCard from './GenreMovieCard'
 
