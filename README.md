@@ -74,7 +74,8 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 ## 실행 방법
 
 ```bash
-VITE_TMDB_ACCESS_TOKEN=your_tmdb_access_token
+cp .env.example .env
+# .env에 VITE_TMDB_ACCESS_TOKEN 설정
 npm install
 npm run dev
 ```
@@ -82,4 +83,6 @@ npm run dev
 ## 더 보기
 
 - 상세 설명: `docs/portfolio.md`
+- Next.js 마이그레이션: `docs/next-migration-checklist.md`
+- Legacy 성능 baseline: `docs/performance-baseline.md`
 - 이전 상세 README 보관본: `README.archive.md`
