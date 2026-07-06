@@ -18,6 +18,24 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
     },
     rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                '@/entities/*/**',
+                '@/features/*/**',
+                '@/widgets/*/**',
+                '@/pages/*/**',
+                '@/app/*/**',
+              ],
+              message:
+                'slice 내부 경로 직접 import 금지. public API(@/entities/<slice> 등)를 사용하세요.',
+            },
+          ],
+        },
+      ],
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
