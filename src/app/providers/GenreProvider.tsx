@@ -2,7 +2,7 @@
 import { useRouteLoaderData } from 'react-router'
 
 import { GenreContext, type GenreContextValue } from '@/entities/genre'
-import { LOADER_ID } from '../routes/router'
+import { LOADER_ID } from './constants'
 
 function GenreProvider({ children }: { children: React.ReactNode }) {
   const { movieGenres, tvGenres } = useRouteLoaderData(

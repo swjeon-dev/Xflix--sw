@@ -8,9 +8,10 @@ import Movie from '@/pages/Movie'
 import TV from '@/pages/TV'
 import Search from '@/pages/Search'
 import { LoadingScreen, routes, removeRootPath } from '@/shared'
-import { rootLoader, searchListLoader, RootLayout } from './index'
-
-export const LOADER_ID = 'root'
+import RootLayout from './RootLayout'
+import { rootLoader } from './rootLoader'
+import { searchListLoader } from './searchListLoader'
+import { LOADER_ID } from '../providers/constants'
 
 export const router = createBrowserRouter(
   [
