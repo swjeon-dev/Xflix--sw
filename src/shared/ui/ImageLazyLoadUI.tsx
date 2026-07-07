@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { devLog } from '@/shared/lib'
+import { devLog } from '../lib'
 
 interface IImageLazyLoadUI {
   lowUrl?: string

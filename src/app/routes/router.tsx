@@ -1,20 +1,16 @@
 import { createBrowserRouter } from 'react-router'
-import ErrorPage from '@/pages/error-page'
-import { rootLoader } from '@/app/routes/rootLoader'
-import Home from '@/pages/home'
 
-import ContentList from '@/pages/content-list'
-import SearchListView from '@/pages/search-list'
-import { searchListLoader } from '@/app/routes/searchListLoader'
-import {
-  ROOT_LOADER_ID,
-  RootLayout,
-  LoadingScreen,
-  routes,
-  removeRootPath,
-} from '@/shared'
+import ErrorPage from '@/pages/Error'
+import Home from '@/pages/Home'
+import MovieDetail from '@/pages/MovieDetail'
+import TVDetail from '@/pages/TVDetail'
+import Movie from '@/pages/Movie'
+import TV from '@/pages/TV'
+import Search from '@/pages/Search'
+import { LoadingScreen, routes, removeRootPath } from '@/shared'
+import { rootLoader, searchListLoader, RootLayout } from './index'
 
-import Detail from '@/pages/detail'
+export const LOADER_ID = 'root'
 
 export const router = createBrowserRouter(
   [
@@ -23,33 +19,34 @@ export const router = createBrowserRouter(
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       loader: rootLoader,
-      id: ROOT_LOADER_ID,
+      shouldRevalidate: () => false,
+      id: LOADER_ID,
       HydrateFallback: () => <LoadingScreen />,
       children: [
         { index: true, element: <Home /> },
         {
           path: removeRootPath(routes.MOVIE.LIST),
           children: [
-            { index: true, element: <ContentList type='movie' /> },
+            { index: true, element: <Movie /> },
             {
               path: removeRootPath(routes.MOVIE.PARAMETER),
-              element: <Detail type='movie' />,
+              element: <MovieDetail />,
             },
           ],
         },
         {
           path: removeRootPath(routes.TV.LIST),
           children: [
-            { index: true, element: <ContentList type='tv' /> },
+            { index: true, element: <TV /> },
             {
               path: removeRootPath(routes.TV.PARAMETER),
-              element: <Detail type='tv' />,
+              element: <TVDetail />,
             },
           ],
         },
         {
           path: removeRootPath(routes.SEARCH.LIST),
-          element: <SearchListView />,
+          element: <Search />,
           loader: searchListLoader,
         },
       ],

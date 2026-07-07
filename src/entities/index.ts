@@ -1,3 +1,5 @@
 export type { IFeaturedMovie, IMovie, IMovieApiReturn } from './movie'
 export type { IEpisode, ISeason, ITV, ITVApiReturn } from './tv'
+export { useGetMovie } from './movie'
+export { useGetTV, useGetSeason } from './tv'
 export type { Media } from './media'

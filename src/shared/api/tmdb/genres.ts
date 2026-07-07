@@ -1,11 +1,12 @@
-import { IApiReturn } from '@/shared'
-import { IGenre } from '@/shared'
-import { API_ENDPOINT } from '@/shared'
+import { IApiReturn } from '../../types'
+import { IGenre } from '../../types/contents.types'
 import { tmdbFetch } from './client'
-import type { MediaVideoType } from '@/shared'
+import { API_ENDPOINT } from '../../config/api'
+
+type GenreType = 'movie' | 'tv'
 
 export const getGenres = async (
-  type: MediaVideoType,
+  type: GenreType,
 ): Promise<IApiReturn<IGenre[]>> => {
   const result = await tmdbFetch<{ genres: IGenre[] }>(
     type === 'movie' ? API_ENDPOINT.GENRES_MOVIE : API_ENDPOINT.GENRES_TV,

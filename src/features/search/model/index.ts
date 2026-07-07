@@ -1,3 +1,2 @@
-export * from './get-search-item-title'
+export { default as useSearch, type SearchMediaType } from './useSearch'
 export * from './search.types'
-export * from './use-search'

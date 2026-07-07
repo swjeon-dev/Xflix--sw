@@ -1,5 +1,6 @@
-import { API_CONFIG, API_ENDPOINT } from '@/shared/config/api-config'
-import { devLog } from '@/shared/lib'
+import { API_ENDPOINT } from '../../config/api'
+import { devLog } from '../../lib'
+import { tmdbFetch } from './client'
 
 interface IAuthResponse {
   status_code?: number
@@ -12,18 +13,14 @@ export async function apiValidCheck(): Promise<{
   error: string | null
 }> {
   try {
-    const response = await fetch(
-      API_CONFIG.BASE_URL + API_ENDPOINT.AUTH_VALID,
-      API_CONFIG.OPTIONS,
+    const result = await tmdbFetch<IAuthResponse>(
+      API_ENDPOINT.AUTH_VALID,
+      undefined,
+      'API 인증 실패로 현재 서비스를 이용할 수 없습니다',
     )
 
-    if (!response.ok) {
-      throw new Error('API 인증 실패로 현재 서비스를 이용할 수 없습니다')
-    }
-
-    const data: IAuthResponse = await response.json()
     devLog({ message: 'API 인증 OK' })
-    return { data, error: null }
+    return { data: result.data, error: result.error }
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : 'Unknown Error'

@@ -1,4 +1,3 @@
-export * from './router-config'
-export * from './api-config'
-export * from './routes-config'
+export * from './routes'
 export * from './breakpoints'
+export { API_ENDPOINT } from './api'

@@ -1,0 +1,5 @@
+export { default as TVBackdrop } from './TVBackdrop'
+export { default as TVDetailHero } from './TVDetailHero'
+export { default as TVDetailOverview } from './TVDetailOverview'
+export { default as TVDetailSection } from './TVDetailSection'
+export { default as TVEpisodesSection } from './TVEpisodesSection'

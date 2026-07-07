@@ -1,5 +1,0 @@
-export * from './featured-movie'
-export * from './home'
-export * from './genre'
-export * from './movie-detail'
-export * from './tv-detail'

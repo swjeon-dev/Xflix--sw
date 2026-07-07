@@ -73,10 +73,10 @@ UI에서 fetch 세부 구현을 모르더라도 재사용할 수 있게 구성�
 ### 2. 커스텀 훅 기반 데이터 패칭
 
 - `shared/model/get-tmdb-contents.ts`
-- `entities/movie/api/movie.ts`
-- `entities/tv/api/tv.ts`
-- `widget/tv-detail/model/useGetTV.ts`
-- `features/search/model/use-search.ts`
+- `features/movies/model/get-tmdb-movies.ts`
+- `features/tv/model/get-tmdb-tvs.ts`
+- `features/search/api/search.ts`
+- `features/search/model/useSearch.ts`
 - `shared/model/use-get-tmdb-videos.ts`
 
 각 훅이 `loading / error / data / refetch`를 관리하도록 구성해,
@@ -106,7 +106,7 @@ UI와 데이터 처리 로직을 분리했습니다.
 ### 4. 모달 UX와 스크롤 잠금
 
 - `shared/ui/Modal.tsx`
-- `shared/model/scroll-disable.ts`
+- `shared/model/useBodyScrollLock.ts`
 
 Portal 기반 모달을 구현하고,  
 모바일 메뉴 / 검색 모달에서 `useBodyScrollLock`으로 body 스크롤을 제어합니다.
@@ -116,7 +116,7 @@ Portal 기반 모달을 구현하고,
 - `app/routes/rootLoader.ts`
 - `app/routes/searchListLoader.ts`
 
-앱 진입 시 영화/TV 장르를 미리 불러오고,  
+앱 진입 시 영화/TV 장르를 미리 불러오고(`shouldRevalidate: false`로 재방문 시 재요청 방지),  
 검색 페이지는 `query`가 없으면 홈으로 redirect 되도록 구성했습니다.
 
 ## 기술 스택
@@ -186,33 +186,39 @@ src/
 │   ├── AppRouter.tsx
 │   └── routes/
 │       ├── router.tsx
+│       ├── RootLayout.tsx      # AppHeader + Outlet + Footer 조합
 │       ├── rootLoader.ts
 │       └── searchListLoader.ts
 ├── pages/
-│   ├── home.tsx
-│   ├── movie-list.tsx
-│   ├── movie-detail.tsx
-│   ├── tv-list.tsx
-│   ├── tv-detail.tsx
-│   ├── search-list.tsx
-│   └── error-page.tsx
+│   ├── Home.tsx
+│   ├── Movie.tsx
+│   ├── MovieDetail.tsx
+│   ├── TV.tsx
+│   ├── TVDetail.tsx
+│   ├── Search.tsx
+│   └── Error.tsx
 ├── entities/
 │   ├── media/
 │   ├── movie/
 │   └── tv/
 ├── features/
-│   ├── movie/
-│   │   └── api/
+│   ├── movies/   # api / model / ui
 │   ├── search/
-│   │   ├── model/
-│   │   └── ui/
-│   └── tv/
-│       └── api/
+│   │   ├── api/              # getSearch
+│   │   ├── lib/              # searchItemTitle, searchItemYear
+│   │   ├── model/            # useSearch, search.types
+│   │   ├── ui/               # SearchList, SearchForm, SearchModalWrapper …
+│   │   └── SearchModalView.tsx
+│   ├── trailer/  # api / lib / model / ui, TrailerModalView
+│   └── tv/       # api / model / ui
 ├── widget/
-│   ├── featured-movie/
-│   ├── genre/
+│   ├── header/     # AppHeader, DesktopNav, HeaderActions
+│   ├── footer/
+│   ├── mobile-nav/
+│   ├── carousel/
+│   ├── genre-movie/
+│   ├── genre-tv/
 │   ├── home/
-│   ├── media/
 │   ├── movie-detail/
 │   └── tv-detail/
 └── shared/
@@ -229,19 +235,12 @@ src/
 
 | 레이어     | 역할                           | 예시                                      |
 | ---------- | ------------------------------ | ----------------------------------------- |
-| `app`      | 앱 진입점, 라우터, 전역 loader | `router.tsx`, `rootLoader.ts`             |
-| `pages`    | URL 기준 페이지 조립           | `movie-detail.tsx`, `search-list.tsx`     |
-| `entities` | 도메인 핵심 타입               | `movie.types.ts`, `tv.types.ts`           |
-| `features` | 유저 액션 / 도메인 기능        | 검색, 영화 fetch, TV 시즌 조회            |
-| `widget`   | 화면 단위 조합 블록            | `movie-detail`, `genre-movies`            |
-| `shared`   | 공통 UI / 훅 / 유틸 / API      | `Modal`, `useBodyScrollLock`, `tmdbFetch` |
-
-## 최근 FSD 리팩토링
-
-- movie/tv API를 `entities/*/api`로 이동하고 `features`에는 `search`만 유지했습니다.
-- TV 상세 전용 로직(`useGetTV`, `useGetSeason`, episodes UI)을 `widget/tv-detail`로 이동했습니다.
-- `widget/media-list`를 `widget/media`로 통합해 목록/캐러셀 공통 경로를 정리했습니다.
-- 홈 카테고리 상수를 `widget/home/config`로 이동해 홈 위젯의 책임을 명확히 했습니다.
+| `app`      | 앱 진입점, 라우터, 레이아웃, loader | `router.tsx`, `RootLayout.tsx`, `rootLoader.ts` |
+| `pages`    | URL 기준 페이지 조립                | `Search.tsx`, `MovieDetail.tsx`                 |
+| `entities` | 도메인 핵심 타입                    | `movie.types.ts`, `tv.types.ts`                 |
+| `features` | 유저 액션 / 도메인 기능             | 검색, 트레일러, 영화·TV fetch                   |
+| `widget`   | 화면 단위 조합 블록                 | `header`, `footer`, `movie-detail`              |
+| `shared`   | 공통 UI / 훅 / 유틸 / API           | `Modal`, `useBodyScrollLock`, `tmdbFetch`       |
 
 ## 현재 라우트
 
