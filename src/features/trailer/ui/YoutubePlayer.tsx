@@ -12,7 +12,7 @@ interface YoutubePlayerProps {
 
 const BASE_CLASS = 'absolute inset-0 w-full h-full'
 const BACKGROUND_CLASS =
-  'pointer-events-none scale-[1.35] [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:object-cover'
+  'scale-[1.35] [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:object-cover'
 
 function YoutubePlayer({
   title,
