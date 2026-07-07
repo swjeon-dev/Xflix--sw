@@ -1,3 +1,5 @@
+import type { SearchMediaType } from '@/features/search'
+
 export const routes = {
   ROOT: '/',
   MOVIE: {
@@ -14,10 +16,12 @@ export const routes = {
   },
   SEARCH: {
     LIST: '/search',
-    QUERY_KEY: 'query',
-    DETAIL: (query: string) => {
+    QUERY_KEY: 'word',
+    MEDIA_TYPE_KEY: 'type',
+    DETAIL: (searchWord: string, mediaType: SearchMediaType) => {
       const params = new URLSearchParams({
-        query: query.trim(),
+        word: searchWord.trim(),
+        type: mediaType,
       })
       return `/search?${params.toString()}`
     },

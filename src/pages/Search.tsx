@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useSearchParams } from 'react-router'
 
@@ -11,12 +10,23 @@ import {
 } from '@/features/search'
 
 export default function Search() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get(routes.SEARCH.QUERY_KEY)
-  const [mediaType, setMediaType] = useState<SearchMediaType>('movie')
+  const rawType = searchParams.get(routes.SEARCH.MEDIA_TYPE_KEY)
+  const mediaType = rawType === 'tv' ? 'tv' : 'movie'
 
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
     useSearch({ query, mediaType })
+
+  function changeMediaType(type: SearchMediaType) {
+    setSearchParams(
+      prev => {
+        prev.set(routes.SEARCH.MEDIA_TYPE_KEY, type)
+        return prev
+      },
+      { replace: true },
+    )
+  }
 
   const tabLabel = mediaType === 'movie' ? '영화' : 'TV'
   const emptyMessage = query
@@ -41,7 +51,7 @@ export default function Search() {
               '검색'
             )}
           </h1>
-          <SearchTabs selected={mediaType} onSelect={setMediaType} />
+          <SearchTabs selected={mediaType} onSelect={changeMediaType} />
         </header>
 
         <SearchList
