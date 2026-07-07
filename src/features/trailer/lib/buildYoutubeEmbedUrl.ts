@@ -51,8 +51,4 @@ function getYoutubePlayerVars(
   return playerVars
 }
 
-export {
-  buildYoutubeEmbedUrl,
-  getYoutubePlayerVars,
-  type YoutubeEmbedVariant,
-}
+export { buildYoutubeEmbedUrl, getYoutubePlayerVars, type YoutubeEmbedVariant }
