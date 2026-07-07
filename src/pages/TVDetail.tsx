@@ -9,7 +9,7 @@ const DETAIL_QUERY = { append_to_response: 'credits' }
 
 function TVDetail() {
   const { id } = useParams()
-  const { error, isLoading, tv } = useGetTV(id!, DETAIL_QUERY)
+  const { error, isLoading, tv } = useGetTV(id, DETAIL_QUERY)
 
   if (isLoading) {
     return (
@@ -28,7 +28,7 @@ function TVDetail() {
         {tv?.seasons?.map(season => (
           <TVEpisodesSection
             key={season.id}
-            tvId={id!}
+            tvId={id}
             seasonNumber={season.season_number}
             title={season.name}
           />

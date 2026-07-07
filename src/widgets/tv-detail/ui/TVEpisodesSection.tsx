@@ -9,7 +9,7 @@ import {
 } from '@/entities/tv'
 
 interface TVEpisodesSectionProps {
-  tvId: number | string
+  tvId: string | undefined
   seasonNumber?: number
   title?: string
   previewCount?: number
@@ -122,10 +122,7 @@ function TVEpisodesSection({
   previewCount = 5,
 }: TVEpisodesSectionProps) {
   const { openModal } = useModal()
-  const { season, isLoading, error, refetch } = useGetSeason(
-    String(tvId),
-    seasonNumber,
-  )
+  const { season, isLoading, error, refetch } = useGetSeason(tvId, seasonNumber)
 
   if (isLoading) {
     return (
