@@ -1,4 +1,4 @@
-import type { SearchMediaType } from '../model/useSearch'
+import type { SearchMediaType } from '../model'
 
 const SEARCH_TABS: { id: SearchMediaType; label: string }[] = [
   { id: 'movie', label: '영화' },

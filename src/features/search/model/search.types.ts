@@ -1,11 +1,18 @@
-export interface ISearchResult {
+type SearchMediaType = 'movie' | 'tv'
+
+interface ISearchResult {
   page: number
   results: ISearchData[]
   total_pages: number
   total_results: number
 }
 
-export interface ISearchData {
+interface IUseSearchProps {
+  query: string | null | undefined
+  mediaType: SearchMediaType
+}
+
+interface ISearchData {
   adult: boolean
   backdrop_path?: string
   id: number
@@ -32,7 +39,7 @@ export interface ISearchData {
   known_for?: KnownFor[]
 }
 
-export interface KnownFor {
+interface KnownFor {
   adult: boolean
   backdrop_path: string
   id: number
@@ -53,4 +60,12 @@ export interface KnownFor {
   original_name?: string
   first_air_date?: string
   origin_country?: string[]
+}
+
+export type {
+  SearchMediaType,
+  ISearchResult,
+  ISearchData,
+  KnownFor,
+  IUseSearchProps,
 }
