@@ -10,7 +10,7 @@ export interface IFetchingDataReturn {
 }
 
 function useGetTV(
-  id: string,
+  id: string | undefined,
   queryParams?: Record<string, string>,
 ): IFetchingDataReturn {
   const [error, setError] = useState<string | null>(null)
@@ -21,13 +21,18 @@ function useGetTV(
   useEffect(() => {
     if (!id) {
       setIsLoading(false)
+      setTv(null)
+      setError(null)
       return
     }
 
     let cancelled = false
 
-    async function fetchTv() {
+    async function fetchTv(id: string) {
       setIsLoading(true)
+      setTv(null)
+      setError(null)
+
       const parsedQuery = queryKey
         ? (JSON.parse(queryKey) as Record<string, string>)
         : undefined
@@ -40,7 +45,7 @@ function useGetTV(
       setIsLoading(false)
     }
 
-    fetchTv()
+    fetchTv(id)
     return () => {
       cancelled = true
     }

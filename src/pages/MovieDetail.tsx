@@ -22,7 +22,7 @@ function MovieDetail() {
   return (
     <>
       <Helmet>
-        <title>{movie?.title || 'Detail'}</title>
+        <title>{movie?.title ?? 'Detail'}</title>
       </Helmet>
       <article key={id}>
         <MovieDetailSection movie={movie} error={error} />

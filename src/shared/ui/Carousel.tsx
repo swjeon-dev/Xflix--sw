@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 
-import { ICONS, devLog, SkeletonUI, type BaseMedia } from '../index'
 import type {
+  BaseMedia,
   CarouselProps,
   ScrollButtonProps,
   ScrollDirection,
   WrapperProps,
 } from '../types'
+import { SkeletonUI } from './LoadingScreen'
+import { ICONS } from '../assets'
+import { devLog } from '../lib'
 
 function CardSkeleton() {
   return (

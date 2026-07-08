@@ -46,25 +46,32 @@ function useGetVideo(
       setTrailerUrl(null)
       setError(null)
 
-      const result = await tmdbFetch<IVideoReturn>(
-        getVideosEndpoint(id, mediaType),
-        undefined,
-        errorMessage,
-      )
+      const [resultInKorean, resultInEnglish] = await Promise.all([
+        tmdbFetch<IVideoReturn>(
+          getVideosEndpoint(id, mediaType),
+          undefined,
+          errorMessage,
+        ),
+        tmdbFetch<IVideoReturn>(
+          getVideosEndpoint(id, mediaType),
+          { language: 'en-US' },
+          errorMessage,
+        ),
+      ])
+      const koreanResults = resultInKorean.data?.results ?? []
+      const englishResults = resultInEnglish.data?.results ?? []
+      const results = koreanResults.length > 0 ? koreanResults : englishResults
 
       if (cancelled) return
 
-      if (result.error) {
+      if (!!resultInKorean.error && !!resultInEnglish.error) {
         setTrailerUrl(null)
-        setError(result.error)
+        setError(resultInKorean.error || resultInEnglish.error)
         setStatus('error')
         return
       }
 
-      const url = await findPlayableYoutubeUrl(
-        result.data?.results ?? [],
-        variant,
-      )
+      const url = await findPlayableYoutubeUrl(results, variant)
 
       if (!url) {
         setTrailerUrl(null)

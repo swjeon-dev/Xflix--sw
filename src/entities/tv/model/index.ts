@@ -4,6 +4,7 @@ export type {
   IGuestStar,
   INetwork,
   ISeason,
+  ISeasonMeta,
   ISeasonApiReturn,
 } from './season.types'
 export type { ITV, ITVApiReturn } from './tv.types'
