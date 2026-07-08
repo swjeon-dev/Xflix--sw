@@ -65,6 +65,15 @@ export interface ISeason {
   poster_path: string | null
   season_number: number
   vote_average: number
+  episode_count?: number
 }
 
 export type ISeasonApiReturn = IApiReturn<ISeason>
+
+/** TV 상세 응답의 seasons 항목 (에피소드 미포함) */
+export interface ISeasonMeta {
+  name: string
+  poster_path: string | null
+  air_date: string
+  episode_count: number
+}
