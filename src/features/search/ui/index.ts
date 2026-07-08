@@ -1,5 +1,3 @@
 export { default as SearchList } from './SearchList'
 export { default as SearchTabs } from './SearchTabs'
-export { default as SearchModalContents } from './SearchModalContents'
-export { default as SearchCard } from './SearchCard'
 export { default as SearchModal } from './SearchModal'

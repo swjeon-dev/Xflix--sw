@@ -1,5 +1,5 @@
 import { SkeletonUI, devLog } from '@/shared'
-import type { ISearchData } from '../model/search.types'
+import type { ISearchData } from '../model'
 import SearchCard from './SearchCard'
 
 interface SearchResultsProps {
