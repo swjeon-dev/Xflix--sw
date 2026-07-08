@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 
-import { getTmdbImgPath, AdultUI, routes } from '@/shared'
-import { searchItemTitle, searchItemYear } from '../lib'
+import { getTmdbImgPath, AdultUI } from '@/shared'
+import { searchItemDetailPath, searchItemTitle, searchItemYear } from '../lib'
 import type { ISearchData } from '../model'
 
 interface SearchCardProps {
@@ -11,10 +11,7 @@ interface SearchCardProps {
 function SearchCard({ item }: SearchCardProps) {
   const title = searchItemTitle(item)
   const year = searchItemYear(item)
-  const detailPath =
-    item.media_type === 'movie'
-      ? routes.MOVIE.DETAIL(item.id)
-      : routes.TV.DETAIL(item.id)
+  const detailPath = searchItemDetailPath(item)
 
   const posterUrl = getTmdbImgPath({
     path: item.poster_path,

@@ -1,3 +1,4 @@
+import { routes } from '@/shared'
 import type { ISearchData } from '../model'
 
 function searchItemTitle(item: ISearchData) {
@@ -13,4 +14,10 @@ function searchItemYear(item: ISearchData) {
   return date ? date.slice(0, 4) : null
 }
 
-export { searchItemTitle, searchItemYear }
+function searchItemDetailPath(item: ISearchData) {
+  return item.media_type === 'movie'
+    ? routes.MOVIE.DETAIL(item.id)
+    : routes.TV.DETAIL(item.id)
+}
+
+export { searchItemTitle, searchItemYear, searchItemDetailPath }

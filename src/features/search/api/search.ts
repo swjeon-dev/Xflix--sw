@@ -1,5 +1,5 @@
 import { tmdbFetch, type IApiReturn, API_ENDPOINT } from '@/shared'
-import { ISearchResult } from '../model'
+import type { ISearchResult } from '../model'
 
 export const getSearch = async (
   query: string,
