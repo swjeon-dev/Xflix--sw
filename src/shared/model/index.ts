@@ -1,3 +1,4 @@
+export { default as useInView } from './useInView'
 export { useGetScrollY } from './useGetScrollY'
 export { useBodyScrollLock } from './useBodyScrollLock'
 export { default as useListInfiniteScroll } from './useListInfiniteScroll'
