@@ -1,12 +1,19 @@
 import { tmdbFetch, type IApiReturn, API_ENDPOINT } from '@/shared'
-import type { ISearchResult } from '../model'
+import type { ISearchResult, SearchMediaType } from '../model'
+
+function getSearchEndpoint(mediaType: SearchMediaType) {
+  return mediaType === 'movie'
+    ? API_ENDPOINT.SEARCH_MOVIE
+    : API_ENDPOINT.SEARCH_TV
+}
 
 export const getSearch = async (
   query: string,
   page: number,
+  mediaType: SearchMediaType,
 ): Promise<IApiReturn<ISearchResult>> => {
   return tmdbFetch<ISearchResult>(
-    API_ENDPOINT.SEARCH_MULTI,
+    getSearchEndpoint(mediaType),
     {
       query,
       include_adult: false,

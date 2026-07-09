@@ -45,7 +45,8 @@ export const API_ENDPOINT = {
   MOVIE_SIMILAR: (id: string) => `/movie/${id}/similar`,
   MOVIE_RECOMMEND: (id: string) => `/movie/${id}/recommendations`,
 
-  SEARCH_MULTI: '/search/multi',
+  SEARCH_MOVIE: '/search/movie',
+  SEARCH_TV: '/search/tv',
 } as const
 
 export type ApiPath = {

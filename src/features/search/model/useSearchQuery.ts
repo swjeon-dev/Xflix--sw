@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { getSearch } from '../api'
-import { filterByMediaType } from '../lib'
 import type { ISearchData, SearchMediaType } from './search.types'
 
 type SearchQueryResult = {
@@ -47,7 +46,7 @@ function useSearchQuery({
       setResult(null)
       setError(null)
 
-      const response = await getSearch(query, page)
+      const response = await getSearch(query, page, mediaType)
 
       if (cancelled) return
 
@@ -60,7 +59,7 @@ function useSearchQuery({
       const data = response.data
 
       setResult({
-        results: filterByMediaType(data?.results ?? [], mediaType),
+        results: data?.results ?? [],
         page: data?.page ?? 1,
         totalPages: data?.total_pages ?? 1,
       })
