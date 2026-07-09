@@ -2,9 +2,10 @@ import { useMemo, useState } from 'react'
 
 import { buildDisplayGenres, GenreFilter, type IGenre } from '@/shared'
 import type { Media } from '@/entities'
+import { useInfiniteContents } from '@/entities/media'
 
+import { getDiscoverListParams, getDiscoverListTitle } from '../lib'
 import GenreGridList from './GenreGridList'
-import { useGenreDiscoverList } from '@/widgets/genre-section/model'
 
 interface GenreSectionProps<T extends Media> {
   label: '영화' | 'TV'
@@ -26,12 +27,25 @@ function GenreSection<T extends Media>({
   const [selected, setSelected] = useState(0)
   const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
 
-  const list = useGenreDiscoverList<T>({
-    genres: displayGenres.lists,
+  const params = getDiscoverListParams(selected)
+  const listTitle = getDiscoverListTitle(
     selected,
-    endPoint,
+    displayGenres.lists,
     allTitle,
     fallbackTitle,
+  )
+
+  const {
+    loaderRef,
+    contents,
+    isLoading,
+    isFetchingMore,
+    error,
+    refetch,
+  } = useInfiniteContents<T>({
+    endPoint,
+    params,
+    direction: 'vertical',
   })
 
   return (
@@ -43,13 +57,13 @@ function GenreSection<T extends Media>({
         onSelect={setSelected}
       />
       <GenreGridList
-        listTitle={list.listTitle}
-        items={list.contents}
-        isLoading={list.isLoading}
-        isFetchingMore={list.isFetchingMore}
-        error={list.error}
-        loaderRef={list.loaderRef}
-        onRetry={list.refetch}
+        listTitle={listTitle}
+        items={contents}
+        isLoading={isLoading}
+        isFetchingMore={isFetchingMore}
+        error={error}
+        loaderRef={loaderRef}
+        onRetry={refetch}
         renderItem={renderItem}
       />
     </>
