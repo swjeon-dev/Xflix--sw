@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { tmdbFetch } from '@/shared'
-import type {
-  IVideoReturn,
-  MediaVideoType,
-} from '@/features/trailer/model/video.types'
-import { getVideosEndpoint } from '../api'
+import { getVideos } from '../api'
 import { findPlayableYoutubeUrl, type YoutubeEmbedVariant } from '../lib'
+import type { MediaVideoType } from './video.types'
 
 type VideoStatus = 'idle' | 'loading' | 'ready' | 'empty' | 'error'
 
@@ -36,27 +32,14 @@ function useGetVideo(
 
     let cancelled = false
 
-    const errorMessage =
-      mediaType === 'movie'
-        ? '영화 영상 정보를 불러오지 못했습니다.'
-        : 'TV 프로그램 영상 정보를 불러오지 못했습니다.'
-
-    async function fetchVideos() {
+    async function loadVideos() {
       setStatus('loading')
       setTrailerUrl(null)
       setError(null)
 
       const [resultInKorean, resultInEnglish] = await Promise.all([
-        tmdbFetch<IVideoReturn>(
-          getVideosEndpoint(id, mediaType),
-          undefined,
-          errorMessage,
-        ),
-        tmdbFetch<IVideoReturn>(
-          getVideosEndpoint(id, mediaType),
-          { language: 'en-US' },
-          errorMessage,
-        ),
+        getVideos(id, mediaType),
+        getVideos(id, mediaType, { language: 'en-US' }),
       ])
       const koreanResults = resultInKorean.data?.results ?? []
       const englishResults = resultInEnglish.data?.results ?? []
@@ -73,6 +56,8 @@ function useGetVideo(
 
       const url = await findPlayableYoutubeUrl(results, variant)
 
+      if (cancelled) return
+
       if (!url) {
         setTrailerUrl(null)
         setError(null)
@@ -85,7 +70,8 @@ function useGetVideo(
       setStatus('ready')
     }
 
-    fetchVideos()
+    loadVideos()
+
     return () => {
       cancelled = true
     }
