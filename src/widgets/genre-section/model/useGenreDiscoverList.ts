@@ -1,10 +1,5 @@
-import {
-  getAllDiscoverParams,
-  getDiscoverParams,
-  useListInfiniteScroll,
-  type IGenre,
-} from '@/shared'
-import { useGetContents, type Media } from '@/entities/media'
+import { getAllDiscoverParams, getDiscoverParams, type IGenre } from '@/shared'
+import { useInfiniteContents, type Media } from '@/entities/media'
 
 interface UseGenreDiscoverListParams {
   genres: IGenre[]
@@ -26,11 +21,10 @@ function useGenreDiscoverList<T extends Media>({
     selected === 0 ? getAllDiscoverParams() : getDiscoverParams(selected)
 
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useListInfiniteScroll<T>({
+    useInfiniteContents<T>({
       endPoint,
       params,
       direction: 'vertical',
-      useContents: useGetContents<T>,
     })
 
   const listTitle =

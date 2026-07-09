@@ -3,21 +3,20 @@ import { useRef } from 'react'
 import { TrailerOpenButton } from '@/features/trailer'
 import type { IMovie } from '@/entities/movie'
 import { MovieCard } from '@/entities/movie'
-import { useGetContents } from '@/entities/media'
+import { useInfiniteContents } from '@/entities/media'
 import { useGenre } from '@/entities/genre'
-import { Carousel, GenreCarouselProps, useListInfiniteScroll } from '@/shared'
+import { Carousel, GenreCarouselProps } from '@/shared'
 
 function MovieCarousel({ title, endPoint, params }: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
   const { movieGenres } = useGenre()
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useListInfiniteScroll<IMovie>({
+    useInfiniteContents<IMovie>({
       endPoint,
       params,
       scrollRef,
       direction: 'horizontal',
-      useContents: useGetContents<IMovie>,
     })
 
   return (
