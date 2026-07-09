@@ -14,7 +14,7 @@ interface SearchResultsProps {
 
 function SearchGridSkeleton() {
   return (
-    <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+    <ul className='grid grid-cols-2 gap-4 [overflow-anchor:none] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {Array.from({ length: 10 }).map((_, i) => (
         <li key={i} className='aspect-[2/3]' aria-hidden>
           <SkeletonUI />
@@ -62,7 +62,7 @@ function SearchList({
   }
 
   return (
-    <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+    <ul className='grid grid-cols-2 gap-4 [overflow-anchor:none] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {items.map(item => (
         <SearchCard key={`${item.media_type}-${item.id}`} item={item} />
       ))}
