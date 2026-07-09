@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router'
 
-import isNavActive from '@/shared/lib/isNavActive'
+import { isNavActive } from '@/shared/lib/isNavActive'
 
 import { NAV_ITEMS } from '../config/navItems'
 
