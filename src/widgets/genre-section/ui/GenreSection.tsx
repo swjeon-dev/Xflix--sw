@@ -1,10 +1,7 @@
-import { useMemo, useState } from 'react'
-
-import { buildDisplayGenres, GenreFilter, type IGenre } from '@/shared'
+import { GenreFilter, type IGenre } from '@/shared'
 import type { Media } from '@/entities'
-import { useInfiniteContents } from '@/entities/media'
 
-import { getDiscoverListParams, getDiscoverListTitle } from '../lib'
+import { useGenreSection } from '../model'
 import GenreGridList from './GenreGridList'
 
 interface GenreSectionProps<T extends Media> {
@@ -24,28 +21,22 @@ function GenreSection<T extends Media>({
   fallbackTitle,
   renderItem,
 }: GenreSectionProps<T>) {
-  const [selected, setSelected] = useState(0)
-  const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
-
-  const params = getDiscoverListParams(selected)
-  const listTitle = getDiscoverListTitle(
-    selected,
-    displayGenres.lists,
-    allTitle,
-    fallbackTitle,
-  )
-
   const {
+    selected,
+    setSelected,
+    displayGenres,
+    listTitle,
     loaderRef,
     contents,
     isLoading,
     isFetchingMore,
     error,
     refetch,
-  } = useInfiniteContents<T>({
+  } = useGenreSection<T>({
+    genres,
     endPoint,
-    params,
-    direction: 'vertical',
+    allTitle,
+    fallbackTitle,
   })
 
   return (

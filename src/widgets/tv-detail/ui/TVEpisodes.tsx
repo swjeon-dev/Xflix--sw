@@ -1,7 +1,8 @@
-import { useInView, useModal } from '@/shared'
-import { useGetSeason, type ISeasonMeta } from '@/entities/tv'
+import { useModal } from '@/shared'
+import type { ISeasonMeta } from '@/entities/tv'
 
-import { buildSeasonData, openEpisodesModal } from '../lib'
+import { openEpisodesModal } from '../lib'
+import { useTVEpisodes } from '../model'
 import TVEpisodesWrapper from './TVEpisodesWrapper'
 import TVEpisodesHeader from './TVEpisodesHeader'
 import TVEpisodesLoader from './TVEpisodesLoader'
@@ -24,21 +25,20 @@ function TVEpisodes({
   seasonMeta,
 }: TVEpisodesProps) {
   const { openModal } = useModal()
-  const { ref: sectionRef, inView } = useInView()
-  const { season, isLoading, error, refetch } = useGetSeason(
-    tvId,
-    seasonNumber,
-    { enabled: inView },
-  )
-
-  const { seasonName, posterPath, airDate, episodeCount } = buildSeasonData(
+  const {
+    sectionRef,
     season,
-    seasonMeta,
-  )
+    isLoading,
+    error,
+    refetch,
+    seasonName,
+    posterPath,
+    airDate,
+    episodeCount,
+    hasEpisodes,
+  } = useTVEpisodes({ tvId, seasonNumber, seasonMeta })
 
   if (episodeCount === 0) return null
-
-  const hasEpisodes = !!season?.episodes.length
 
   return (
     <TVEpisodesWrapper title={title} sectionRef={sectionRef}>
@@ -52,7 +52,7 @@ function TVEpisodes({
       />
       {isLoading && <TVEpisodesLoader length={previewCount} />}
       {error && <TVEpisodesError onRetry={refetch} />}
-      {hasEpisodes && (
+      {hasEpisodes && season && (
         <TVEpisodesContents season={season} previewCount={previewCount} />
       )}
     </TVEpisodesWrapper>

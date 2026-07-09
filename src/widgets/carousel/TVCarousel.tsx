@@ -3,20 +3,20 @@ import { useRef } from 'react'
 import { TrailerOpenButton } from '@/features/trailer'
 import type { ITV } from '@/entities/tv'
 import { TVCard } from '@/entities/tv'
-import { useInfiniteContents } from '@/entities/media'
 import { useGenre } from '@/entities/genre'
 import { Carousel, GenreCarouselProps } from '@/shared'
+
+import { useCarouselContents } from './model'
 
 function TVCarousel({ title, endPoint, params }: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
   const { tvGenres } = useGenre()
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useInfiniteContents<ITV>({
+    useCarouselContents<ITV>({
       endPoint,
       params,
       scrollRef,
-      direction: 'horizontal',
     })
 
   return (
