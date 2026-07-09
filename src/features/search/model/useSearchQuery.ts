@@ -33,12 +33,19 @@ function useSearchQuery({
   }, [])
 
   useEffect(() => {
-    if (!enabled) return
+    if (!enabled) {
+      setIsFetching(false)
+      setResult(null)
+      setError(null)
+      return
+    }
 
     let cancelled = false
 
-    async function fetchSearch() {
+    async function loadSearch() {
       setIsFetching(true)
+      setResult(null)
+      setError(null)
 
       const response = await getSearch(query, page)
 
@@ -46,14 +53,12 @@ function useSearchQuery({
 
       if (response.error) {
         setError(response.error)
-        setResult(null)
         setIsFetching(false)
         return
       }
 
       const data = response.data
 
-      setError(null)
       setResult({
         results: filterByMediaType(data?.results ?? [], mediaType),
         page: data?.page ?? 1,
@@ -62,7 +67,7 @@ function useSearchQuery({
       setIsFetching(false)
     }
 
-    fetchSearch()
+    loadSearch()
 
     return () => {
       cancelled = true

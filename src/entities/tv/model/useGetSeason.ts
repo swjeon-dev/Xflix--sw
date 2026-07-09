@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { getSeason } from '../api/season'
+import { getSeason } from '../api'
 import type { ISeason } from './season.types'
 
 interface IUseGetSeasonReturn {
@@ -16,25 +16,34 @@ function useGetSeason(
   options?: { enabled?: boolean },
 ): IUseGetSeasonReturn {
   const enabled = options?.enabled ?? true
+
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [season, setSeason] = useState<ISeason | null>(null)
-  const [fetchKey, setFetchKey] = useState(0)
+  const [refetchCount, setRefetchCount] = useState(0)
+
+  const refetch = useCallback(() => {
+    setRefetchCount(prev => prev + 1)
+  }, [])
 
   useEffect(() => {
     if (!enabled || !tvId || seasonNumber == null) {
       setIsLoading(false)
+      setSeason(null)
+      setError(null)
       return
     }
 
     const seriesId = tvId
+    const resolvedSeasonNumber = seasonNumber
     let cancelled = false
 
-    async function fetchSeason() {
+    async function loadSeason() {
       setIsLoading(true)
+      setSeason(null)
       setError(null)
 
-      const result = await getSeason(seriesId, String(seasonNumber))
+      const result = await getSeason(seriesId, String(resolvedSeasonNumber))
 
       if (cancelled) return
 
@@ -43,14 +52,12 @@ function useGetSeason(
       setIsLoading(false)
     }
 
-    fetchSeason()
+    loadSeason()
 
     return () => {
       cancelled = true
     }
-  }, [tvId, seasonNumber, fetchKey, enabled])
-
-  const refetch = () => setFetchKey(k => k + 1)
+  }, [tvId, seasonNumber, enabled, refetchCount])
 
   return { error, isLoading, season, refetch }
 }

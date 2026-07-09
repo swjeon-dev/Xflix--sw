@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
-import { getTV } from '../api/tv'
+import { parseQueryKey, type QueryParams } from '@/shared'
+
+import { getTV } from '../api'
 import type { ITV } from './tv.types'
 
-export interface IFetchingDataReturn {
+interface IUseGetTVReturn {
   error: string | null
   isLoading: boolean
   tv: ITV | null
@@ -11,12 +13,13 @@ export interface IFetchingDataReturn {
 
 function useGetTV(
   id: string | undefined,
-  queryParams?: Record<string, string>,
-): IFetchingDataReturn {
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [tv, setTv] = useState<ITV | null>(null)
+  queryParams?: QueryParams,
+): IUseGetTVReturn {
   const queryKey = queryParams ? JSON.stringify(queryParams) : ''
+
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(() => Boolean(id))
+  const [tv, setTv] = useState<ITV | null>(null)
 
   useEffect(() => {
     if (!id) {
@@ -26,17 +29,15 @@ function useGetTV(
       return
     }
 
+    const tvId = id
     let cancelled = false
 
-    async function fetchTv(id: string) {
+    async function loadTv() {
       setIsLoading(true)
       setTv(null)
       setError(null)
 
-      const parsedQuery = queryKey
-        ? (JSON.parse(queryKey) as Record<string, string>)
-        : undefined
-      const result = await getTV(id, parsedQuery)
+      const result = await getTV(tvId, parseQueryKey(queryKey))
 
       if (cancelled) return
 
@@ -45,7 +46,8 @@ function useGetTV(
       setIsLoading(false)
     }
 
-    fetchTv(id)
+    loadTv()
+
     return () => {
       cancelled = true
     }
