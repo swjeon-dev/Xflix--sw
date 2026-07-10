@@ -55,6 +55,7 @@ export default function Search() {
         </header>
 
         <SearchList
+          mediaType={mediaType}
           items={items}
           isLoading={isLoading}
           isFetchingMore={isFetchingMore}

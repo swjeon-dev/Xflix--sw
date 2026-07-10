@@ -1,5 +1,5 @@
 import { routes } from '@/shared'
-import type { ISearchData } from '../model'
+import type { ISearchData, SearchMediaType } from '../model'
 
 function searchItemTitle(item: ISearchData) {
   if (item.media_type === 'movie') {
@@ -14,8 +14,8 @@ function searchItemYear(item: ISearchData) {
   return date ? date.slice(0, 4) : null
 }
 
-function searchItemDetailPath(item: ISearchData) {
-  return item.media_type === 'movie'
+function searchItemDetailPath(mediaType: SearchMediaType, item: ISearchData) {
+  return mediaType === 'movie'
     ? routes.MOVIE.DETAIL(item.id)
     : routes.TV.DETAIL(item.id)
 }
