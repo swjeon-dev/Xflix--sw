@@ -11,7 +11,7 @@ import {
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const query = searchParams.get(routes.SEARCH.QUERY_KEY)
+  const query = searchParams.get(routes.SEARCH.TERM_KEY)
   const rawType = searchParams.get(routes.SEARCH.MEDIA_TYPE_KEY)
   const mediaType = rawType === 'tv' ? 'tv' : 'movie'
 
