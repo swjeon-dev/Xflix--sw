@@ -10,7 +10,6 @@ import Search from '@/pages/Search'
 import { LoadingScreen, routes, removeRootPath } from '@/shared'
 import RootLayout from './RootLayout'
 import { rootLoader } from './rootLoader'
-import { searchListLoader } from './searchListLoader'
 import { LOADER_ID } from '../providers/constants'
 
 export const router = createBrowserRouter(
@@ -48,7 +47,6 @@ export const router = createBrowserRouter(
         {
           path: removeRootPath(routes.SEARCH.LIST),
           element: <Search />,
-          loader: searchListLoader,
         },
       ],
     },
