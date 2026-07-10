@@ -22,10 +22,6 @@ export const API_ENDPOINT = {
   AUTH_VALID: '/authentication',
   TRENDING: '/trending/movie/week',
 
-  GENRES_MOVIE: '/genre/movie/list',
-  GENRES_TV: '/genre/tv/list',
-
-  TV_FILTERED: '/discover/tv',
   // TV_UPCOMING: '/tv/upcoming',
   // TV_RECOMMEND: (id: string | number) => `/tv/${id}/recommendations`,
   TV_POPULAR: '/tv/popular',
@@ -34,16 +30,21 @@ export const API_ENDPOINT = {
   TV_SEASONS: (seriesId: string, seasonNumber: string) =>
     `/tv/${seriesId}/season/${seasonNumber}`,
 
-  MOVIE_VIDEOS: (id: string) => `/movie/${id}/videos`,
-  TV_VIDEOS: (seriesId: string) => `/tv/${seriesId}/videos`,
-
-  MOVIE_FILTERED: '/discover/movie',
   MOVIE_UPCOMING: '/movie/upcoming',
   MOVIE_POPULAR: '/movie/popular',
   MOVIE_TOP_RATED: '/movie/top_rated',
   MOVIE_DETAIL: (id: string) => `/movie/${id}`,
   MOVIE_SIMILAR: (id: string) => `/movie/${id}/similar`,
   MOVIE_RECOMMEND: (id: string) => `/movie/${id}/recommendations`,
+
+  GENRES_MOVIE: '/genre/movie/list',
+  GENRES_TV: '/genre/tv/list',
+
+  MOVIE_VIDEOS: (id: string) => `/movie/${id}/videos`,
+  TV_VIDEOS: (seriesId: string) => `/tv/${seriesId}/videos`,
+
+  MOVIE_FILTERED: '/discover/movie',
+  TV_FILTERED: '/discover/tv',
 
   SEARCH_MOVIE: '/search/movie',
   SEARCH_TV: '/search/tv',
