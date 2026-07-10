@@ -38,10 +38,4 @@ function getMovieMoreInfo(movie: IMovie) {
 
 type IMovieMoreInfo = ReturnType<typeof getMovieMoreInfo>
 
-export {
-  getCrewByJob,
-  getActorsWithComma,
-  getGenresWithComma,
-  getMovieMoreInfo,
-  type IMovieMoreInfo,
-}
+export { getMovieMoreInfo, type IMovieMoreInfo }

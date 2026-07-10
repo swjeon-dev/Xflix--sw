@@ -31,10 +31,4 @@ function getTVMoreInfo(tv: ITV) {
 
 type ITVMoreInfo = ReturnType<typeof getTVMoreInfo>
 
-export {
-  getDirector,
-  getActorsWithComma,
-  getGenresWithComma,
-  getTVMoreInfo,
-  type ITVMoreInfo,
-}
+export { getTVMoreInfo, type ITVMoreInfo }
