@@ -3,19 +3,24 @@ import { useSearchParams } from 'react-router'
 
 import {
   useSearch,
+  useFilterSearch,
   SearchList,
   SearchHeader,
   type SearchMediaType,
 } from '@/features/search'
+import { getSearchPageCopy, resolveSearchParams } from '@/features/search/lib'
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const term = searchParams.get('term')
-  const rawType = searchParams.get('type')
-  const type = rawType === 'tv' ? 'tv' : 'movie'
+  const resolved = resolveSearchParams(searchParams)
+  const { mode, type, term, filter, filterId, label } = resolved
+  const { pageTitle, emptyMessage } = getSearchPageCopy(resolved)
+
+  const searchResult = useSearch({ term, type })
+  const filterResult = useFilterSearch({ filter, filterId, type })
 
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
-    useSearch({ term, type })
+    mode === 'filter' ? filterResult : searchResult
 
   function changeType(nextType: SearchMediaType) {
     setSearchParams(
@@ -27,20 +32,17 @@ export default function Search() {
     )
   }
 
-  const tabLabel = type === 'movie' ? '영화' : 'TV'
-  const emptyMessage = term
-    ? `"${term}"에 대한 ${tabLabel} 검색 결과가 없습니다.`
-    : '검색어를 입력해 주세요.'
-
   return (
     <>
       <Helmet>
-        <title>{term ? `"${term}" 검색` : '검색'}</title>
+        <title>{pageTitle}</title>
       </Helmet>
 
       <section className='min-h-screen pb-20 pt-24 text-white main-page_px'>
         <SearchHeader
-          term={term ?? null}
+          term={term}
+          filter={filter}
+          label={label}
           type={type}
           changeType={changeType}
         />
