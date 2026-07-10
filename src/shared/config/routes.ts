@@ -1,4 +1,4 @@
-import type { SearchMediaType } from '@/features/search'
+import { buildSearchPath } from '@/shared/lib'
 
 export const routes = {
   ROOT: '/',
@@ -16,12 +16,6 @@ export const routes = {
   },
   SEARCH: {
     LIST: '/search',
-    DETAIL: (term: string, type: SearchMediaType) => {
-      const params = new URLSearchParams({
-        term,
-        type,
-      })
-      return `/search?${params.toString()}`
-    },
+    path: buildSearchPath,
   },
 } as const

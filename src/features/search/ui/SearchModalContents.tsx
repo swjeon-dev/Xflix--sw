@@ -20,7 +20,7 @@ function SearchModalContents({ onClose }: SearchModalContentsProps) {
 
     setSearch('')
     onClose()
-    navigate(routes.SEARCH.DETAIL(term, 'movie'))
+    navigate(routes.SEARCH.path({ term, type: 'movie' }))
   }
 
   return (
