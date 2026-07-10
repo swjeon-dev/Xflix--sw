@@ -12,25 +12,22 @@ function runtimeToHours(runtime: number) {
   return `${Math.floor(runtime / 60)}시간 ${runtime % 60}분`
 }
 
-function getActorsWithComma(movie: IMovie) {
-  if (!movie.credits?.cast.length) return null
+function getActors(movie: IMovie) {
+  if (!movie.credits?.cast.length) return []
 
-  return movie.credits.cast
-    .slice(0, 5)
-    .map(actor => actor.name)
-    .join(', ')
+  return movie.credits.cast.slice(0, 5).map(actor => actor.name)
 }
 
-function getGenresWithComma(movie: IMovie) {
-  if (!movie.genres?.length) return null
+function getGenres(movie: IMovie) {
+  if (!movie.genres?.length) return []
 
-  return movie.genres.map(genre => genre.name).join(', ')
+  return movie.genres.map(genre => genre.name)
 }
 
 function getMovieMoreInfo(movie: IMovie) {
   return {
-    actors: getActorsWithComma(movie),
-    genres: getGenresWithComma(movie),
+    actors: getActors(movie),
+    genres: getGenres(movie),
     director: getCrewByJob(movie, 'Director'),
     runtime: runtimeToHours(movie.runtime ?? 0),
   }

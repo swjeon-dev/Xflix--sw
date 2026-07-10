@@ -6,25 +6,22 @@ function getDirector(tv: ITV) {
   return tv.created_by.length > 0 ? tv.created_by[0].name : null
 }
 
-function getActorsWithComma(tv: ITV) {
-  if (!tv.credits?.cast.length) return null
+function getActors(tv: ITV) {
+  if (!tv.credits?.cast.length) return []
 
-  return tv.credits.cast
-    .slice(0, 5)
-    .map(actor => actor.name)
-    .join(', ')
+  return tv.credits.cast.slice(0, 5).map(actor => actor.name)
 }
 
-function getGenresWithComma(tv: ITV) {
-  if (!tv.genres?.length) return null
+function getGenres(tv: ITV) {
+  if (!tv.genres?.length) return []
 
-  return tv.genres.map(genre => genre.name).join(', ')
+  return tv.genres.map(genre => genre.name)
 }
 
 function getTVMoreInfo(tv: ITV) {
   return {
-    actors: getActorsWithComma(tv),
-    genres: getGenresWithComma(tv),
+    actors: getActors(tv),
+    genres: getGenres(tv),
     director: getDirector(tv),
   }
 }
