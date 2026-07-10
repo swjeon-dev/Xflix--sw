@@ -1,14 +1,16 @@
+import type { ISearchFilterTag, SearchFilterKey } from '@/shared'
 import type { SearchMediaType } from '@/features/search'
 
 import SearchTagLink from './SearchTagLink'
 
 interface MetaTagGroupProps {
   label: string
-  tags: string[]
+  filter: SearchFilterKey
+  tags: ISearchFilterTag[]
   type: SearchMediaType
 }
 
-function MetaTagGroup({ label, tags, type }: MetaTagGroupProps) {
+function MetaTagGroup({ label, filter, tags, type }: MetaTagGroupProps) {
   if (!tags.length) return null
 
   return (
@@ -16,7 +18,12 @@ function MetaTagGroup({ label, tags, type }: MetaTagGroupProps) {
       <h4 className='text-sm text-gray-400/80'>{label}</h4>
       <div className='flex flex-wrap gap-2'>
         {tags.map(tag => (
-          <SearchTagLink key={tag} term={tag} type={type} />
+          <SearchTagLink
+            key={`${filter}-${tag.id}`}
+            filter={filter}
+            tag={tag}
+            type={type}
+          />
         ))}
       </div>
     </div>

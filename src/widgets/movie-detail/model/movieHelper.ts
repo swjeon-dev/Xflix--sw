@@ -1,9 +1,11 @@
 import type { IMovie } from '@/entities/movie'
+import type { ISearchFilterTag } from '@/shared'
 
-function getCrewByJob(movie: IMovie, job: string) {
-  if (!movie.credits) return null
+function getDirector(movie: IMovie): ISearchFilterTag | null {
+  const director = movie.credits?.crew.find(person => person.job === 'Director')
+  if (!director) return null
 
-  return movie.credits.crew.find(person => person.job === job)?.name ?? null
+  return { id: director.id, name: director.name }
 }
 
 function runtimeToHours(runtime: number) {
@@ -12,23 +14,29 @@ function runtimeToHours(runtime: number) {
   return `${Math.floor(runtime / 60)}시간 ${runtime % 60}분`
 }
 
-function getActors(movie: IMovie) {
+function getActors(movie: IMovie): ISearchFilterTag[] {
   if (!movie.credits?.cast.length) return []
 
-  return movie.credits.cast.slice(0, 5).map(actor => actor.name)
+  return movie.credits.cast.slice(0, 5).map(actor => ({
+    id: actor.id,
+    name: actor.name,
+  }))
 }
 
-function getGenres(movie: IMovie) {
+function getGenres(movie: IMovie): ISearchFilterTag[] {
   if (!movie.genres?.length) return []
 
-  return movie.genres.map(genre => genre.name)
+  return movie.genres.map(genre => ({
+    id: genre.id,
+    name: genre.name,
+  }))
 }
 
 function getMovieMoreInfo(movie: IMovie) {
   return {
     actors: getActors(movie),
     genres: getGenres(movie),
-    director: getCrewByJob(movie, 'Director'),
+    director: getDirector(movie),
     runtime: runtimeToHours(movie.runtime ?? 0),
   }
 }
