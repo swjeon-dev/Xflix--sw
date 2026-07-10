@@ -14,13 +14,13 @@ function SearchModalContents({ onClose }: SearchModalContentsProps) {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
-    const searchWord = (formData.get('search') as string)?.trim()
+    const term = (formData.get('search') as string)?.trim()
 
-    if (!searchWord) return
+    if (!term) return
 
     setSearch('')
     onClose()
-    navigate(routes.SEARCH.DETAIL(searchWord, 'movie'))
+    navigate(routes.SEARCH.DETAIL(term, 'movie'))
   }
 
   return (

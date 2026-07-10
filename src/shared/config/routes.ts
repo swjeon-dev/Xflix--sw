@@ -16,12 +16,10 @@ export const routes = {
   },
   SEARCH: {
     LIST: '/search',
-    TERM_KEY: 'term',
-    MEDIA_TYPE_KEY: 'type',
-    DETAIL: (searchTerm: string, mediaType: SearchMediaType) => {
+    DETAIL: (term: string, type: SearchMediaType) => {
       const params = new URLSearchParams({
-        term: searchTerm.trim(),
-        type: mediaType,
+        term,
+        type,
       })
       return `/search?${params.toString()}`
     },

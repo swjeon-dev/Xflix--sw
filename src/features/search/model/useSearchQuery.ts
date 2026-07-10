@@ -10,15 +10,15 @@ type SearchQueryResult = {
 }
 
 type UseSearchQueryProps = {
-  query: string
-  mediaType: SearchMediaType
+  term: string
+  type: SearchMediaType
   page: number
   enabled: boolean
 }
 
 function useSearchQuery({
-  query,
-  mediaType,
+  term,
+  type,
   page,
   enabled,
 }: UseSearchQueryProps) {
@@ -46,7 +46,7 @@ function useSearchQuery({
       setResult(null)
       setError(null)
 
-      const response = await getSearch(query, page, mediaType)
+      const response = await getSearch(term, page, type)
 
       if (cancelled) return
 
@@ -71,7 +71,7 @@ function useSearchQuery({
     return () => {
       cancelled = true
     }
-  }, [query, mediaType, page, enabled, refetchCount])
+  }, [term, type, page, enabled, refetchCount])
 
   return { result, error, isFetching, refetch }
 }

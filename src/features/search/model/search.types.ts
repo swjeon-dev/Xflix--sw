@@ -8,8 +8,8 @@ interface ISearchResult {
 }
 
 interface IUseSearchProps {
-  query: string | null | undefined
-  mediaType: SearchMediaType
+  term: string | null | undefined
+  type: SearchMediaType
 }
 
 interface ISearchData {
@@ -35,9 +35,4 @@ interface ISearchData {
   video?: boolean
 }
 
-export type {
-  SearchMediaType,
-  ISearchResult,
-  ISearchData,
-  IUseSearchProps,
-}
+export type { SearchMediaType, ISearchResult, ISearchData, IUseSearchProps }

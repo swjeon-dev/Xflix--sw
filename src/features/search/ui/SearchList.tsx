@@ -3,7 +3,7 @@ import type { ISearchData, SearchMediaType } from '../model'
 import SearchCard from './SearchCard'
 
 interface SearchResultsProps {
-  mediaType: SearchMediaType
+  type: SearchMediaType
   items: ISearchData[]
   isLoading: boolean
   isFetchingMore: boolean
@@ -26,7 +26,7 @@ function SearchGridSkeleton() {
 }
 
 function SearchList({
-  mediaType,
+  type,
   items,
   isLoading,
   isFetchingMore,
@@ -67,8 +67,8 @@ function SearchList({
     <ul className='grid grid-cols-2 gap-4 [overflow-anchor:none] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {items.map(item => (
         <SearchCard
-          key={`${mediaType}-${item.id}`}
-          mediaType={mediaType}
+          key={`${type}-${item.id}`}
+          type={type}
           item={item}
         />
       ))}

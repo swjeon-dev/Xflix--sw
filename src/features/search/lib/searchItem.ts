@@ -14,8 +14,8 @@ function searchItemYear(item: ISearchData) {
   return date ? date.slice(0, 4) : null
 }
 
-function searchItemDetailPath(mediaType: SearchMediaType, item: ISearchData) {
-  return mediaType === 'movie'
+function searchItemDetailPath(type: SearchMediaType, item: ISearchData) {
+  return type === 'movie'
     ? routes.MOVIE.DETAIL(item.id)
     : routes.TV.DETAIL(item.id)
 }

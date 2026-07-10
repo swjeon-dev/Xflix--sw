@@ -4,14 +4,12 @@ import { routes } from '@/shared/config/routes'
 
 export function searchListLoader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
-  const rawWord = url.searchParams.get(routes.SEARCH.TERM_KEY)?.trim()
-  const rawMediaType = url.searchParams
-    .get(routes.SEARCH.MEDIA_TYPE_KEY)
-    ?.trim()
+  const term = url.searchParams.get('term')?.trim()
+  const type = url.searchParams.get('type')?.trim()
 
-  if (!rawWord) {
+  if (!term) {
     throw redirect(routes.ROOT)
   }
 
-  return { query: rawWord, type: rawMediaType }
+  return { term, type }
 }

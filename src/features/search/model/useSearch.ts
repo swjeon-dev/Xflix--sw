@@ -7,10 +7,10 @@ import useSearchQuery from './useSearchQuery'
 
 const getSearchItemKey = (item: ISearchData) => `${item.media_type}-${item.id}`
 
-function useSearch({ query, mediaType }: IUseSearchProps) {
-  const trimmedQuery = query?.trim() ?? ''
-  const enabled = trimmedQuery.length > 0
-  const queryKey = `${trimmedQuery}-${mediaType}`
+function useSearch({ term, type }: IUseSearchProps) {
+  const trimmedTerm = term?.trim() ?? ''
+  const enabled = trimmedTerm.length > 0
+  const queryKey = `${trimmedTerm}-${type}`
 
   const scrollAnchorRef = useRef<{
     scrollY: number
@@ -26,8 +26,8 @@ function useSearch({ query, mediaType }: IUseSearchProps) {
   })
 
   const { result, error, isFetching, refetch } = useSearchQuery({
-    query: trimmedQuery,
-    mediaType,
+    term: trimmedTerm,
+    type,
     page: pagination.page,
     enabled,
   })

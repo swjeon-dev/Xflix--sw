@@ -5,14 +5,14 @@ import { searchItemDetailPath, searchItemTitle, searchItemYear } from '../lib'
 import type { ISearchData, SearchMediaType } from '../model'
 
 interface SearchCardProps {
-  mediaType: SearchMediaType
+  type: SearchMediaType
   item: ISearchData
 }
 
-function SearchCard({ mediaType, item }: SearchCardProps) {
+function SearchCard({ type, item }: SearchCardProps) {
   const title = searchItemTitle(item)
   const year = searchItemYear(item)
-  const detailPath = searchItemDetailPath(mediaType, item)
+  const detailPath = searchItemDetailPath(type, item)
 
   const posterUrl = getTmdbImgPath({
     path: item.poster_path,
