@@ -3,7 +3,7 @@ import type { IGenreTab } from '@/shared'
 import { SORT_OPTIONS, type SortOption } from '../lib'
 
 const selectClassName =
-  'pl-4 pr-8 py-2 border border-white/30 bg-black text-white w-filt appearance-none rounded'
+  'pl-4 pr-8 py-2 border border-white/30 bg-black text-white w-fit appearance-none rounded'
 
 interface GenreSortFilterProps {
   tabs: IGenreTab[]

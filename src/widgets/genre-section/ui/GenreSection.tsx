@@ -44,6 +44,7 @@ function GenreSection<T extends Media>({
     allTitle,
     fallbackTitle,
     sortBy: toSortBy(sortOption, label),
+    media: label === '영화' ? 'movie' : 'tv',
   })
 
   return (

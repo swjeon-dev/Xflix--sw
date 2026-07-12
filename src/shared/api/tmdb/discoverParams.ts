@@ -1,4 +1,5 @@
 // genre filter params
+type DiscoverMedia = 'movie' | 'tv'
 type TVSortBy = 'first_air_date.desc' | 'popularity.desc' | 'vote_average.desc'
 type MovieSortBy =
   | 'popularity.desc'
@@ -7,26 +8,36 @@ type MovieSortBy =
 
 type SortBy = MovieSortBy | TVSortBy
 
-const BASE_PARAMS = {
-  include_adult: 'false',
-  include_video: 'false',
-  sort_by: 'popularity.desc',
-} as const
+function buildDiscoverBase(media: DiscoverMedia, sortBy: SortBy) {
+  const today = new Date().toISOString().split('T')[0]
 
-function getDiscoverParams(
-  genreId: number,
-  sortBy: SortBy = 'popularity.desc',
-) {
   return {
-    ...BASE_PARAMS,
-    with_genres: String(genreId),
+    include_adult: 'false',
+    include_video: 'false',
+    ...(media === 'movie'
+      ? { 'primary_release_date.lte': today }
+      : { 'first_air_date.lte': today }),
     sort_by: sortBy,
   }
 }
 
-function getAllDiscoverParams(sortBy: SortBy) {
-  return { ...BASE_PARAMS, sort_by: sortBy }
+function getDiscoverParams(
+  genreId: number,
+  sortBy: SortBy = 'popularity.desc',
+  media: DiscoverMedia = 'movie',
+) {
+  return {
+    ...buildDiscoverBase(media, sortBy),
+    with_genres: String(genreId),
+  }
+}
+
+function getAllDiscoverParams(
+  sortBy: SortBy,
+  media: DiscoverMedia = 'movie',
+) {
+  return buildDiscoverBase(media, sortBy)
 }
 
 export { getDiscoverParams, getAllDiscoverParams }
-export type { SortBy }
+export type { SortBy, DiscoverMedia }

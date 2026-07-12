@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react'
 
-import { buildDisplayGenres, type IGenre } from '@/shared'
+import { buildDisplayGenres, type DiscoverMedia, type IGenre, type SortBy } from '@/shared'
 import { useInfiniteContents, type Media } from '@/entities/media'
 
 import { getDiscoverListParams, getDiscoverListTitle } from '../lib'
-import type { SortBy } from '@/shared'
 
 interface UseGenreSectionParams {
   genres: IGenre[]
@@ -12,6 +11,7 @@ interface UseGenreSectionParams {
   allTitle: string
   fallbackTitle: string
   sortBy: SortBy
+  media: DiscoverMedia
 }
 
 function useGenreSection<T extends Media>({
@@ -20,11 +20,12 @@ function useGenreSection<T extends Media>({
   allTitle,
   fallbackTitle,
   sortBy,
+  media,
 }: UseGenreSectionParams) {
   const [selected, setSelected] = useState(0)
   const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
 
-  const params = getDiscoverListParams(selected, sortBy)
+  const params = getDiscoverListParams(selected, sortBy, media)
   const listTitle = getDiscoverListTitle(
     selected,
     displayGenres.lists,

@@ -21,7 +21,9 @@ function useFilterGenre({ filter, filterId, type }: UseFilterGenreProps) {
     type === 'movie' ? API_ENDPOINT.MOVIE_FILTERED : API_ENDPOINT.TV_FILTERED
 
   const params =
-    enabled && filterId ? getDiscoverParams(Number(filterId)) : undefined
+    enabled && filterId
+      ? getDiscoverParams(Number(filterId), 'popularity.desc', type)
+      : undefined
 
   const { contents, isLoading, isFetchingMore, error, loaderRef, refetch } =
     useInfiniteContents<Media>({

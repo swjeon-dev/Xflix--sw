@@ -1,13 +1,19 @@
-import { getAllDiscoverParams, getDiscoverParams, type IGenre } from '@/shared'
-import type { SortBy } from '@/shared'
+import {
+  getAllDiscoverParams,
+  getDiscoverParams,
+  type DiscoverMedia,
+  type IGenre,
+  type SortBy,
+} from '@/shared'
 
 function getDiscoverListParams(
   selected: number,
   sortBy: SortBy = 'popularity.desc',
+  media: DiscoverMedia = 'movie',
 ) {
   return selected === 0
-    ? getAllDiscoverParams(sortBy)
-    : getDiscoverParams(selected, sortBy)
+    ? getAllDiscoverParams(sortBy, media)
+    : getDiscoverParams(selected, sortBy, media)
 }
 
 function getDiscoverListTitle(
