@@ -3,12 +3,14 @@ import { useSearchParams } from 'react-router'
 
 import {
   useSearch,
-  useFilterSearch,
+  useFilterGenre,
+  useFilterPerson,
   SearchList,
   SearchHeader,
+  getSearchPageCopy,
+  resolveSearchParams,
   type SearchMediaType,
 } from '@/features/search'
-import { getSearchPageCopy, resolveSearchParams } from '@/features/search/lib'
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -17,7 +19,11 @@ export default function Search() {
   const { pageTitle, emptyMessage } = getSearchPageCopy(resolved)
 
   const searchResult = useSearch({ term, type })
-  const filterResult = useFilterSearch({ filter, filterId, type })
+  const genreFilterResult = useFilterGenre({ filter, filterId, type })
+  const personFilterResult = useFilterPerson({ filter, filterId, type })
+
+  const filterResult =
+    filter === 'genre' ? genreFilterResult : personFilterResult
 
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
     mode === 'filter' ? filterResult : searchResult

@@ -2,41 +2,32 @@ import { useMemo } from 'react'
 
 import { useInfiniteContents } from '@/entities/media'
 import type { Media } from '@/entities/media'
-import { API_ENDPOINT, buildDiscoverFilterParams } from '@/shared'
+import { API_ENDPOINT, getDiscoverParams } from '@/shared'
 import type { SearchFilterKey } from '@/shared'
 
 import { toSearchListItem } from '../lib/toSearchListItem'
 import type { SearchMediaType } from './search.types'
 
-type UseFilterSearchProps = {
+type UseFilterGenreProps = {
   filter: SearchFilterKey | null
   filterId: string | null
   type: SearchMediaType
 }
 
-function useFilterSearch({ filter, filterId, type }: UseFilterSearchProps) {
-  const enabled = Boolean(filter && filterId)
+function useFilterGenre({ filter, filterId, type }: UseFilterGenreProps) {
+  const enabled = Boolean(filter === 'genre' && filterId)
 
-  const endPoint = type === 'movie'
-    ? API_ENDPOINT.MOVIE_FILTERED
-    : API_ENDPOINT.TV_FILTERED
+  const endPoint =
+    type === 'movie' ? API_ENDPOINT.MOVIE_FILTERED : API_ENDPOINT.TV_FILTERED
 
   const params =
-    enabled && filter && filterId
-      ? buildDiscoverFilterParams(filter, filterId)
-      : undefined
+    enabled && filterId ? getDiscoverParams(Number(filterId)) : undefined
 
-  const {
-    contents,
-    isLoading,
-    isFetchingMore,
-    error,
-    loaderRef,
-    refetch,
-  } = useInfiniteContents<Media>({
-    endPoint: enabled ? endPoint : '',
-    params,
-  })
+  const { contents, isLoading, isFetchingMore, error, loaderRef, refetch } =
+    useInfiniteContents<Media>({
+      endPoint: enabled ? endPoint : '',
+      params,
+    })
 
   const items = useMemo(
     () => contents.map(item => toSearchListItem(item, type)),
@@ -53,4 +44,4 @@ function useFilterSearch({ filter, filterId, type }: UseFilterSearchProps) {
   }
 }
 
-export default useFilterSearch
+export default useFilterGenre
