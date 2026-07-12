@@ -19,7 +19,7 @@ function TVDetailSection({ tv, error }: TVDetailSectionProps) {
 
   return (
     <div className='pb-10 *:main-page_px'>
-      <TVDetailHero tv={tv} />
+      <TVDetailHero tv={tv} airingDate={tvMoreInfo.airingDate} />
       <TVDetailOverview tv={tv} tvMoreInfo={tvMoreInfo} />
     </div>
   )

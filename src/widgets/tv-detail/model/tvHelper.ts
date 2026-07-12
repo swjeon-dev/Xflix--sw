@@ -26,11 +26,18 @@ function getGenres(tv: ITV): ISearchFilterTag[] {
   }))
 }
 
+function getAiringDate(first: string, last: string) {
+  if (!first) return null
+  if (!last || first === last) return first
+  return `${first} ~ ${last}`
+}
+
 function getTVMoreInfo(tv: ITV) {
   return {
     actors: getActors(tv),
     genres: getGenres(tv),
     director: getDirector(tv),
+    airingDate: getAiringDate(tv.first_air_date, tv.last_air_date),
   }
 }
 
