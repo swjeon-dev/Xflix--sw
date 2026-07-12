@@ -1,8 +1,12 @@
-import { GenreFilter, type IGenre } from '@/shared'
+import { useState } from 'react'
+
+import type { IGenre } from '@/shared'
 import type { Media } from '@/entities'
 
+import { toSortBy, type SortOption } from '../lib'
 import { useGenreSection } from '../model'
 import GenreGridList from './GenreGridList'
+import GenreSortFilter from './GenreSortFilter'
 
 interface GenreSectionProps<T extends Media> {
   label: '영화' | 'TV'
@@ -21,6 +25,8 @@ function GenreSection<T extends Media>({
   fallbackTitle,
   renderItem,
 }: GenreSectionProps<T>) {
+  const [sortOption, setSortOption] = useState<SortOption>('popular')
+
   const {
     selected,
     setSelected,
@@ -37,15 +43,20 @@ function GenreSection<T extends Media>({
     endPoint,
     allTitle,
     fallbackTitle,
+    sortBy: toSortBy(sortOption, label),
   })
 
   return (
     <>
-      <GenreFilter
-        label={label}
+      <h1 className='pt-24 text-white main-page_px text-3xl md:text-5xl font-semibold'>
+        {label}
+      </h1>
+      <GenreSortFilter
         tabs={displayGenres.tabs}
         selected={selected}
         onSelect={setSelected}
+        sortOption={sortOption}
+        onSortChange={setSortOption}
       />
       <GenreGridList
         listTitle={listTitle}

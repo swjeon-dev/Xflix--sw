@@ -1,7 +1,13 @@
 import { getAllDiscoverParams, getDiscoverParams, type IGenre } from '@/shared'
+import type { SortBy } from '@/shared'
 
-function getDiscoverListParams(selected: number) {
-  return selected === 0 ? getAllDiscoverParams() : getDiscoverParams(selected)
+function getDiscoverListParams(
+  selected: number,
+  sortBy: SortBy = 'popularity.desc',
+) {
+  return selected === 0
+    ? getAllDiscoverParams(sortBy)
+    : getDiscoverParams(selected, sortBy)
 }
 
 function getDiscoverListTitle(

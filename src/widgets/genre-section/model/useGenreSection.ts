@@ -4,12 +4,14 @@ import { buildDisplayGenres, type IGenre } from '@/shared'
 import { useInfiniteContents, type Media } from '@/entities/media'
 
 import { getDiscoverListParams, getDiscoverListTitle } from '../lib'
+import type { SortBy } from '@/shared'
 
 interface UseGenreSectionParams {
   genres: IGenre[]
   endPoint: string
   allTitle: string
   fallbackTitle: string
+  sortBy: SortBy
 }
 
 function useGenreSection<T extends Media>({
@@ -17,11 +19,12 @@ function useGenreSection<T extends Media>({
   endPoint,
   allTitle,
   fallbackTitle,
+  sortBy,
 }: UseGenreSectionParams) {
   const [selected, setSelected] = useState(0)
   const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
 
-  const params = getDiscoverListParams(selected)
+  const params = getDiscoverListParams(selected, sortBy)
   const listTitle = getDiscoverListTitle(
     selected,
     displayGenres.lists,

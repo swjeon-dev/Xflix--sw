@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from '@/shared/config/api'
+import { API_ENDPOINT } from '@/shared'
 import type { IGenre } from '@/shared'
 import type { IMovie } from '@/entities/movie'
 import { GenreSection } from '@/widgets/genre-section'
