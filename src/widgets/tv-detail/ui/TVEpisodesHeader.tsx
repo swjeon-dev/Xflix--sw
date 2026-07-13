@@ -24,6 +24,8 @@ function TVEpisodesHeader({
       <div className='flex gap-4 items-start'>
         {posterUrl && (
           <img
+            loading='lazy'
+            decoding='async'
             src={posterUrl}
             alt={`${seasonName} 시즌 포스터`}
             className='w-24 md:w-32 rounded-md object-cover shrink-0'

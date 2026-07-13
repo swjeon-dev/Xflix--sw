@@ -28,6 +28,7 @@ function TrailerBackground({
   if (!isReady || !trailerUrl) {
     return (
       <img
+        {...{ fetchpriority: 'high' }}
         src={backdropUrl}
         alt={`${contentTitle} 포스터`}
         className='w-full h-full object-cover'

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { devLog } from '../lib'
+import { cn, devLog } from '../lib'
 
 interface IImageLazyLoadUI {
   lowUrl?: string
@@ -27,14 +27,25 @@ function ImageLazyLoadUI({ lowUrl, highUrl, style, name }: IImageLazyLoadUI) {
   }
 
   const highOpacity = isHighImgLoad ? 'opacity-100' : 'opacity-0'
+  const BASE_CLASS = 'transition-opacity duration-700 ease-in-out'
+  const className = cn(BASE_CLASS, style, highOpacity)
 
   return (
     <>
-      {lowUrl && <img className={style} src={lowUrl} alt='' aria-hidden />}
+      {lowUrl && (
+        <img
+          {...{ fetchpriority: 'high' }}
+          className={style}
+          src={lowUrl}
+          alt=''
+          aria-hidden
+        />
+      )}
       {highUrl && (
         <img
+          {...{ fetchpriority: 'high' }}
           key={highUrl}
-          className={`${style ?? ''} transition-opacity duration-700 ease-in-out ${highOpacity}`}
+          className={className}
           src={highUrl}
           alt={name}
           onLoad={handleImgLoad}

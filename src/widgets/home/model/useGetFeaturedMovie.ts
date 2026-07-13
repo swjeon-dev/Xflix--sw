@@ -18,7 +18,7 @@ function useGetFeaturedMovie() {
 
     const backdropUrl = getTmdbImgPath({
       path: content.backdrop_path,
-      size: 'original',
+      size: 'w1280',
     })
     if (!backdropUrl) return null
 

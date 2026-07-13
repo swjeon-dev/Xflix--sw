@@ -1,5 +1,4 @@
-import { getTmdbImgPath } from '@/shared/lib'
-import ImageLazyLoadUI from '@/shared/ui/ImageLazyLoadUI'
+import { getTmdbImgPath, ImageLazyLoadUI } from '@/shared'
 
 function MovieBackdrop({
   path,
@@ -14,7 +13,7 @@ function MovieBackdrop({
     <div className='absolute inset-0'>
       <ImageLazyLoadUI
         lowUrl={getTmdbImgPath({ path, size: 'w300' })}
-        highUrl={getTmdbImgPath({ path, size: 'original' })}
+        highUrl={getTmdbImgPath({ path, size: 'w1280' })}
         style='absolute inset-0 w-full h-full object-cover'
         name={title}
       />

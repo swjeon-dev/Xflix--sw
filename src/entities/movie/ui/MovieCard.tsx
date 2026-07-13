@@ -42,6 +42,8 @@ function MovieCard({ content, action, genres }: MovieCardProps) {
         {content.backdrop_path && (
           <img
             className='w-full h-full object-cover bg-gray-800'
+            loading='lazy'
+            decoding='async'
             src={lowImageUrl}
             alt={contentMoreInfo.title}
           />

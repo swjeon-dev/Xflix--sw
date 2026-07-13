@@ -29,6 +29,8 @@ function SearchCard({ type, item }: SearchCardProps) {
         <div className='aspect-[2/3] overflow-hidden rounded-md bg-gray-800'>
           {posterUrl ? (
             <img
+              loading='lazy'
+              decoding='async'
               src={posterUrl}
               alt={title}
               className='h-full w-full object-cover transition-opacity group-hover:opacity-70'
