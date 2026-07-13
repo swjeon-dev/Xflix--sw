@@ -10,6 +10,7 @@ type SortBy = MovieSortBy | TVSortBy
 
 function buildDiscoverBase(media: DiscoverMedia, sortBy: SortBy) {
   const today = new Date().toISOString().split('T')[0]
+  const minVoteCount = 500
 
   return {
     include_adult: 'false',
@@ -17,6 +18,7 @@ function buildDiscoverBase(media: DiscoverMedia, sortBy: SortBy) {
     ...(media === 'movie'
       ? { 'primary_release_date.lte': today }
       : { 'first_air_date.lte': today }),
+    ...(sortBy === 'vote_average.desc' && { 'vote_count.gte': minVoteCount }),
     sort_by: sortBy,
   }
 }
@@ -32,10 +34,7 @@ function getDiscoverParams(
   }
 }
 
-function getAllDiscoverParams(
-  sortBy: SortBy,
-  media: DiscoverMedia = 'movie',
-) {
+function getAllDiscoverParams(sortBy: SortBy, media: DiscoverMedia = 'movie') {
   return buildDiscoverBase(media, sortBy)
 }
 

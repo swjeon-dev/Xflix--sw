@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import ModalContext from './ModalContext'
-import { ModalContextProps } from './modal.type'
+import type { ModalContextProps } from './modal.type'
 
 // 커스텀 훅
 function useModal() {

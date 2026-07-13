@@ -8,7 +8,7 @@ interface SearchResultsProps {
   isLoading: boolean
   isFetchingMore: boolean
   error: string | null
-  loaderRef: (node: HTMLElement | null) => void
+  loaderRef?: (node: HTMLElement | null) => void
   emptyMessage: string
   onRetry: () => void
 }
@@ -66,11 +66,7 @@ function SearchList({
   return (
     <ul className='grid grid-cols-2 gap-4 [overflow-anchor:none] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {items.map(item => (
-        <SearchCard
-          key={`${type}-${item.id}`}
-          type={type}
-          item={item}
-        />
+        <SearchCard key={`${type}-${item.id}`} type={type} item={item} />
       ))}
       {isFetchingMore &&
         Array.from({ length: 5 }).map((_, i) => (
@@ -78,11 +74,13 @@ function SearchList({
             <SkeletonUI />
           </li>
         ))}
-      <li
-        ref={loaderRef}
-        className='col-span-full h-4 w-full shrink-0'
-        aria-hidden
-      />
+      {loaderRef && (
+        <li
+          ref={loaderRef}
+          className='col-span-full h-4 w-full shrink-0'
+          aria-hidden
+        />
+      )}
     </ul>
   )
 }

@@ -25,8 +25,10 @@ export default function Search() {
   const filterResult =
     filter === 'genre' ? genreFilterResult : personFilterResult
 
+  const activeResult = mode === 'filter' ? filterResult : searchResult
+
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
-    mode === 'filter' ? filterResult : searchResult
+    activeResult
 
   function changeType(nextType: SearchMediaType) {
     setSearchParams(

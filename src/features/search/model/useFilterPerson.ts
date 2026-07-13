@@ -13,8 +13,7 @@ type UseFilterPersonProps = {
 }
 
 function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
-  const enabled =
-    (filter === 'cast' || filter === 'crew') && Boolean(filterId)
+  const enabled = (filter === 'cast' || filter === 'crew') && Boolean(filterId)
 
   const [items, setItems] = useState<ISearchData[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -24,8 +23,6 @@ function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
   const refetch = useCallback(() => {
     setRefetchCount(prev => prev + 1)
   }, [])
-
-  const loaderRef = useCallback((_node: HTMLElement | null) => {}, [])
 
   useEffect(() => {
     if (!enabled || !filterId || (filter !== 'cast' && filter !== 'crew')) {
@@ -70,7 +67,7 @@ function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
     isLoading: enabled && isLoading,
     isFetchingMore: false,
     error: enabled ? error : null,
-    loaderRef,
+    loaderRef: undefined,
     refetch,
   }
 }
