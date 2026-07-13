@@ -11,19 +11,17 @@ function TVDetail() {
   const { id } = useParams()
   const { error, isLoading, tv } = useGetTV(id, DETAIL_QUERY)
 
-  if (isLoading) {
-    return (
-      <LoadingComponent style='relative min-h-[85vh] w-full main-page_px text-white' />
-    )
-  }
-
   return (
     <>
       <Helmet>
         <title>{tv?.name || 'Detail'}</title>
       </Helmet>
       <article key={id}>
-        <TVDetailSection tv={tv} error={error} />
+        {isLoading ? (
+          <LoadingComponent style='relative min-h-[85vh] w-full main-page_px text-white' />
+        ) : (
+          <TVDetailSection tv={tv} error={error} />
+        )}
 
         {tv?.seasons?.map(season => (
           <TVEpisodes
