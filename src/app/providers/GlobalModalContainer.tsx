@@ -1,12 +1,17 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router'
 
-import { TrailerModal } from '@/features/trailer'
-import { SearchModal } from '@/features/search'
-import { EpisodesModal } from '@/features/episodes'
-import { MobileModalNavigation } from '@/widgets/mobile-nav'
 import { DialogWrapper, useModal, cn } from '@/shared'
+import { MobileModalNavigation } from '@/widgets/mobile-nav'
 import type { ModalState, ModalType } from '../model'
+
+const TrailerModalLazy = lazy(
+  () => import('@/features/trailer/ui/TrailerModal'),
+)
+const SearchModalLazy = lazy(() => import('@/features/search/ui/SearchModal'))
+const EpisodesModalLazy = lazy(
+  () => import('@/features/episodes/ui/EpisodesModal'),
+)
 
 const MODAL_DIALOG_CLASS: Record<ModalType, string> = {
   trailer: '',
@@ -24,11 +29,11 @@ function ModalBody({
 }) {
   switch (modal.type) {
     case 'trailer':
-      return <TrailerModal {...modal.props} onClose={onClose} />
+      return <TrailerModalLazy {...modal.props} onClose={onClose} />
     case 'episodes':
-      return <EpisodesModal {...modal.props} onClose={onClose} />
+      return <EpisodesModalLazy {...modal.props} onClose={onClose} />
     case 'search':
-      return <SearchModal onClose={onClose} />
+      return <SearchModalLazy onClose={onClose} />
     case 'mobileNavigation':
       return <MobileModalNavigation onClose={onClose} />
   }
@@ -57,7 +62,9 @@ export default function GlobalModalContainer() {
       onClose={closeModal}
       className={cn(MODAL_DIALOG_CLASS[modal.type], modal.className)}
     >
-      <ModalBody modal={modal} onClose={closeModal} />
+      <Suspense fallback={null}>
+        <ModalBody modal={modal} onClose={closeModal} />
+      </Suspense>
     </DialogWrapper>
   )
 }

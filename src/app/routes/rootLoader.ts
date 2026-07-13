@@ -1,6 +1,5 @@
 import { type GenreContextValue } from '@/entities/genre'
-import { apiValidCheck } from '@/shared/api/tmdb/auth'
-import { getGenres } from '@/shared'
+import { apiValidCheck, getGenres } from '@/shared'
 
 export const rootLoader = async (): Promise<GenreContextValue> => {
   const auth = await apiValidCheck()

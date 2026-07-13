@@ -2,11 +2,6 @@ import { createBrowserRouter } from 'react-router'
 
 import ErrorPage from '@/pages/Error'
 import Home from '@/pages/Home'
-import MovieDetail from '@/pages/MovieDetail'
-import TVDetail from '@/pages/TVDetail'
-import Movie from '@/pages/Movie'
-import TV from '@/pages/TV'
-import Search from '@/pages/Search'
 import { LoadingScreen, routes, removeRootPath } from '@/shared'
 import RootLayout from './RootLayout'
 import { rootLoader } from './rootLoader'
@@ -27,26 +22,48 @@ export const router = createBrowserRouter(
         {
           path: removeRootPath(routes.MOVIE.LIST),
           children: [
-            { index: true, element: <Movie /> },
+            {
+              index: true,
+              lazy: async () => {
+                const { default: Movie } = await import('@/pages/Movie')
+                return { Component: Movie }
+              },
+            },
             {
               path: removeRootPath(routes.MOVIE.PARAMETER),
-              element: <MovieDetail />,
+              lazy: async () => {
+                const { default: MovieDetail } =
+                  await import('@/pages/MovieDetail')
+                return { Component: MovieDetail }
+              },
             },
           ],
         },
         {
           path: removeRootPath(routes.TV.LIST),
           children: [
-            { index: true, element: <TV /> },
+            {
+              index: true,
+              lazy: async () => {
+                const { default: TV } = await import('@/pages/TV')
+                return { Component: TV }
+              },
+            },
             {
               path: removeRootPath(routes.TV.PARAMETER),
-              element: <TVDetail />,
+              lazy: async () => {
+                const { default: TVDetail } = await import('@/pages/TVDetail')
+                return { Component: TVDetail }
+              },
             },
           ],
         },
         {
           path: removeRootPath(routes.SEARCH.LIST),
-          element: <Search />,
+          lazy: async () => {
+            const { default: Search } = await import('@/pages/Search')
+            return { Component: Search }
+          },
         },
       ],
     },
