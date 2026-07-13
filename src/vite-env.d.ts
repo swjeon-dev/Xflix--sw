@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="youtube" />
 
 interface ImportMetaEnv {
   readonly VITE_TMDB_BASE_URL: string
