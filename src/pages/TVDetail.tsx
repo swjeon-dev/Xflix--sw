@@ -33,7 +33,6 @@ function TVDetail() {
               name: season.name,
               poster_path: season.poster_path,
               air_date: season.air_date,
-              episode_count: season.episode_count ?? 0,
             }}
           />
         ))}

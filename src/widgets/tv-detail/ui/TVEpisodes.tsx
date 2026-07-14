@@ -26,7 +26,6 @@ function TVEpisodes({
 }: TVEpisodesProps) {
   const { openModal } = useModal()
   const {
-    sectionRef,
     season,
     isLoading,
     error,
@@ -38,17 +37,16 @@ function TVEpisodes({
     hasEpisodes,
   } = useTVEpisodes({ tvId, seasonNumber, seasonMeta })
 
-  if (episodeCount === 0) return null
+  if (!isLoading && !error && !hasEpisodes) return null
 
   return (
-    <TVEpisodesWrapper title={title} sectionRef={sectionRef}>
+    <TVEpisodesWrapper title={title}>
       <TVEpisodesHeader
         seasonName={seasonName ?? null}
         posterPath={posterPath}
         episodeCount={episodeCount}
         airDate={airDate}
         onOpenAll={() => season && openEpisodesModal(openModal, season)}
-        isOpenDisabled={!hasEpisodes}
       />
       {isLoading && <TVEpisodesLoader length={previewCount} />}
       {error && <TVEpisodesError onRetry={refetch} />}

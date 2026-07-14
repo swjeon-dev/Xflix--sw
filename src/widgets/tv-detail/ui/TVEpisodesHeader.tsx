@@ -6,7 +6,6 @@ interface TVEpisodesHeaderProps {
   episodeCount: number
   airDate: string
   onOpenAll: () => void
-  isOpenDisabled?: boolean
 }
 
 function TVEpisodesHeader({
@@ -15,7 +14,6 @@ function TVEpisodesHeader({
   episodeCount,
   airDate,
   onOpenAll,
-  isOpenDisabled,
 }: TVEpisodesHeaderProps) {
   const posterUrl = getTmdbImgPath({ path: posterPath, size: 'w154' })
 
@@ -40,8 +38,7 @@ function TVEpisodesHeader({
       </div>
       <button
         type='button'
-        disabled={isOpenDisabled}
-        className='px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm shrink-0 disabled:cursor-not-allowed disabled:opacity-50'
+        className='px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm shrink-0'
         onClick={onOpenAll}
       >
         에피소드 목록 ({episodeCount}화)

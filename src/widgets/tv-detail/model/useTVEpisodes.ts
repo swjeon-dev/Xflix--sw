@@ -1,4 +1,3 @@
-import { useInView } from '@/shared'
 import { useGetSeason, type ISeasonMeta } from '@/entities/tv'
 
 import { buildSeasonData } from '../lib'
@@ -14,12 +13,7 @@ function useTVEpisodes({
   seasonNumber = 1,
   seasonMeta,
 }: UseTVEpisodesParams) {
-  const { ref: sectionRef, inView } = useInView()
-  const { season, isLoading, error, refetch } = useGetSeason(
-    tvId,
-    seasonNumber,
-    { enabled: inView },
-  )
+  const { season, isLoading, error, refetch } = useGetSeason(tvId, seasonNumber)
 
   const { seasonName, posterPath, airDate, episodeCount } = buildSeasonData(
     season,
@@ -29,7 +23,6 @@ function useTVEpisodes({
   const hasEpisodes = !!season?.episodes.length
 
   return {
-    sectionRef,
     season,
     isLoading,
     error,

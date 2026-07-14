@@ -13,10 +13,7 @@ interface IUseGetSeasonReturn {
 function useGetSeason(
   tvId: string | undefined,
   seasonNumber: number | string | undefined,
-  options?: { enabled?: boolean },
 ): IUseGetSeasonReturn {
-  const enabled = options?.enabled ?? true
-
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [season, setSeason] = useState<ISeason | null>(null)
@@ -27,7 +24,7 @@ function useGetSeason(
   }, [])
 
   useEffect(() => {
-    if (!enabled || !tvId || seasonNumber == null) {
+    if (!tvId || seasonNumber == null) {
       setIsLoading(false)
       setSeason(null)
       setError(null)
@@ -57,7 +54,7 @@ function useGetSeason(
     return () => {
       cancelled = true
     }
-  }, [tvId, seasonNumber, enabled, refetchCount])
+  }, [tvId, seasonNumber, refetchCount])
 
   return { error, isLoading, season, refetch }
 }

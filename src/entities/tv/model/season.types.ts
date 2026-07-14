@@ -65,7 +65,6 @@ export interface ISeason {
   poster_path: string | null
   season_number: number
   vote_average: number
-  episode_count?: number
 }
 
 export type ISeasonApiReturn = IApiReturn<ISeason>
@@ -75,5 +74,4 @@ export interface ISeasonMeta {
   name: string
   poster_path: string | null
   air_date: string
-  episode_count: number
 }
