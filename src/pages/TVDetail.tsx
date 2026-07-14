@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router'
 
-import { FloatingBackButton, LoadingComponent } from '@/shared'
+import { DeferredWrapper, FloatingBackButton, LoadingComponent } from '@/shared'
 import { useGetTV } from '@/entities/tv'
 import { TVDetailSection, TVEpisodes } from '@/widgets/tv-detail'
 
@@ -24,17 +24,18 @@ function TVDetail() {
         )}
 
         {tv?.seasons?.map(season => (
-          <TVEpisodes
-            key={season.id}
-            tvId={id}
-            seasonNumber={season.season_number}
-            title={season.name}
-            seasonMeta={{
-              name: season.name,
-              poster_path: season.poster_path,
-              air_date: season.air_date,
-            }}
-          />
+          <DeferredWrapper key={season.id}>
+            <TVEpisodes
+              tvId={id}
+              seasonNumber={season.season_number}
+              title={season.name}
+              seasonMeta={{
+                name: season.name,
+                poster_path: season.poster_path,
+                air_date: season.air_date,
+              }}
+            />
+          </DeferredWrapper>
         ))}
       </article>
 
