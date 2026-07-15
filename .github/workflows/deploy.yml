@@ -2,10 +2,11 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [legacy]
     paths-ignore:
       - 'README.md'
       - '.github/workflows/**'
+  workflow_dispatch:
 
 permissions:
   contents: read
