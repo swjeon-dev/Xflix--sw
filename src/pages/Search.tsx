@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { useSearchParams } from 'react-router'
 
 import {
@@ -11,12 +10,14 @@ import {
   resolveSearchParams,
   type SearchMediaType,
 } from '@/features/search'
+import { PageHelmet } from '@/shared'
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()
   const resolved = resolveSearchParams(searchParams)
   const { mode, type, term, filter, filterId, label } = resolved
-  const { pageTitle, emptyMessage } = getSearchPageCopy(resolved)
+  const { pageTitle, pageDescription, emptyMessage } =
+    getSearchPageCopy(resolved)
 
   const searchResult = useSearch({ term, type })
   const genreFilterResult = useFilterGenre({ filter, filterId, type })
@@ -42,9 +43,11 @@ export default function Search() {
 
   return (
     <>
-      <Helmet>
-        <title>{pageTitle}</title>
-      </Helmet>
+      <PageHelmet
+        title={pageTitle}
+        description={pageDescription}
+        robots='noindex, follow'
+      />
 
       <section className='min-h-screen pb-20 pt-24 text-white main-page_px'>
         <SearchHeader

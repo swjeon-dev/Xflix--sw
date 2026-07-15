@@ -1,5 +1,6 @@
-import { Helmet } from 'react-helmet-async'
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router'
+
+import { PageHelmet } from '@/shared'
 
 function ErrorPage() {
   const error = useRouteError()
@@ -17,9 +18,11 @@ function ErrorPage() {
 
   return (
     <main className='min-h-screen bg-black'>
-      <Helmet>
-        <title>Error</title>
-      </Helmet>
+      <PageHelmet
+        title='오류'
+        description='페이지를 불러오는 중 문제가 발생했습니다. XFlix 홈으로 이동해 주세요.'
+        robots='noindex, follow'
+      />
       <section className='w-screen min-h-screen flex justify-center items-center'>
         <div className='flex flex-col gap-8 justify-center items-center px-8 py-10'>
           <p className='text-5xl text-white text-center leading-snug'>
