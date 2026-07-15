@@ -1,7 +1,7 @@
 # 🎬 Xflix
 
-[![Deploy](https://github.com/swjeon-dev/Xflix--sw/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/swjeon-dev/Xflix--sw/actions/workflows/deploy.yml)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://swjeon-dev.github.io/Xflix--sw/)
+[![Deploy](https://github.com/swjeon-dev/Xflix--sw/actions/workflows/deploy.yml/badge.svg?branch=legacy)](https://github.com/swjeon-dev/Xflix--sw/actions/workflows/deploy.yml)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Legacy-brightgreen)](https://swjeon-dev.github.io/Xflix--sw/)
 [![Figma](https://img.shields.io/badge/Figma-Design-orange)](https://www.figma.com/make/6gAd7XAT3ErQOj8xVDt8Cq/Movie-Detail-Page-Design?p=f&t=zVHKCNqmHkqM0ES3-0)
 
 TMDB API 기반 영화·TV 탐색 서비스입니다.  
@@ -11,11 +11,20 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 
 **React 기본기와 브라우저 API를 다시 익히기 위해, 자주 쓰는 편의 라이브러리를 최소화하고 기능을 직접 설계한 영화 탐색 서비스**입니다.
 
-완성된 디자인 시안 없이 시작한 프로젝트로, 초기 화면 설계와 사용자 흐름을 잡는 과정에서 AI를 보조적으로 활용했습니다. 이후 실제 서비스에 맞는 정보 구조, 인터랙션, 컴포넌트 설계와 구현은 직접 정리했습니다.
+완성된 디자인 시안 없이 시작한 프로젝트로, 초기 화면 설계와 사용자 흐름을 잡는 단계에서 AI를 보조적으로 활용했습니다. 이후 실제 서비스에 맞는 정보 구조, 인터랙션, 컴포넌트 설계와 구현은 직접 정리했습니다.
+
+## 브랜치 · 배포
+
+| 브랜치 | 역할 | 배포 |
+|--------|------|------|
+| `legacy` | Vite SPA 완성본 (동결) | [GitHub Pages](https://swjeon-dev.github.io/Xflix--sw/) |
+| `main` | Next.js 마이그레이션 · cutover 작업 | Vercel 예정 |
+
+Live Demo는 **Legacy(`legacy`)** 기준입니다. Next 배포 URL은 마이그레이션 후 추가합니다. Legacy vs Next 성능 비교는 `docs/performance-baseline.md`를 참고하세요.
 
 ## Demo
 
-- [Live Demo](https://swjeon-dev.github.io/Xflix--sw/)
+- [Live Demo (Legacy)](https://swjeon-dev.github.io/Xflix--sw/)
 - [Figma](https://www.figma.com/make/6gAd7XAT3ErQOj8xVDt8Cq/Movie-Detail-Page-Design?p=f&t=zVHKCNqmHkqM0ES3-0)
 
 ### Home
@@ -62,14 +71,18 @@ TMDB API 기반 영화·TV 탐색 서비스입니다.
 
 ## 기술 스택
 
+**Legacy (`legacy` 브랜치 · 현재 Live Demo)**
+
 - React
 - TypeScript
 - Vite
 - React Router 7
 - React Helmet Async
 - Tailwind CSS
-- GitHub Actions
+- GitHub Actions / GitHub Pages
 - ESLint
+
+Next.js · Vercel · (예정) Supabase Auth는 `main` 마이그레이션에서 도입합니다.
 
 ## 실행 방법
 
