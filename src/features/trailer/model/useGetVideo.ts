@@ -37,24 +37,26 @@ function useGetVideo(
       setTrailerUrl(null)
       setError(null)
 
-      const [resultInKorean, resultInEnglish] = await Promise.all([
-        getVideos(id, mediaType),
-        getVideos(id, mediaType, { language: 'en-US' }),
-      ])
-      const koreanResults = resultInKorean.data?.results ?? []
-      const englishResults = resultInEnglish.data?.results ?? []
-      const results = koreanResults.length > 0 ? koreanResults : englishResults
+      let results = await getVideos(id, mediaType)
 
       if (cancelled) return
 
-      if (!!resultInKorean.error && !!resultInEnglish.error) {
+      if (!results.data?.results?.length) {
+        results = await getVideos(id, mediaType, { language: 'en-US' })
+        if (cancelled) return
+      }
+
+      if (!!results.error) {
         setTrailerUrl(null)
-        setError(resultInKorean.error || resultInEnglish.error)
+        setError(results.error)
         setStatus('error')
         return
       }
 
-      const url = await findPlayableYoutubeUrl(results, variant)
+      const url = await findPlayableYoutubeUrl(
+        results.data?.results ?? [],
+        variant,
+      )
 
       if (cancelled) return
 
