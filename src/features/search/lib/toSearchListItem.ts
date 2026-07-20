@@ -2,11 +2,11 @@ import type { Media } from '@/entities/media'
 import type { IMovie } from '@/entities/movie'
 import type { ITV } from '@/entities/tv'
 
+import type { SearchMediaType } from '@/shared'
 import type {
   IPersonCreditItem,
   IPersonCredits,
   ISearchData,
-  SearchMediaType,
 } from '../model'
 
 function toSearchListItem(item: Media, type: SearchMediaType): ISearchData {

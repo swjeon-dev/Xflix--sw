@@ -1,8 +1,11 @@
 import { Link } from 'react-router'
 
 import { routes } from '@/shared'
-import type { SearchFilterKey, ISearchFilterTag } from '@/shared'
-import type { SearchMediaType } from '@/features/search'
+import type {
+  SearchFilterKey,
+  ISearchFilterTag,
+  SearchMediaType,
+} from '@/shared'
 
 interface SearchTagLinkProps {
   filter: SearchFilterKey

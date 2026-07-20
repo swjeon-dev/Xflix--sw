@@ -1,3 +1,5 @@
+type SearchMediaType = 'movie' | 'tv'
+
 type SearchFilterKey = 'genre' | 'cast' | 'crew'
 
 interface ISearchFilterTag {
@@ -5,4 +7,4 @@ interface ISearchFilterTag {
   name: string
 }
 
-export type { SearchFilterKey, ISearchFilterTag }
+export type { SearchMediaType, SearchFilterKey, ISearchFilterTag }

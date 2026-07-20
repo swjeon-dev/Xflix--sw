@@ -8,9 +8,8 @@ import {
   SearchHeader,
   getSearchPageCopy,
   resolveSearchParams,
-  type SearchMediaType,
 } from '@/features/search'
-import { PageHelmet } from '@/shared'
+import { PageHelmet, type SearchMediaType } from '@/shared'
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()

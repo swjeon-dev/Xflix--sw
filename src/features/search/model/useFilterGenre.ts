@@ -6,7 +6,7 @@ import { API_ENDPOINT, getDiscoverParams } from '@/shared'
 import type { SearchFilterKey } from '@/shared'
 
 import { toSearchListItem } from '../lib/toSearchListItem'
-import type { SearchMediaType } from './search.types'
+import type { SearchMediaType } from '@/shared'
 
 type UseFilterGenreProps = {
   filter: SearchFilterKey | null

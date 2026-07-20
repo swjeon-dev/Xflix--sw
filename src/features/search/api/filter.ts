@@ -1,5 +1,6 @@
 import { tmdbFetch, type IApiReturn, API_ENDPOINT } from '@/shared'
-import type { IPersonCredits, SearchMediaType } from '../model'
+import type { SearchMediaType } from '@/shared'
+import type { IPersonCredits } from '../model'
 
 function getFilterByPersonEndpoint(type: SearchMediaType, personId: string) {
   return type === 'movie'

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { getSearch } from '../api'
-import type { ISearchData, SearchMediaType } from './search.types'
+import type { SearchMediaType } from '@/shared'
+import type { ISearchData } from './search.types'
 
 type SearchQueryResult = {
   results: ISearchData[]

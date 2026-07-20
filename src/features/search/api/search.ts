@@ -1,5 +1,6 @@
 import { tmdbFetch, type IApiReturn, API_ENDPOINT } from '@/shared'
-import type { ISearchResult, SearchMediaType } from '../model'
+import type { SearchMediaType } from '@/shared'
+import type { ISearchResult } from '../model'
 
 function getSearchEndpoint(type: SearchMediaType) {
   return type === 'movie'

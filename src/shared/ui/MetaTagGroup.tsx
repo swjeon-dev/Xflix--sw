@@ -1,5 +1,8 @@
-import type { ISearchFilterTag, SearchFilterKey } from '@/shared'
-import type { SearchMediaType } from '@/features/search'
+import type {
+  ISearchFilterTag,
+  SearchFilterKey,
+  SearchMediaType,
+} from '@/shared'
 
 import SearchTagLink from './SearchTagLink'
 

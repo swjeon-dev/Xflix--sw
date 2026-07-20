@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import type { SearchFilterKey } from '@/shared'
+import type { SearchFilterKey, SearchMediaType } from '@/shared'
 
 import { getSearchByPerson } from '../api'
 import { personCreditsToSearchItems } from '../lib/toSearchListItem'
-import type { ISearchData, SearchMediaType } from './search.types'
+import type { ISearchData } from './search.types'
 
 type UseFilterPersonProps = {
   filter: SearchFilterKey | null

@@ -1,5 +1,5 @@
-import { routes } from '@/shared'
-import type { ISearchData, SearchMediaType } from '../model'
+import { routes, type SearchMediaType } from '@/shared'
+import type { ISearchData } from '../model'
 
 function searchItemTitle(item: ISearchData) {
   if (item.media_type === 'movie') {

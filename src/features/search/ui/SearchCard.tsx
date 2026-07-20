@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 
-import { getTmdbImgPath, AdultUI } from '@/shared'
+import { getTmdbImgPath, AdultUI, type SearchMediaType } from '@/shared'
 import { searchItemDetailPath, searchItemTitle, searchItemYear } from '../lib'
-import type { ISearchData, SearchMediaType } from '../model'
+import type { ISearchData } from '../model'
 
 interface SearchCardProps {
   type: SearchMediaType

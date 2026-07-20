@@ -1,4 +1,4 @@
-type SearchMediaType = 'movie' | 'tv'
+import type { SearchMediaType } from '@/shared'
 
 interface ISearchResult {
   page: number
@@ -56,7 +56,6 @@ interface IPersonCredits {
 }
 
 export type {
-  SearchMediaType,
   ISearchResult,
   ISearchData,
   IUseSearchProps,

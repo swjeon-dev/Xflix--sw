@@ -1,6 +1,6 @@
 import type { SearchFilterKey } from '@/shared'
 
-import type { SearchMediaType } from '../model'
+import type { SearchMediaType } from '@/shared'
 
 type SearchPageMode = 'term' | 'filter' | 'idle'
 
