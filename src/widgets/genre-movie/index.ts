@@ -1,1 +1,1 @@
-export { default as GenreMovieSection } from './GenreMovieSection'
+export { default as GenreMovieCard } from './GenreMovieCard'

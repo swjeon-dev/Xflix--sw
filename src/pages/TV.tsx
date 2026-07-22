@@ -1,6 +1,8 @@
-import { GenreTVSection } from '@/widgets/genre-tv'
 import { useGenre } from '@/entities/genre'
-import { PageHelmet } from '@/shared'
+import type { ITV } from '@/entities/tv'
+import { API_ENDPOINT, PageHelmet } from '@/shared'
+import { GenreSection } from '@/widgets/genre-section'
+import { GenreTVCard } from '@/widgets/genre-tv'
 
 function TV() {
   const { tvGenres } = useGenre()
@@ -13,7 +15,14 @@ function TV() {
         keywords='TV, 목록, 장르, 드라마, XFlix'
       />
       <section>
-        <GenreTVSection genres={tvGenres} />
+        <GenreSection<ITV>
+          label='TV'
+          genres={tvGenres}
+          endPoint={API_ENDPOINT.TV_FILTERED}
+          allTitle='전체 TV'
+          fallbackTitle='TV'
+          renderItem={tv => <GenreTVCard key={tv.id} content={tv} />}
+        />
       </section>
     </>
   )

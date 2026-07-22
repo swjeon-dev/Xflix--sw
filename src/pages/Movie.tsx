@@ -1,6 +1,8 @@
-import { GenreMovieSection } from '@/widgets/genre-movie'
 import { useGenre } from '@/entities/genre'
-import { PageHelmet } from '@/shared'
+import type { IMovie } from '@/entities/movie'
+import { API_ENDPOINT, PageHelmet } from '@/shared'
+import { GenreMovieCard } from '@/widgets/genre-movie'
+import { GenreSection } from '@/widgets/genre-section'
 
 function Movie() {
   const { movieGenres } = useGenre()
@@ -13,7 +15,16 @@ function Movie() {
         keywords='영화, 목록, 장르, XFlix'
       />
       <section>
-        <GenreMovieSection genres={movieGenres} />
+        <GenreSection<IMovie>
+          label='영화'
+          genres={movieGenres}
+          endPoint={API_ENDPOINT.MOVIE_FILTERED}
+          allTitle='전체 영화'
+          fallbackTitle='영화'
+          renderItem={movie => (
+            <GenreMovieCard key={movie.id} content={movie} />
+          )}
+        />
       </section>
     </>
   )
