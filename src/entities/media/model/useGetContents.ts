@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { parseQueryKey, type ITmdbContents, type QueryParams } from '@/shared'
-import type { Media } from '@/entities'
+import {
+  parseQueryKey,
+  type ITmdbContents,
+  type QueryParams,
+  type BaseMedia,
+} from '@/shared'
 
 import { getContents } from '../api'
 
-interface IFetchingDataReturn<T extends Media> {
+interface IFetchingDataReturn<T extends BaseMedia> {
   error: string | null
   isLoading: boolean
   isFetching: boolean
@@ -13,7 +17,7 @@ interface IFetchingDataReturn<T extends Media> {
   refetch: () => void
 }
 
-function useGetContents<T extends Media>(
+function useGetContents<T extends BaseMedia>(
   endPoint: string,
   queryParams?: QueryParams,
 ): IFetchingDataReturn<T> {

@@ -1,14 +1,13 @@
 import { useState } from 'react'
 
-import type { IGenre } from '@/shared'
-import type { Media } from '@/entities'
+import type { IGenre, BaseMedia } from '@/shared'
 
 import { toSortBy, type SortOption } from '../lib'
 import { useGenreSection } from '../model'
 import GenreGridList from './GenreGridList'
 import GenreSortFilter from './GenreSortFilter'
 
-interface GenreSectionProps<T extends Media> {
+interface GenreSectionProps<T extends BaseMedia> {
   label: '영화' | 'TV'
   genres: IGenre[]
   endPoint: string
@@ -17,7 +16,7 @@ interface GenreSectionProps<T extends Media> {
   renderItem: (item: T) => React.ReactNode
 }
 
-function GenreSection<T extends Media>({
+function GenreSection<T extends BaseMedia>({
   label,
   genres,
   endPoint,

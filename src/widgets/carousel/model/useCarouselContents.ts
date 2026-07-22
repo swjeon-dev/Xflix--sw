@@ -1,5 +1,5 @@
 import { useInfiniteContents } from '@/entities/media'
-import type { Media } from '@/entities'
+import type { BaseMedia } from '@/shared'
 
 type UseCarouselContentsParams = {
   endPoint: string
@@ -7,7 +7,7 @@ type UseCarouselContentsParams = {
   scrollRef: React.RefObject<HTMLUListElement | null>
 }
 
-function useCarouselContents<T extends Media>({
+function useCarouselContents<T extends BaseMedia>({
   endPoint,
   params,
   scrollRef,

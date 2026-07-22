@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react'
 
-import { buildDisplayGenres, type DiscoverMedia, type IGenre, type SortBy } from '@/shared'
-import { useInfiniteContents, type Media } from '@/entities/media'
+import {
+  buildDisplayGenres,
+  type DiscoverMedia,
+  type IGenre,
+  type SortBy,
+  type BaseMedia,
+} from '@/shared'
+import { useInfiniteContents } from '@/entities/media'
 
 import { getDiscoverListParams, getDiscoverListTitle } from '../lib'
 
@@ -14,7 +20,7 @@ interface UseGenreSectionParams {
   media: DiscoverMedia
 }
 
-function useGenreSection<T extends Media>({
+function useGenreSection<T extends BaseMedia>({
   genres,
   endPoint,
   allTitle,

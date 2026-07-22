@@ -3,11 +3,10 @@ import {
   type IApiReturn,
   type ITmdbContents,
   type QueryParams,
+  type BaseMedia,
 } from '@/shared'
 
-import type { Media } from '../model/media.type'
-
-const getContents = async <T extends Media>(
+const getContents = async <T extends BaseMedia>(
   endPoint: string,
   queryParams?: QueryParams,
 ): Promise<IApiReturn<ITmdbContents<T>>> => {

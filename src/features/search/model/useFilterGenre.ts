@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 
 import { useInfiniteContents } from '@/entities/media'
-import type { Media } from '@/entities/media'
+import type { IMovie } from '@/entities/movie'
+import type { ITV } from '@/entities/tv'
+import type { SearchFilterKey, SearchMediaType } from '@/shared'
 import { API_ENDPOINT, getDiscoverParams } from '@/shared'
-import type { SearchFilterKey } from '@/shared'
 
 import { toSearchListItem } from '../lib/toSearchListItem'
-import type { SearchMediaType } from '@/shared'
 
 type UseFilterGenreProps = {
   filter: SearchFilterKey | null
@@ -26,15 +26,12 @@ function useFilterGenre({ filter, filterId, type }: UseFilterGenreProps) {
       : undefined
 
   const { contents, isLoading, isFetchingMore, error, loaderRef, refetch } =
-    useInfiniteContents<Media>({
+    useInfiniteContents<IMovie | ITV>({
       endPoint: enabled ? endPoint : '',
       params,
     })
 
-  const items = useMemo(
-    () => contents.map(item => toSearchListItem(item, type)),
-    [contents, type],
-  )
+  const items = useMemo(() => contents.map(toSearchListItem), [contents])
 
   return {
     items,

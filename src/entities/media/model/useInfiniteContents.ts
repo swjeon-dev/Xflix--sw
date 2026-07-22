@@ -1,8 +1,10 @@
 import { useCallback, useMemo } from 'react'
 
-import { useInfinitePagination, usePaginatedList } from '@/shared'
-
-import type { Media } from './media.type'
+import {
+  useInfinitePagination,
+  usePaginatedList,
+  type BaseMedia,
+} from '@/shared'
 import useGetContents from './useGetContents'
 
 type UseInfiniteContentsProps = {
@@ -12,7 +14,7 @@ type UseInfiniteContentsProps = {
   direction?: 'horizontal' | 'vertical'
 }
 
-function useInfiniteContents<T extends Media>({
+function useInfiniteContents<T extends BaseMedia>({
   endPoint,
   params,
   scrollRef,
