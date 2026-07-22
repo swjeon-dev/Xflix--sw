@@ -1,4 +1,4 @@
-import { ITV } from '@/entities'
+import type { ITV } from '@/entities/tv'
 import { getTVMoreInfo } from '../model'
 import TVDetailHero from './TVDetailHero'
 import TVDetailOverview from './TVDetailOverview'

@@ -1,4 +1,4 @@
-import type { ITV } from '@/entities'
+import type { ITV } from '@/entities/tv'
 import { MetaTagGroup } from '@/shared'
 
 import type { ITVMoreInfo } from '../model'
