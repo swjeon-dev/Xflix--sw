@@ -1,4 +1,4 @@
-import type { IMovie } from '@/entities/movie'
+import type { IMovie } from '../model'
 import {
   type IApiReturn,
   type QueryParams,

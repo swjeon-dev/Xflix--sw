@@ -46,7 +46,7 @@ function useGetVideo(
         if (cancelled) return
       }
 
-      if (!!results.error) {
+      if (results.error) {
         setTrailerUrl(null)
         setError(results.error)
         setStatus('error')
